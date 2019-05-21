@@ -43,7 +43,7 @@ public class WebController {
 	}
 
 	@RequestMapping("/findbylastname")
-	public String fetchDataByLastName(@RequestParam("lastname") String lastName) {
+	public String fetchDataByLastName(@RequestParam("lastName") String lastName) {
 		String result = "<html>";
 
 		for (Customer cust : customerRepo.findByLastName(lastName)) {
