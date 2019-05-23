@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<th:block th:include="fragments/headerinc :: head"></th:block>
+</head>
+
+<body>
+	<div class="container">
+		<th:block th:include="fragments/header :: header"></th:block>
+	</div>
+
+	<div class="container">
+		<div layout:fragment="content" class="row">
+			<div class="col-md-6">
+				<h3>
+					<a href="addInvoice" class="btn btn-primary"> <i
+						class="fa fa-plus-square-o" aria-hidden="true"></i> <span>Adauga o noua factura</span>
+					</a>
+				</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<h2>Facturi</h2>
+			</div>
+			<div class="col-md-6 ml-auto">
+				<form class="form-inline" action="/invoice" method="get">
+					<label class="sr-only" for="id">Nr. Factura</label> 
+					<input name="id" type="text" class="form-control mb-2 mr-sm-2" id="id"
+						placeholder="Nr. Factura" />
+					<button type="submit" class="btn btn-primary mb-2">Cauta</button>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="table-responsive">
+				<table class="table" id="Invoice-table">
+					<thead>
+						<tr>
+							<th>Nr. Factura</th>
+							<th>Lungime</th>
+							<th>Latime</th>
+							<th>Profilare L1</th>
+							<th>Profilare L2</th>
+							<th>Profilare lstg</th>
+							<th>Profilare ldr</th>
+							<th>Picurator L1</th>
+							<th>Picurator L2</th>
+							<th>Picurator lstg</th>
+							<th>Picurator ldr</th>
+							<th>Nr. buc</th>
+							<th>Taiere ML</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="invoice : ${invoice}">
+							<td><a th:text="${invoice.id}"
+								th:href="@{'/showInvoice/' + ${invoice.id}}"></a></td>
+							<td th:text="${invoice.lungime}"></td>
+							<td th:text="${invoice.latime}"></td>
+							<td th:text="${invoice.profilareL1}"></td>
+							<td th:text="${invoice.profilarel2}"></td>
+							<td th:text="${invoice.profilareLstg}"></td>
+							<td th:text="${invoice.profilareLdr}"></td>
+							<td th:text="${invoice.picuratorL1}"></td>
+							<td th:text="${invoice.picuratorL2}"></td>
+							<td th:text="${invoice.picuratorLstg}"></td>
+							<td th:text="${invoice.picuratorLdr}"></td>
+							<td th:text="${invoice.nrBuc}"></td>
+							<td th:text="${invoice.taiereML}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<footer>
+		<div class="container">
+			<div class="footer"></div>
+		</div>
+	</footer>
+
+</body>
+</html>

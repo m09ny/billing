@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+    <title>Adauga o noua factura</title>
+</head>  
+ 
+<body>
+	 <div class="container">
+	    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+	</div>
+ 
+	 <div layout:fragment="content" class="container" >
+		<div class="col-xs-6 col-md-6">
+             <h3>
+                 <a href="/invoice" class="btn btn-primary"><span class="glyphicon glyphicon-list"></span>Mergi la lista cu facturile</a>
+             </h3>
+             <h2>Adauga o noua factura</h2>
+                <form action="/saveInvoice">	
+					<div class="form-group">
+                        <label for="lungime">Lungime: </label>
+                        <input type="number" step="any" class="form-control" name="lungime" />
+                    </div>
+                    <div class="form-group">
+                        <label for="latime">Latime: </label>
+                        <input type="number" step="any" class="form-control" name="latime" />
+                    </div>
+                    <div class="form-group">
+                        <label for="profilareL1">Profilare L1: </label>
+                        <input type="number" step="any" class="form-control" name="profilareL1" />
+                    </div>
+				    <div class="form-group">
+                        <label for="profilarel2">Profilare L2: </label>
+                    <input type="number" step="any" class="form-control" name="profilarel2" />
+                    </div>
+                    <div class="form-group">
+                        <label for="profilareLstg">Profilare lstg: </label>
+                        <input type="number" step="any" class="form-control" name="profilareLstg" />
+                    </div>
+				    <div class="form-group">
+                        <label for="profilareLdr">Profilare ldr: </label>
+                    <input type="number" step="any" class="form-control" name="profilareLdr" />
+                    </div>
+                    <div class="form-group">
+                        <label for="picuratorL1">Picurator L1: </label>
+                        <input type="number" step="any" class="form-control" name="picuratorL1" />
+                    </div>
+				    <div class="form-group">
+                        <label for="picuratorL2">Picurator L2: </label>
+                    <input type="number" step="any" class="form-control" name="picuratorL2" />
+                    </div>
+                    <div class="form-group">
+                        <label for="picuratorLstg">Picurator lstg: </label>
+                        <input type="number" step="any" class="form-control" name="picuratorLstg" />
+                    </div>
+				    <div class="form-group">
+                        <label for="picuratorLdr">Picurator ldr: </label>
+                    <input type="number" step="any" class="form-control" name="picuratorLdr" />
+                    </div>
+                    <div class="form-group">
+                        <label for="nrBuc">Nr. buc: </label>
+                        <input type="number" step="any" class="form-control" name="nrBuc" />
+                    </div>
+				    <div class="form-group">
+                        <label for="taiereML">Taiere ML: </label>
+                    <input type="number" step="any" class="form-control" name="taiereML" />
+                    </div>
+                    <button type="submit" class="btn btn-success">Salvare</button>
+                </form>
+         </div>
+     </div>
+
+<footer>
+     <div class="container">
+		<div class="footer">
+		</div>
+	</div>
+</footer>
+
+</body>
+</html>

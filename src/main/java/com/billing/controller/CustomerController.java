@@ -9,7 +9,7 @@ import com.billing.model.Customer;
 import com.billing.repo.CustomerRepository;
 
 @RestController
-public class WebController {
+public class CustomerController {
 
 	@Autowired
 	CustomerRepository customerRepo;
