@@ -1,6 +1,8 @@
 package com.billing.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import com.billing.repo.InvoiceRepository;
 import com.billing.repo.OrdersRepository;
 
 @Controller
+@RequestMapping("/invoice")
 public class InvoiceController {
 
 	@Autowired
@@ -46,16 +49,11 @@ public class InvoiceController {
 	}
 	
 
-	@PostMapping("/saveInvoice")
-	public Invoice saveInvoice(@RequestBody Invoice invoice) {
+	@PostMapping("/save")
+	public ResponseEntity<String> save(@RequestBody Invoice invoice) {
 		System.out.println(invoice);
-		Invoice invoice1 = new Invoice(invoice.getLatime(), invoice.getLungime());
-		
-		invoiceRepository.save(invoice1);
-		
-		System.out.println(invoice1);
-				
-		return invoice1;
+		invoiceRepository.save(invoice);
+		return new ResponseEntity<String>(invoice.toString(), HttpStatus.OK);
 	}
 //	  @PostMapping("/saveInvoice")
 //	public String save(@RequestBody String invoiceList) {
