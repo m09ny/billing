@@ -49,7 +49,7 @@
 				</div>
 				<div class="container" id="app">
 
-					 <form action="/saveInvoice">
+					<form action="/saveInvoice">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="table-responsive">
@@ -96,53 +96,53 @@
 													@click="deleteRow(k, invoice_product)"></i></td>
 
 												<td><input class="form-control" type="number"
-													v-model="invoice_product.lungime" /></td>
+													v-model="invoice_product.lungime" id="lungime" /></td>
 
 												<td><input class="form-control" type="number"
-													v-model="invoice_product.latime" /></td>
+													v-model="invoice_product.latime" id="latime"/></td>
 
 												<td><input class="form-control" type="number"
-													v-model="invoice_product.profilareL1" /></td>
+													v-model="invoice_product.profilareL1" id="profilareL1" /></td>
 
 												<td><input class="form-control" type="number"
-													v-model="invoice_product.profilareL2" /></td>
+													v-model="invoice_product.profilareL2" id="profilareL2" /></td>
 
 												<td><input class="form-control" type="number"
-													v-model="invoice_product.profilareLstg" /></td>
+													v-model="invoice_product.profilareLstg" id="profilareLstg" /></td>
 
 												<td><input class="form-control" type="number"
-													v-model="invoice_product.profilareLdr" /></td>
+													v-model="invoice_product.profilareLdr" id="profilareLdr" /></td>
 
 												<td><input class="form-control" type="number"
-													v-model="invoice_product.picuratorL1" /></td>
+													v-model="invoice_product.picuratorL1" id="picuratorL1" /></td>
 
 												<td><input class="form-control" type="number"
-													v-model="invoice_product.picuratorL2" /></td>
+													v-model="invoice_product.picuratorL2" id="picuratorL2" /></td>
 
 												<td><input class="form-control" type="number"
-													v-model="invoice_product.picuratorLstg" /></td>
+													v-model="invoice_product.picuratorLstg" id="picuratorLstg" /></td>
 
 												<td><input class="form-control" type="number"
-													v-model="invoice_product.picuratorLdr" /></td>
+													v-model="invoice_product.picuratorLdr" id="picuratorLdr" /></td>
 
 												<td><input class="form-control text-right"
 													type="number" v-model="invoice_product.nrBuc"
-													@change="calculateLineTotalTaiProfPicSup(invoice_product)" /></td>
+													@change="calculateLineTotalTaiProfPicSup(invoice_product)" id="nrBuc" /></td>
 
 												<td><input readonly class="form-control text-right"
-													type="number" v-model="invoice_product.line_total_taiere" /></td>
-
-												<td><input readonly class="form-control text-right"
-													type="number"
-													v-model="invoice_product.line_total_profilare" /></td>
+													type="number" v-model="invoice_product.line_total_taiere" id="line_total_taiere" /></td>
 
 												<td><input readonly class="form-control text-right"
 													type="number"
-													v-model="invoice_product.line_total_picurator" /></td>
+													v-model="invoice_product.line_total_profilare" id="line_total_profilare" /></td>
 
 												<td><input readonly class="form-control text-right"
 													type="number"
-													v-model="invoice_product.line_total_suprafata" /></td>
+													v-model="invoice_product.line_total_picurator" id="line_total_picurator" /></td>
+
+												<td><input readonly class="form-control text-right"
+													type="number"
+													v-model="invoice_product.line_total_suprafata" id="line_total_suprafata" /></td>
 											</tr>
 											<tr v-show="invoice_products.length === 0">
 												<td colspan="6">
@@ -185,12 +185,11 @@
 								</button>
 							</div>
 							<div class="col-md-12 mb-4 text-center">
-								<button type='button'
-									class="btn btn-success submit_btn invoice-save-bottom"
+								<button type='submit'
+									class="btn btn-success invoice-save-bottom"
 									@click="saveInvoice">
 									<i class="far fa-save"></i> Salveaza factura
 								</button>
-								<button type="submit" class="btn btn-success">Salvare</button>
 							</div>
 						</div>
 					</form>
@@ -229,10 +228,32 @@
 	    },
 	    
 	    methods: {
-       saveInvoice() {
-            console.log(JSON.stringify(this.invoice_products));
-        },
+		
+		saveInvoice(){
+		  var data = {
+			lungime: this.lungime,
+			latime: this.latime
+		  };
+			let headers = {
+				'Content-Type': 'application/json;charset=utf-8'
+			  };
 
+			  if(token !== '') {
+				headers['TOKEN'] = token
+			  };
+		  http
+			.post("/saveInvoice", data, {headers})
+			.then(response => {
+			  this.invoice.id = response.data.id;
+			  console.log(response.data);
+			})
+			.catch(e => {
+			  console.log(e);
+			});
+
+		  this.submitted = true;
+		}, 
+		
         calculTotalNrBuc() {
             var subtotal, total;
             subtotal = this.invoice_products.reduce(function (sumNrBuc, product) {

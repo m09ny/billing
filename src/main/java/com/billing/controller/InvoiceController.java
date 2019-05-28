@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,21 +21,21 @@ public class InvoiceController {
 
 	@Autowired
 	private OrdersRepository ordersRepository;
-	
+
 	@RequestMapping("/invoice")
 	public String invoice(@RequestParam(required = false) String id, Model model) {
-		if(null != id && id != "") {
+		if (null != id && id != "") {
 			long idInvoice = Long.parseLong(id);
 			System.out.println(id);
 			System.out.println(idInvoice);
-			
+
 			model.addAttribute("invoice", invoiceRepository.findInvoiceById(idInvoice));
 			model.addAttribute("orders", ordersRepository.findAll());
-			//System.out.println(model);
+			// System.out.println(model);
 		} else {
 			model.addAttribute("invoice", invoiceRepository.findAll());
 			model.addAttribute("orders", ordersRepository.findAll());
-			//System.out.println(model);
+			// System.out.println(model);
 		}
 		return "invoice";
 	}
@@ -42,41 +44,49 @@ public class InvoiceController {
 	public String create(Model model) {
 		return "addInvoice";
 	}
+	
 
-	@RequestMapping("/saveInvoice")
-	public String save(@RequestParam Double lungime, @RequestParam Double latime, @RequestParam Double profilareL1,
-			@RequestParam Double profilareL2, @RequestParam Double profilareLstg, @RequestParam Double profilareLdr,
-			@RequestParam Double picuratorL1, @RequestParam Double picuratorL2, @RequestParam Double picuratorLstg,
-			@RequestParam Double picuratorLdr, @RequestParam Double nrBuc) {
-		Invoice invoice = new Invoice();
-		invoice.setLungime(lungime);
-		invoice.setLatime(latime);
-		invoice.setProfilareL1(profilareL1);
-		invoice.setProfilareL2(profilareL2);
-		invoice.setProfilareLstg(profilareLstg);
-		invoice.setProfilareLdr(profilareLdr);
-		invoice.setPicuratorL1(picuratorL1);
-		invoice.setPicuratorL2(picuratorL2);
-		invoice.setPicuratorLstg(picuratorLstg);
-		invoice.setPicuratorLdr(picuratorLdr);
-		invoice.setNrBuc(nrBuc);
+	@PostMapping("/saveInvoice")
+	public Invoice saveInvoice(@RequestBody Invoice invoice) {
+		System.out.println(invoice);
+		Invoice invoice1 = new Invoice(invoice.getLatime(), invoice.getLungime());
 		
-		double taiereML = (lungime + latime)*nrBuc;
-		invoice.setTaiereML(taiereML);
+		invoiceRepository.save(invoice1);
 		
-		double profilare = (profilareL1 + profilareL2 + profilareLstg + profilareLdr)*nrBuc;
-		invoice.setProfilare(profilare);
-
-		double picurator = (picuratorL1 + picuratorL2 + picuratorLstg + picuratorLdr)*nrBuc;
-		invoice.setPicurator(picurator);
-		
-		double suprafata = (lungime * latime * nrBuc) / 10000;
-		invoice.setSuprafata(suprafata);
-		
-		invoiceRepository.save(invoice);
-
-		return "redirect:/showInvoice/" + invoice.getId();
+		System.out.println(invoice1);
+				
+		return invoice1;
 	}
+//	  @PostMapping("/saveInvoice")
+//	public String save(@RequestBody String invoiceList) {
+//		
+//		System.out.println(invoiceList);
+////		
+//		Invoice invoice = new Invoice();
+//		invoice.setLungime(lungime);
+//		invoice.setLatime(latime);
+//		invoice.setProfilareL1(profilareL1);
+//		invoice.setProfilareL2(profilareL2);
+//		invoice.setProfilareLstg(profilareLstg);
+//		invoice.setProfilareLdr(profilareLdr);
+//		invoice.setPicuratorL1(picuratorL1);
+//		invoice.setPicuratorL2(picuratorL2);
+//		invoice.setPicuratorLstg(picuratorLstg);
+//		invoice.setPicuratorLdr(picuratorLdr);
+//		invoice.setNrBuc(nrBuc);
+//		invoice.setTaiereML(line_total_taiere);
+//		invoice.setProfilare(line_total_profilare);
+//		invoice.setPicurator(line_total_picurator);
+//		invoice.setSuprafata(line_total_suprafata);
+//		
+//		invoiceRepository.save(invoice);
+//		
+//		Orders orders = new Orders();
+//		orders.setDate(date);
+
+		//return "redirect:/showInvoice/" + invoice.getId();
+//		return "";
+//	}
 
 	@RequestMapping("/showInvoice/{id}")
 	public String showInvoice(@PathVariable long id, Model model) {
@@ -99,9 +109,12 @@ public class InvoiceController {
 	}
 
 	@RequestMapping("/updateInvoice")
-	public String update(@RequestParam long id, @RequestParam Double lungime, @RequestParam Double latime, @RequestParam Double profilareL1, @RequestParam Double profilareL2, @RequestParam Double profilareLstg, @RequestParam Double profilareLdr, @RequestParam Double picuratorL1, @RequestParam Double picuratorL2, @RequestParam Double picuratorLstg, @RequestParam Double picuratorLdr, @RequestParam Double nrBuc) {
+	public String update(@RequestParam long id, @RequestParam Double lungime, @RequestParam Double latime,
+			@RequestParam Double profilareL1, @RequestParam Double profilareL2, @RequestParam Double profilareLstg,
+			@RequestParam Double profilareLdr, @RequestParam Double picuratorL1, @RequestParam Double picuratorL2,
+			@RequestParam Double picuratorLstg, @RequestParam Double picuratorLdr, @RequestParam Double nrBuc) {
 		Invoice invoice = invoiceRepository.findInvoiceById(id);
-		
+
 		invoice.setLungime(lungime);
 		invoice.setLatime(latime);
 		invoice.setProfilareL1(profilareL1);
@@ -113,19 +126,19 @@ public class InvoiceController {
 		invoice.setPicuratorLstg(picuratorLstg);
 		invoice.setPicuratorLdr(picuratorLdr);
 		invoice.setNrBuc(nrBuc);
-		
-		double taiereML = (lungime + latime)*nrBuc;
+
+		double taiereML = (lungime + latime) * nrBuc;
 		invoice.setTaiereML(taiereML);
-		
-		double profilare = (profilareL1 + profilareL2 + profilareLstg + profilareLdr)*nrBuc;
+
+		double profilare = (profilareL1 + profilareL2 + profilareLstg + profilareLdr) * nrBuc;
 		invoice.setProfilare(profilare);
 
-		double picurator = (picuratorL1 + picuratorL2 + picuratorLstg + picuratorLdr)*nrBuc;
+		double picurator = (picuratorL1 + picuratorL2 + picuratorLstg + picuratorLdr) * nrBuc;
 		invoice.setPicurator(picurator);
-		
+
 		double suprafata = (lungime * latime * nrBuc) / 10000;
 		invoice.setSuprafata(suprafata);
-		
+
 		invoiceRepository.save(invoice);
 
 		return "redirect:/showInvoice/" + invoice.getId();

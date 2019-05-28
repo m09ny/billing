@@ -78,6 +78,61 @@ public class Invoice implements Serializable {
 		super();
 	}
 
+	
+	
+	public Invoice(double lungime, double latime) {
+		super();
+		this.lungime = lungime;
+		this.latime = latime;
+	}
+
+
+
+	public Invoice(Orders orders, double lungime, double latime, double profilareL1, double profilareL2,
+			double profilareLstg, double profilareLdr, double picuratorL1, double picuratorL2, double picuratorLstg,
+			double picuratorLdr, double nrBuc, double taiereML, double profilare, double picurator, double suprafata) {
+		super();
+		this.orders = orders;
+		this.lungime = lungime;
+		this.latime = latime;
+		this.profilareL1 = profilareL1;
+		this.profilareL2 = profilareL2;
+		this.profilareLstg = profilareLstg;
+		this.profilareLdr = profilareLdr;
+		this.picuratorL1 = picuratorL1;
+		this.picuratorL2 = picuratorL2;
+		this.picuratorLstg = picuratorLstg;
+		this.picuratorLdr = picuratorLdr;
+		this.nrBuc = nrBuc;
+		this.taiereML = taiereML;
+		this.profilare = profilare;
+		this.picurator = picurator;
+		this.suprafata = suprafata;
+	}
+
+	public Invoice(long id, Orders orders, double lungime, double latime, double profilareL1, double profilareL2,
+			double profilareLstg, double profilareLdr, double picuratorL1, double picuratorL2, double picuratorLstg,
+			double picuratorLdr, double nrBuc, double taiereML, double profilare, double picurator, double suprafata) {
+		super();
+		this.id = id;
+		this.orders = orders;
+		this.lungime = lungime;
+		this.latime = latime;
+		this.profilareL1 = profilareL1;
+		this.profilareL2 = profilareL2;
+		this.profilareLstg = profilareLstg;
+		this.profilareLdr = profilareLdr;
+		this.picuratorL1 = picuratorL1;
+		this.picuratorL2 = picuratorL2;
+		this.picuratorLstg = picuratorLstg;
+		this.picuratorLdr = picuratorLdr;
+		this.nrBuc = nrBuc;
+		this.taiereML = taiereML;
+		this.profilare = profilare;
+		this.picurator = picurator;
+		this.suprafata = suprafata;
+	}
+
 	public long getId() {
 		return id;
 	}
