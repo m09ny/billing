@@ -49,7 +49,7 @@
 				</div>
 				<div class="container" id="app">
 
-					<form action="/saveInvoice">
+					<form action="/save">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="table-responsive">
@@ -234,15 +234,8 @@
 			lungime: this.lungime,
 			latime: this.latime
 		  };
-			let headers = {
-				'Content-Type': 'application/json;charset=utf-8'
-			  };
-
-			  if(token !== '') {
-				headers['TOKEN'] = token
-			  };
 		  http
-			.post("/saveInvoice", data, {headers})
+			.post("/save", data)
 			.then(response => {
 			  this.invoice.id = response.data.id;
 			  console.log(response.data);

@@ -5,8 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +19,7 @@ import com.billing.repo.InvoiceRepository;
 import com.billing.repo.OrdersRepository;
 
 @Controller
-@RequestMapping("/invoice")
+
 public class InvoiceController {
 
 	@Autowired
@@ -25,7 +28,7 @@ public class InvoiceController {
 	@Autowired
 	private OrdersRepository ordersRepository;
 
-	@RequestMapping("/invoice")
+	@GetMapping("/invoice")
 	public String invoice(@RequestParam(required = false) String id, Model model) {
 		if (null != id && id != "") {
 			long idInvoice = Long.parseLong(id);
@@ -43,7 +46,7 @@ public class InvoiceController {
 		return "invoice";
 	}
 
-	@RequestMapping("/addInvoice")
+	@GetMapping("/addInvoice")
 	public String create(Model model) {
 		return "addInvoice";
 	}
@@ -55,44 +58,14 @@ public class InvoiceController {
 		invoiceRepository.save(invoice);
 		return new ResponseEntity<String>(invoice.toString(), HttpStatus.OK);
 	}
-//	  @PostMapping("/saveInvoice")
-//	public String save(@RequestBody String invoiceList) {
-//		
-//		System.out.println(invoiceList);
-////		
-//		Invoice invoice = new Invoice();
-//		invoice.setLungime(lungime);
-//		invoice.setLatime(latime);
-//		invoice.setProfilareL1(profilareL1);
-//		invoice.setProfilareL2(profilareL2);
-//		invoice.setProfilareLstg(profilareLstg);
-//		invoice.setProfilareLdr(profilareLdr);
-//		invoice.setPicuratorL1(picuratorL1);
-//		invoice.setPicuratorL2(picuratorL2);
-//		invoice.setPicuratorLstg(picuratorLstg);
-//		invoice.setPicuratorLdr(picuratorLdr);
-//		invoice.setNrBuc(nrBuc);
-//		invoice.setTaiereML(line_total_taiere);
-//		invoice.setProfilare(line_total_profilare);
-//		invoice.setPicurator(line_total_picurator);
-//		invoice.setSuprafata(line_total_suprafata);
-//		
-//		invoiceRepository.save(invoice);
-//		
-//		Orders orders = new Orders();
-//		orders.setDate(date);
 
-		//return "redirect:/showInvoice/" + invoice.getId();
-//		return "";
-//	}
-
-	@RequestMapping("/showInvoice/{id}")
+	@GetMapping("/showInvoice/{id}")
 	public String showInvoice(@PathVariable long id, Model model) {
 		model.addAttribute("invoice", invoiceRepository.findInvoiceById(id));
 		return "showInvoice";
 	}
 
-	@RequestMapping("/deleteInvoice")
+	@DeleteMapping("/deleteInvoice")
 	public String delete(@RequestParam long id) {
 		Invoice Invoice = invoiceRepository.findInvoiceById(id);
 		invoiceRepository.delete(Invoice);
@@ -100,7 +73,7 @@ public class InvoiceController {
 		return "redirect:/invoice";
 	}
 
-	@RequestMapping("/editInvoice/{id}")
+	@PutMapping("/editInvoice/{id}")
 	public String editInvoice(@PathVariable long id, Model model) {
 		model.addAttribute("invoice", invoiceRepository.findInvoiceById(id));
 		return "editInvoice";
