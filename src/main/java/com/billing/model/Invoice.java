@@ -4,12 +4,17 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+@Entity(name = "invoice")
 @Table(name = "invoice")
 public class Invoice implements Serializable {
 
@@ -18,6 +23,11 @@ public class Invoice implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonBackReference
+	@JoinColumn(name = "orders_id")
+	private Orders orders;
 
 	@Column(name = "lungime")
 	private double lungime;
@@ -28,8 +38,8 @@ public class Invoice implements Serializable {
 	@Column(name = "profilareL1")
 	private double profilareL1;
 
-	@Column(name = "profilarel2")
-	private double profilarel2;
+	@Column(name = "profilareL2")
+	private double profilareL2;
 
 	@Column(name = "profilareLstg")
 	private double profilareLstg;
@@ -55,12 +65,33 @@ public class Invoice implements Serializable {
 	@Column(name = "taiereML")
 	private double taiereML;
 
+	@Column(name = "profilare")
+	private double profilare;
+
+	@Column(name = "picurator")
+	private double picurator;
+
+	@Column(name = "suprafata")
+	private double suprafata;
+
+	public Invoice() {
+		super();
+	}
+
 	public long getId() {
 		return id;
 	}
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public Orders getOrder() {
+		return orders;
+	}
+
+	public void setOrder(Orders order) {
+		this.orders = order;
 	}
 
 	public double getLungime() {
@@ -87,12 +118,12 @@ public class Invoice implements Serializable {
 		this.profilareL1 = profilareL1;
 	}
 
-	public double getProfilarel2() {
-		return profilarel2;
+	public double getProfilareL2() {
+		return profilareL2;
 	}
 
-	public void setProfilarel2(double profilarel2) {
-		this.profilarel2 = profilarel2;
+	public void setProfilareL2(double profilareL2) {
+		this.profilareL2 = profilareL2;
 	}
 
 	public double getProfilareLstg() {
@@ -159,12 +190,38 @@ public class Invoice implements Serializable {
 		this.taiereML = taiereML;
 	}
 
+	public double getProfilare() {
+		return profilare;
+	}
+
+	public void setProfilare(double profilare) {
+		this.profilare = profilare;
+	}
+
+	public double getPicurator() {
+		return picurator;
+	}
+
+	public void setPicurator(double picurator) {
+		this.picurator = picurator;
+	}
+
+	public double getSuprafata() {
+		return suprafata;
+	}
+
+	public void setSuprafata(double suprafata) {
+		this.suprafata = suprafata;
+	}
+
 	@Override
 	public String toString() {
-		return "Invoice [id=" + id + ", lungime=" + lungime + ", latime=" + latime + ", profilareL1=" + profilareL1
-				+ ", profilarel2=" + profilarel2 + ", profilareLstg=" + profilareLstg + ", profilareLdr=" + profilareLdr
-				+ ", picuratorL1=" + picuratorL1 + ", picuratorL2=" + picuratorL2 + ", picuratorLstg=" + picuratorLstg
-				+ ", picuratorLdr=" + picuratorLdr + ", nrBuc=" + nrBuc + ", taiereML=" + taiereML + "]";
+		return "Invoice [id=" + id + ", orders=" + orders + ", lungime=" + lungime + ", latime=" + latime
+				+ ", profilareL1=" + profilareL1 + ", profilareL2=" + profilareL2 + ", profilareLstg=" + profilareLstg
+				+ ", profilareLdr=" + profilareLdr + ", picuratorL1=" + picuratorL1 + ", picuratorL2=" + picuratorL2
+				+ ", picuratorLstg=" + picuratorLstg + ", picuratorLdr=" + picuratorLdr + ", nrBuc=" + nrBuc
+				+ ", taiereML=" + taiereML + ", profilare=" + profilare + ", picurator=" + picurator + ", suprafata="
+				+ suprafata + "]";
 	}
 
 }

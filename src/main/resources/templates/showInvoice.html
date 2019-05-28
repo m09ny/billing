@@ -1,63 +1,412 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
-    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
-    <title>Arata Facturile</title>
-</head>  
- 
-<body>
-	 <div class="container">
-	    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-	</div>
- 
-	 <div layout:fragment="content" class="container" >
-		<div class="col-xs-6 col-md-6">
-             <h3>
-                 <a href="/invoice" class="btn btn-primary"><span class="glyphicon glyphicon-list"></span>Mergi la lista cu facturile</a>
-             </h3>
-             <h2><div>Factura nr:</div> <div th:text="${invoice.id}"></div></h2>
-                <dl class="list">
-                	<dt>Lungime: </dt>
-                    <dd th:text="${invoice.lungime}"></dd>
-                    <dt>Latime: </dt>
-                    <dd th:text="${invoice.latime}"></dd>
-                    <dt>Profilare L1: </dt>
-                    <dd th:text="${invoice.profilareL1}"></dd>
-                	<dt>Profilare L2: </dt>
-                    <dd th:text="${invoice.profilarel2}"></dd>
-                    <dt>Profilare Lstg: </dt>
-                    <dd th:text="${invoice.profilareLstg}"></dd>
-                    <dt>Profilare Ldr: </dt>
-                    <dd th:text="${invoice.profilareLdr}"></dd>
-		            <dt>Picurator L1: </dt>
-                    <dd th:text="${invoice.picuratorL1}"></dd>
-                    <dt>Picurator L2: </dt>
-                    <dd th:text="${invoice.picuratorL2}"></dd>
-                    <dt>Picurator Lstg: </dt>
-                    <dd th:text="${invoice.picuratorLstg}"></dd>
-                	<dt>Picurator Ldr: </dt>
-                    <dd th:text="${invoice.picuratorLdr}"></dd>
-                    <dt>Nr. buc: </dt>
-                    <dd th:text="${invoice.nrBuc}"></dd>
-                    <dt>Taiere ML: </dt>
-                    <dd th:text="${invoice.taiereML}"></dd>			
-                </dl>
-                <form action="/deleteInvoice">
-                    <input type="hidden" name="id" th:value="${invoice.id}" />
-                    <h2><input type="submit" class="btn btn-danger" value="Sterge factura" 
-                   							 onclick="return confirm('Sunteti sigur ca doriti sa stergeti factura?');" />
-                        
-                        <a th:href="@{'/editInvoice/' + ${invoice.id}}" class="btn btn-warning">Modifica Factura</a></h2>
-                </form>
-         </div>
-     </div>
+<th:block th:include="fragments/headerinc :: head"></th:block>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-<footer>
-     <div class="container">
-		<div class="footer">
+<title>Adauga o noua factura</title>
+
+<!-- Include jQuery -->
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- Include Date Range Picker -->
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<th:block th:include="fragments/header :: header"></th:block>
+	</div>
+
+	<div class="container">
+		<th:block th:include="fragments/header :: header"></th:block>
+
+		<div class="row">
+
+			<div class="col-md-12">
+				<h3>
+					<a href="/invoice" class="btn btn-primary"> <span
+						class="glyphicon glyphicon-list"></span> Mergi la lista cu
+						facturile
+					</a>
+				</h3>
+				<h3 align="center">Adauga o noua factura</h3>
+				<div class="row">
+					<span class="control-label col-xs-3" for="date">Data
+						facturii</span> <input class="form-control" id="date" name="date"
+						placeholder="dd/mm/yyyy" type="text" style="width: 90px;" />
+				</div>
+				<div class="container" id="app">
+
+					<form @submit.prevent="saveInvoice">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="table-responsive">
+									<table class="table">
+										<thead>
+											<tr>
+												<th scope="col" class="text-center">#</th>
+												<th scope="col" class="text-center ">Lungime<br />(cm)
+												</th>
+												<th scope="col" class="text-center">Latime<br />(cm)
+												</th>
+												<th scope="col" class="text-center">Profilare<br />L1
+												</th>
+												<th scope="col" class="text-center">Profilare<br />L2
+												</th>
+												<th scope="col" class="text-center">Profilare<br />lstg
+												</th>
+												<th scope="col" class="text-center">Profilare<br />ldr
+												</th>
+												<th scope="col" class="text-center">Picurator<br />L1
+												</th>
+												<th scope="col" class="text-center">Picurator<br />L2
+												</th>
+												<th scope="col" class="text-center">Picurator<br />lstg
+												</th>
+												<th scope="col" class="text-center">Picurator<br />ldr
+												</th>
+												<th scope="col" class="text-center">Nr.<br />buc
+												</th>
+												<th scope="col" class="text-center">Taiere<br />(ML)
+												</th>
+												<th scope="col" class="text-center">Profilare<br />(total)
+												</th>
+												<th scope="col" class="text-center">Picurator<br />(total)
+												</th>
+												<th scope="col" class="text-center">Suprafata<br />(mp)
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr v-for="(invoice_product, k) in invoice_products" :key="k">
+												<td scope="row" class="trashIconContainer"><i
+													class="far fa-trash-alt"
+													@click="deleteRow(k, invoice_product)"></i></td>
+
+												<td><input class="form-control" type="number"
+													v-model="invoice_product.lungime" /></td>
+
+												<td><input class="form-control" type="number"
+													v-model="invoice_product.latime" /></td>
+
+												<td><input class="form-control" type="number"
+													v-model="invoice_product.profilareL1" /></td>
+
+												<td><input class="form-control" type="number"
+													v-model="invoice_product.profilareL2" /></td>
+
+												<td><input class="form-control" type="number"
+													v-model="invoice_product.profilareLstg" /></td>
+
+												<td><input class="form-control" type="number"
+													v-model="invoice_product.profilareLdr" /></td>
+
+												<td><input class="form-control" type="number"
+													v-model="invoice_product.picuratorL1" /></td>
+
+												<td><input class="form-control" type="number"
+													v-model="invoice_product.picuratorL2" /></td>
+
+												<td><input class="form-control" type="number"
+													v-model="invoice_product.picuratorLstg" /></td>
+
+												<td><input class="form-control" type="number"
+													v-model="invoice_product.picuratorLdr" /></td>
+
+												<td><input class="form-control text-right"
+													type="number" v-model="invoice_product.nrBuc"
+													@change="calculateLineTotalTaiProfPicSup(invoice_product)" /></td>
+
+												<td><input readonly class="form-control text-right"
+													type="number" v-model="invoice_product.line_total_taiere" /></td>
+
+												<td><input readonly class="form-control text-right"
+													type="number"
+													v-model="invoice_product.line_total_profilare" /></td>
+
+												<td><input readonly class="form-control text-right"
+													type="number"
+													v-model="invoice_product.line_total_picurator" /></td>
+
+												<td><input readonly class="form-control text-right"
+													type="number"
+													v-model="invoice_product.line_total_suprafata" /></td>
+											</tr>
+											<tr v-show="invoice_products.length === 0">
+												<td colspan="6">
+													<p class="text-center alert-danger p-2">Nici o intrare
+														adaugata/disponibila.</p>
+												</td>
+											</tr>
+
+										</tbody>
+										<tfoot>
+											<tr>
+												<td colspan="11" class="text-right">Total bucati</td>
+												<td class="text-right">{{invoice_nrBuc}}</td>
+											</tr>
+											<tr>
+												<td colspan="12" class="text-right">Total Taiere (ML)</td>
+												<td class="text-right">{{invoice_taiere}}</td>
+											<tr>
+												<td colspan="13" class="text-right">Total Profilare (ML)</td>
+												<td class="text-right">{{invoice_profilare}}</td>
+											</tr>
+											<tr>
+												<td colspan="14" class="text-right">Total Picurator (ML)</td>
+												<td class="text-right">{{invoice_picurator}}</td>
+											</tr>
+											<tr>
+												<td colspan="15" class="text-right">Total Suprafata (mp)</td>
+												<td class="text-right">{{invoice_suprafata}}</td>
+											</tr>
+
+											</tr>
+										</tfoot>
+									</table>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+							<div class="col-md-12 mb-2">
+								<button type='button' class="btn btn-info" @click="addNewRow">
+									<i class="fas fa-plus-circle"></i> Adauga o intrare noua
+								</button>
+							</div>
+							<div class="col-md-12 mb-4 text-center">
+								<button type='button'
+									class="btn btn-success invoice-save-bottom"
+									@click="saveInvoice">
+									<i class="far fa-save"></i> Salveaza factura
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
-</footer>
+	<script>
+	var app = new Vue({
+	    el: "#app",
+	    data: {
+			invoice_nrBuc: 0,
+	        invoice_taiere: 0,
+			invoice_profilare: 0,
+	        invoice_picurator: 0,
+			invoice_suprafata: 0,
+	        invoice_products: [{
+	            id: '',
+	            lungime: '',
+	            latime: '',
+	            profilareL1: '',
+				profilareL2: '',
+				profilareLstg: '',
+				profilareLdr: '',
+				picuratorL1: '',
+				picuratorL2: '',
+				picuratorLstg: '',
+				picuratorLdr: '',
+	            nrBuc: '',
+				line_total_taiere: 0,
+				line_total_profilare: 0,
+				line_total_picurator: 0,
+				line_total_suprafata: 0
+				
+	        }]
+	    },
+	    
+	    methods: {
+       saveInvoice() {
+            console.log(JSON.stringify(this.invoice_products));
+        },
 
+        calculTotalNrBuc() {
+            var subtotal, total;
+            subtotal = this.invoice_products.reduce(function (sumNrBuc, product) {
+                var lineTotal = parseFloat(product.nrBuc);
+                if (!isNaN(lineTotal)) {
+                    return sumNrBuc + lineTotal;
+                }
+            }, 0);
+
+            this.invoice_nrBuc = subtotal.toFixed(2);
+
+            total = subtotal;
+            total = parseFloat(total);
+            if (!isNaN(total)) {
+                this.invoice_nrBuc = total.toFixed(2);
+            } else {
+                this.invoice_nrBuc = '0.00'
+            }
+        },		
+
+        calculTotalTaiere() {
+            var subtotal, total;
+            subtotal = this.invoice_products.reduce(function (sumTaiere, product) {
+                var lineTotal = parseFloat(product.line_total_taiere);
+                if (!isNaN(lineTotal)) {
+                    return sumTaiere + lineTotal;
+                }
+            }, 0);
+
+            this.invoice_taiere = subtotal.toFixed(2);
+
+            total = subtotal;
+            total = parseFloat(total);
+            if (!isNaN(total)) {
+                this.invoice_taiere = total.toFixed(2);
+            } else {
+                this.invoice_taiere = '0.00'
+            }
+        },
+		
+		calculTotalProfilare() {
+            var subtotal, total;
+            subtotal = this.invoice_products.reduce(function (sumProfilare, product) {
+                var lineTotal = parseFloat(product.line_total_profilare);
+                if (!isNaN(lineTotal)) {
+                    return sumProfilare + lineTotal;
+                }
+            }, 0);
+
+            this.invoice_profilare = subtotal.toFixed(2);
+
+            total = subtotal;
+            total = parseFloat(total);
+            if (!isNaN(total)) {
+                this.invoice_profilare = total.toFixed(2);
+            } else {
+                this.invoice_profilare = '0.00'
+            }
+        },
+		
+		calculTotalPicurator() {
+            var subtotal, total;
+            subtotal = this.invoice_products.reduce(function (sumPicurator, product) {
+                var lineTotal = parseFloat(product.line_total_picurator);
+                if (!isNaN(lineTotal)) {
+                    return sumPicurator + lineTotal;
+                }
+            }, 0);
+
+            this.invoice_picurator = subtotal.toFixed(2);
+
+            total = subtotal;
+            total = parseFloat(total);
+            if (!isNaN(total)) {
+                this.invoice_picurator = total.toFixed(2);
+            } else {
+                this.invoice_picurator = '0.00'
+            }
+        },
+		
+		calculTotalSuprafata() {
+            var subtotal, total;
+            subtotal = this.invoice_products.reduce(function (sumPSuprafata, product) {
+                var lineTotal = parseFloat(product.line_total_suprafata)
+                if (!isNaN(lineTotal)) {
+                    return sumPSuprafata + lineTotal;
+                }
+            }, 0);
+
+            this.invoice_suprafata = subtotal.toFixed(2);
+
+            total = subtotal;
+            total = parseFloat(total);
+            if (!isNaN(total)) {
+                this.invoice_suprafata = total.toFixed(2);
+            } else {
+                this.invoice_suprafata = '0.00'
+            }
+        },
+		
+        calculateLineTotalTaiProfPicSup(invoice_product) {
+            var totalTaiere = (parseFloat(invoice_product.lungime) + parseFloat(invoice_product.latime)) * parseFloat(invoice_product.nrBuc);
+			
+			var totalProfilare = (parseFloat(invoice_product.profilareL1) + parseFloat(invoice_product.profilareL2) + parseFloat(invoice_product.profilareLstg) + parseFloat(invoice_product.profilareLdr)) * parseFloat(invoice_product.nrBuc);
+			
+			var totalPicurator = (parseFloat(invoice_product.picuratorL1) + parseFloat(invoice_product.picuratorL2) + parseFloat(invoice_product.picuratorLstg) + parseFloat(invoice_product.picuratorLdr)) * parseFloat(invoice_product.nrBuc);
+			
+			var totalSuprafata = (parseFloat(invoice_product.lungime) * parseFloat(invoice_product.latime) + parseFloat(invoice_product.nrBuc) ) / 10000;
+			
+            if (!isNaN(totalTaiere)) {
+                invoice_product.line_total_taiere = totalTaiere.toFixed(2);	
+            }
+			 if (!isNaN(totalProfilare)) {
+			 	invoice_product.line_total_profilare = totalProfilare.toFixed(2);
+			 }
+			 if (!isNaN(totalPicurator)) {
+			 	invoice_product.line_total_picurator = totalPicurator.toFixed(2);
+			 }
+			 if (!isNaN(totalSuprafata)) {
+			 	invoice_product.line_total_suprafata = totalSuprafata.toFixed(2);
+			 }
+				
+			this.calculTotalNrBuc();
+            this.calculTotalTaiere();
+			this.calculTotalProfilare();
+			this.calculTotalPicurator();
+			this.calculTotalSuprafata();
+        },
+		
+
+		
+        deleteRow(index, invoice_product) {
+            var idx = this.invoice_products.indexOf(invoice_product);
+            console.log(idx, index);
+            if (idx > -1) {
+                this.invoice_products.splice(idx, 1);
+            }
+            this.calculateTotalTaiere();
+        },
+	        addNewRow() {
+	            this.invoice_products.push({
+	                id: '',
+					lungime: '',
+					latime: '',
+					profilareL1: '',
+					profilareL2: '',
+					profilareLstg: '',
+					profilareLdr: '',
+					picuratorL1: '',
+					picuratorL2: '',
+					picuratorLstg: '',
+					picuratorLdr: '',
+					nrBuc: '',
+					line_total_taiere: 0,
+					line_total_profilare: 0,
+					line_total_picurator: 0,
+					line_total_suprafata: 0
+	            });
+	        }
+	    }
+	});
+	</script>
+
+	<script>
+    $(document).ready(function(){
+        var date_input=$('input[name="date"]'); //our date input has the name "date"
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        date_input.datepicker({
+            format: 'dd/mm/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+    })
+</script>
 </body>
+
 </html>

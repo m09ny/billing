@@ -266,7 +266,7 @@ a:focus {
 }
 
 .row {
-  margin-left: -20px;
+  margin-left: 0px;
   *zoom: 1;
 }
 
@@ -291,7 +291,7 @@ a:focus {
 .navbar-static-top .container,
 .navbar-fixed-top .container,
 .navbar-fixed-bottom .container {
-  width: 940px;
+  width: 1300px;
 }
 
 .span12 {
@@ -1094,8 +1094,8 @@ input[type="color"],
 .uneditable-input {
   display: inline-block;
   height: 20px;
-  padding: 4px 6px;
-  margin-bottom: 10px;
+  padding: 3px 3px;
+  margin-bottom: 4px;
   font-size: 14px;
   line-height: 20px;
   color: #555555;
@@ -1108,7 +1108,7 @@ input[type="color"],
 input,
 textarea,
 .uneditable-input {
-  width: 206px;
+  width: 70px;
 }
 
 textarea {
@@ -2010,9 +2010,9 @@ table {
 
 .table th,
 .table td {
-  padding: 8px;
+  padding: 2px;
   line-height: 20px;
-  text-align: left;
+  text-align: center;
   vertical-align: top;
   border-top: 1px solid #dddddd;
 }
@@ -3947,6 +3947,7 @@ input[type="submit"].btn.btn-mini {
 
 .nav > li > a {
   display: block;
+  font-size:20px;  
 }
 
 .nav > li > a:hover,
@@ -4588,7 +4589,7 @@ input[type="submit"].btn.btn-mini {
 
 .navbar .nav {
   position: relative;
-  left: 0;
+  left: 250px;
   display: block;
   float: left;
   margin: 0 10px 0 0;
@@ -6483,4 +6484,49 @@ i[class^="icon-"] {
 
 .affix {
   position: fixed;
+}
+
+.text-right {
+	text-align: right !important
+}
+
+.trashIconContainer {
+	vertical-align: middle !important;
+	padding-top: 10px;
+	text-align: center;
+}
+
+.trashIconContainer i {
+	color: #e74c3c;
+}
+
+.btn-success, .panel-success {
+	background-color: #27c24c !important;
+	border-color: #27c24c !important;
+	color: #fff !important;
+}
+
+.submit_btn {
+	min-width: 150px;
+	max-width: 250px;
+	font-size: 1.2rem;
+	height: 60px;
+	margin-top: 20px;
+	padding: 20px;
+}
+
+.submit_btn i {
+	padding-right: 10px;
+}
+
+@media ( min-width : 768px) {
+	.invoice-save-bottom {
+		min-width: 400px;
+	}
+	.right-ads {
+		float: left;
+	}
+	.left-ads {
+		float: right;
+	}
 }

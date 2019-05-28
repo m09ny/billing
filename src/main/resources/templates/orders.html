@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<th:block th:include="fragments/headerinc :: head"></th:block>
+</head>
+
+<body>
+	<div class="container">
+		<th:block th:include="fragments/header :: header"></th:block>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 ml-auto">
+				<h2>Calcul finite B2R</h2>
+			</div>
+			<div class="col-md-6 ml-auto">
+				<form class="form-inline" action="/orders" method="get">
+					<label class="sr-only" for="id">Nr. intrare</label> <input
+						name="id" type="text" class="form-control mb-2 mr-sm-2" id="id"
+						placeholder="Nr. Intrare" />
+					<button type="submit" class="btn btn-primary mb-2">Cauta</button>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="table-responsive">
+
+
+				<table class="table" id="orders-table">
+					<tr class="tr-header">
+						<th>Lungime (cm)</th>
+						<th>Latime (cm)</th>
+						<th>Profilare L1</th>
+						<th>Profilare L2</th>
+						<th>Profilare lstg</th>
+						<th>Profilare ldr</th>
+						<th>Picurator L1</th>
+						<th>Picurator L2</th>
+						<th>Picurator lstg</th>
+						<th>Picurator ldr</th>
+						
+						<th><a href="javascript:void(0);" style="font-size: 18px;"
+							id="addMore" title="Adauga o noua intrare"><span
+								class="glyphicon glyphicon-plus"></span></a></th>
+					<tr>
+						<td><input type="text" name="lungime[]" class="form-control"></td>
+						<td><input type="text" name="latime[]" class="form-control"></td>
+						<td><input type="text" name="profilareL1[]" class="form-control"></td>
+						<td><input type="text" name="profilareL2[]" class="form-control"></td>
+						<td><input type="text" name="profilareLstg[]" class="form-control"></td>
+						<td><input type="text" name="profilareLdr[]" class="form-control"></td>
+						<td><input type="text" name="picuratorL1[]" class="form-control"></td>
+						<td><input type="text" name="picuratorL2[]" class="form-control"></td>
+						<td><input type="text" name="picuratorLstg[]" class="form-control"></td>
+						<td><input type="text" name="picuratorLdr[]" class="form-control"></td>
+						<td><input type="text" name="nrBuc[]" class="form-control"></td>						
+						
+						<td><a href='javascript:void(0);' class='remove'><span
+								class='glyphicon glyphicon-remove'></span></a></td>
+					</tr>
+				</table>
+				<script
+					src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+				
+				<script>
+					$(function() {
+						$('#addMore').on(
+								'click',
+								function() {
+									var data = $("#orders-table tr:eq(1)").clone(true)
+											.appendTo("#orders-table");
+									data.find("input").val('');
+								});
+						$(document).on('click', '.remove', function() {
+							var trIndex = $(this).closest("tr").index();
+							if (trIndex > 1) {
+								$(this).closest("tr").remove();
+							} else {
+								alert("Nu puteti sterge primul rand!");
+							}
+						});
+					});
+				</script>
+
+
+			</div>
+		</div>
+	</div>
+
+	<footer>
+		<div class="container">
+			<div class="footer"></div>
+		</div>
+	</footer>
+
+</body>
+</html>

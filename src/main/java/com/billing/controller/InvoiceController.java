@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.billing.model.Invoice;
 import com.billing.repo.InvoiceRepository;
+import com.billing.repo.OrdersRepository;
 
 @Controller
 public class InvoiceController {
@@ -16,15 +17,23 @@ public class InvoiceController {
 	@Autowired
 	private InvoiceRepository invoiceRepository;
 
+	@Autowired
+	private OrdersRepository ordersRepository;
+	
 	@RequestMapping("/invoice")
 	public String invoice(@RequestParam(required = false) String id, Model model) {
 		if(null != id && id != "") {
 			long idInvoice = Long.parseLong(id);
 			System.out.println(id);
 			System.out.println(idInvoice);
+			
 			model.addAttribute("invoice", invoiceRepository.findInvoiceById(idInvoice));
+			model.addAttribute("orders", ordersRepository.findAll());
+			//System.out.println(model);
 		} else {
 			model.addAttribute("invoice", invoiceRepository.findAll());
+			model.addAttribute("orders", ordersRepository.findAll());
+			//System.out.println(model);
 		}
 		return "invoice";
 	}
@@ -36,14 +45,14 @@ public class InvoiceController {
 
 	@RequestMapping("/saveInvoice")
 	public String save(@RequestParam Double lungime, @RequestParam Double latime, @RequestParam Double profilareL1,
-			@RequestParam Double profilarel2, @RequestParam Double profilareLstg, @RequestParam Double profilareLdr,
+			@RequestParam Double profilareL2, @RequestParam Double profilareLstg, @RequestParam Double profilareLdr,
 			@RequestParam Double picuratorL1, @RequestParam Double picuratorL2, @RequestParam Double picuratorLstg,
-			@RequestParam Double picuratorLdr, @RequestParam Double nrBuc, @RequestParam Double taiereML) {
+			@RequestParam Double picuratorLdr, @RequestParam Double nrBuc) {
 		Invoice invoice = new Invoice();
 		invoice.setLungime(lungime);
 		invoice.setLatime(latime);
 		invoice.setProfilareL1(profilareL1);
-		invoice.setProfilarel2(profilarel2);
+		invoice.setProfilareL2(profilareL2);
 		invoice.setProfilareLstg(profilareLstg);
 		invoice.setProfilareLdr(profilareLdr);
 		invoice.setPicuratorL1(picuratorL1);
@@ -51,8 +60,19 @@ public class InvoiceController {
 		invoice.setPicuratorLstg(picuratorLstg);
 		invoice.setPicuratorLdr(picuratorLdr);
 		invoice.setNrBuc(nrBuc);
+		
+		double taiereML = (lungime + latime)*nrBuc;
 		invoice.setTaiereML(taiereML);
+		
+		double profilare = (profilareL1 + profilareL2 + profilareLstg + profilareLdr)*nrBuc;
+		invoice.setProfilare(profilare);
 
+		double picurator = (picuratorL1 + picuratorL2 + picuratorLstg + picuratorLdr)*nrBuc;
+		invoice.setPicurator(picurator);
+		
+		double suprafata = (lungime * latime * nrBuc) / 10000;
+		invoice.setSuprafata(suprafata);
+		
 		invoiceRepository.save(invoice);
 
 		return "redirect:/showInvoice/" + invoice.getId();
@@ -79,13 +99,13 @@ public class InvoiceController {
 	}
 
 	@RequestMapping("/updateInvoice")
-	public String update(@RequestParam long id, @RequestParam Double lungime, @RequestParam Double latime, @RequestParam Double profilareL1, @RequestParam Double profilarel2, @RequestParam Double profilareLstg, @RequestParam Double profilareLdr, @RequestParam Double picuratorL1, @RequestParam Double picuratorL2, @RequestParam Double picuratorLstg, @RequestParam Double picuratorLdr, @RequestParam Double nrBuc, @RequestParam Double taiereML) {
+	public String update(@RequestParam long id, @RequestParam Double lungime, @RequestParam Double latime, @RequestParam Double profilareL1, @RequestParam Double profilareL2, @RequestParam Double profilareLstg, @RequestParam Double profilareLdr, @RequestParam Double picuratorL1, @RequestParam Double picuratorL2, @RequestParam Double picuratorLstg, @RequestParam Double picuratorLdr, @RequestParam Double nrBuc) {
 		Invoice invoice = invoiceRepository.findInvoiceById(id);
 		
 		invoice.setLungime(lungime);
 		invoice.setLatime(latime);
 		invoice.setProfilareL1(profilareL1);
-		invoice.setProfilarel2(profilarel2);
+		invoice.setProfilareL2(profilareL2);
 		invoice.setProfilareLstg(profilareLstg);
 		invoice.setProfilareLdr(profilareLdr);
 		invoice.setPicuratorL1(picuratorL1);
@@ -93,7 +113,18 @@ public class InvoiceController {
 		invoice.setPicuratorLstg(picuratorLstg);
 		invoice.setPicuratorLdr(picuratorLdr);
 		invoice.setNrBuc(nrBuc);
+		
+		double taiereML = (lungime + latime)*nrBuc;
 		invoice.setTaiereML(taiereML);
+		
+		double profilare = (profilareL1 + profilareL2 + profilareLstg + profilareLdr)*nrBuc;
+		invoice.setProfilare(profilare);
+
+		double picurator = (picuratorL1 + picuratorL2 + picuratorLstg + picuratorLdr)*nrBuc;
+		invoice.setPicurator(picurator);
+		
+		double suprafata = (lungime * latime * nrBuc) / 10000;
+		invoice.setSuprafata(suprafata);
 		
 		invoiceRepository.save(invoice);
 

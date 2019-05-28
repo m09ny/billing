@@ -1,6 +1,7 @@
-CREATE TABLE INVOICE(
+CREATE TABLE INVOICES(
 	id SERIAL PRIMARY KEY,
-	orders_id BIGINT,
+	rowId INT,
+	data DATE,
 	lungime REAL, 
 	latime REAL, 
 	profilareL1 REAL, 
@@ -15,5 +16,10 @@ CREATE TABLE INVOICE(
 	taiereML REAL,
 	profilare REAL,
 	picurator REAL,
-	suprafata REAL
+	suprafata REAL,
+	decupajeLavoare REAL,
+	decupajePeCurb REAL,
+	gauriCarota REAL,
+	lipireAdaos REAL,
+	canalAntiderapant REAL
 );

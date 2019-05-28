@@ -12,7 +12,7 @@ public interface InvoiceRepository extends CrudRepository<Invoice, Long> {
 	long deleteInvoiceById(long id);
 
 	Invoice findInvoiceById(long id);
-
+	
 	Set<Invoice> findAll();
 
 }

@@ -1,0 +1,24 @@
+INSERT INTO orders(date, invoices)
+VALUES
+   (
+      '2019-04-20',
+      '{"2"}'
+   ),
+   (
+      '2018-08-30',
+      '{"1","2"}'
+   );
+  
+INSERT INTO orders(date, invoices)
+VALUES
+   (
+      '2019-12-10',
+      '{"4"}'
+   );
+   
+   
+ALTER TABLE invoice ADD orders_id int
+
+UPDATE invoice SET orders_id=3 where id=4
+
+UPDATE orders SET invoices='{"1", "2"}' where id = 1
