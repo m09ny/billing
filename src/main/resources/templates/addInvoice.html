@@ -254,23 +254,20 @@
 		  };
 	
 			const jsonFormRows =  JSON.stringify(this.invoice_products);
-			//console.log(jsonFormRows);
+			console.log("jsonFormRows -> " + jsonFormRows);
 			
+			const dateForm = document.querySelector("input[name=date]").value;
 			const jsonFormDate = JSON.stringify(document.querySelector("input[name=date]").value);
-			//console.log(jsonFormDate);
-			
-			var orderJson = new Array();
-			orderJson.push(jsonFormDate);
-			orderJson.push(jsonFormRows);
-			console.log(orderJson);
+			console.log("dateForm -> " + dateForm);
+			console.log("jsonFormDate -> " + jsonFormDate);
 			
 			fetch("http://localhost:8080/saveInvoice", {
 					method: 'post',
 					headers: {'Content-Type':'application/json; charset=utf-8',
 								'Accept': 'application/json'},
-					body: JSON.parse(orderJson)
+					body: JSON.stringify({"date":dateForm, "invoices": jsonFormRows})
 			}).then(function(response) {
-				return JSON.parse(response);
+				return response;
 			}).then(function(return_data){
 				self.saveInvoice = return_data;
 			});

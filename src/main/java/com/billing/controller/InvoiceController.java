@@ -1,19 +1,16 @@
 package com.billing.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.billing.model.Invoice;
 import com.billing.model.Orders;
@@ -52,13 +49,15 @@ public class InvoiceController {
 		return "addInvoice";
 	}
 	
-	@RequestMapping(value = "/saveInvoice")
-	public ResponseEntity<Object> save(Orders order) {
+	@RequestMapping(value = "/saveInvoice", method = RequestMethod.POST)
+	public @ResponseBody Orders save( Orders order) {
 		System.out.println(order);
 		//ordersRepository.save(order);
-		return new ResponseEntity<>(order.toString(), HttpStatus.OK);
+		return order;
 	} 
 
+	
+	
 	@GetMapping("/showInvoice/{id}")
 	public String showInvoice(@PathVariable long id, Model model) {
 		model.addAttribute("invoice", invoiceRepository.findInvoiceById(id));

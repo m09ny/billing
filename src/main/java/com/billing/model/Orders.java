@@ -2,7 +2,6 @@ package com.billing.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -27,7 +26,7 @@ public class Orders implements Serializable {
 	private long id;
 
 	@Column(name = "date")
-	private Date date; 
+	private String date; 
 
 	@OneToMany(
 	        mappedBy = "orders",
@@ -41,7 +40,7 @@ public class Orders implements Serializable {
 		super();
 	}
 
-	public Orders(long id, Date date, List<Invoice> invoices) {
+	public Orders(long id, String date, List<Invoice> invoices) {
 		super();
 		this.id = id;
 		this.date = date;
@@ -56,11 +55,11 @@ public class Orders implements Serializable {
 		this.id = id;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
