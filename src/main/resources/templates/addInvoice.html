@@ -10,18 +10,18 @@
 <title>Adauga o noua factura</title>
 
 <!-- Include jQuery -->
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript"src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
 <!-- Include Date Range Picker -->
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
+	
+<<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+
+<script src="https://unpkg.com/axios@0.17.1/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -45,11 +45,11 @@
 				<div class="row">
 					<span class="control-label col-xs-3" for="date">Data
 						facturii</span> <input class="form-control" id="date" name="date"
-						placeholder="dd/mm/yyyy" type="text" style="width: 90px;" />
+						placeholder="dd/mm/yyyy" type="text" style="width: 90px;" ref="date"/>
 				</div>
 				<div class="container" id="app">
 
-					<form action="/save">
+					<form v-on:submit="saveInvoice" action="/saveInvoice" method="post">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="table-responsive">
@@ -187,7 +187,7 @@
 							<div class="col-md-12 mb-4 text-center">
 								<button type='submit'
 									class="btn btn-success invoice-save-bottom"
-									@click="saveInvoice">
+									@click="saveInvoice" >
 									<i class="far fa-save"></i> Salveaza factura
 								</button>
 							</div>
@@ -197,6 +197,8 @@
 			</div>
 		</div>
 	</div>
+	<input id="hiddenForJson" type="hidden" value="" />
+	
 	<script>
 	var app = new Vue({
 	    el: "#app",
@@ -206,6 +208,7 @@
 			invoice_profilare: 0,
 	        invoice_picurator: 0,
 			invoice_suprafata: 0,
+			date: '',
 	        invoice_products: [{
 	            id: '',
 	            lungime: '',
@@ -229,22 +232,48 @@
 	    
 	    methods: {
 		
-		saveInvoice(){
+		saveInvoice: function(){
+		  var self = this;
 		  var data = {
+			id: this.id,
 			lungime: this.lungime,
-			latime: this.latime
+			latime: this.latime,
+            profilareL1: this.profilareL1,
+			profilareL2: this.profilareL2,
+			profilareLstg: this.profilareLstg,
+			profilareLdr: this.profilareLdr,
+			picuratorL1: this.picuratorL1,
+			picuratorL2: this.picuratorL2,
+			picuratorLstg: this.picuratorLstg,
+			picuratorLdr: this.picuratorLdr,
+            nrBuc: this.nrBuc,
+			line_total_taiere: this.line_total_taiere,
+			line_total_profilare: this.line_total_profilare,
+			line_total_picurator: this.line_total_picurator,
+			line_total_suprafata: this.line_total_suprafata
 		  };
-		  http
-			.post("/save", data)
-			.then(response => {
-			  this.invoice.id = response.data.id;
-			  console.log(response.data);
-			})
-			.catch(e => {
-			  console.log(e);
+	
+			const jsonFormRows =  JSON.stringify(this.invoice_products);
+			//console.log(jsonFormRows);
+			
+			const jsonFormDate = JSON.stringify(document.querySelector("input[name=date]").value);
+			//console.log(jsonFormDate);
+			
+			var orderJson = new Array();
+			orderJson.push(jsonFormDate);
+			orderJson.push(jsonFormRows);
+			console.log(orderJson);
+			
+			fetch("http://localhost:8080/saveInvoice", {
+					method: 'post',
+					headers: {'Content-Type':'application/json; charset=utf-8',
+								'Accept': 'application/json'},
+					body: JSON.parse(orderJson)
+			}).then(function(response) {
+				return JSON.parse(response);
+			}).then(function(return_data){
+				self.saveInvoice = return_data;
 			});
-
-		  this.submitted = true;
 		}, 
 		
         calculTotalNrBuc() {

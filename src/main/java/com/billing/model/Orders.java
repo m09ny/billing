@@ -27,7 +27,7 @@ public class Orders implements Serializable {
 	private long id;
 
 	@Column(name = "date")
-	private Date date;
+	private Date date; 
 
 	@OneToMany(
 	        mappedBy = "orders",
