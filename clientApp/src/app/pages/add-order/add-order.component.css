@@ -1,0 +1,26 @@
+.ui-steps .ui-steps-item {
+    width: 33%;
+}
+
+.ui-steps {
+    margin-bottom: 30px;
+}
+
+#newEntriesTable .ui-table table {
+    table-layout: auto;
+}
+
+#newEntriesTable .ui-table th {
+    text-align: center;
+}
+
+#newEntriesTable .ui-table .ui-table-tbody > tr > td {
+    padding: 0px !important;
+    text-align: center;
+}
+
+#newEntriesTable .ui-inputtext {
+    width: 100%;
+    border-radius: unset !important;
+}
+
