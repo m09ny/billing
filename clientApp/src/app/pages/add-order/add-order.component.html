@@ -3,7 +3,7 @@
 </div>
 <form [formGroup]="addOrderForm" (ngSubmit)="onSubmitAddOrderForm()">
   <div *ngIf="activeIndex === 0">
-    <p-table id="newEntriesTable" [value]="addOrderForm.controls['entries'].controls" formArrayName="entries">
+    <p-table id="newEntriesTable" [value]="addOrderForm.controls['entries'].controls" >
       <ng-template pTemplate="caption">
         <div>
           <p-button label="Intrare noua" icon="pi pi-plus" iconPos="left" (onClick)="onAddEntry()"></p-button>
@@ -11,12 +11,12 @@
       </ng-template>
       <ng-template pTemplate="header">
         <tr>
-          <th rowspan="2" style="width:20px">Nr. Crt.</th>
+          <th rowspan="2" style="width:50px">Nr. Crt.</th>
           <th colspan="2">Dimensiuni (cm)</th>
           <th colspan="4">Profilare</th>
           <th colspan="4">Picurator</th>
           <th rowspan="2">Nr. bucati</th>
-          <th rowspan="2">Taiere ML</th>
+          <th rowspan="2">Taiere (ML)</th>
           <th rowspan="2">Profilare</th>
           <th rowspan="2">Picurator</th>
           <th rowspan="2">Suprafata (m<sup>2</sup>)</th>
@@ -36,7 +36,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-entry let-i="rowIndex">
-        <tr>
+        <tr formArrayName="entries">
           <td>{{i}}</td>
           <td [formGroupName]="i"><span formGroupName="dimensions"><input pInputText type="number" formControlName="length"></span></td>
           <td [formGroupName]="i"><span formGroupName="dimensions"><input pInputText type="number" formControlName="width"></span></td>
@@ -48,7 +48,7 @@
           <td [formGroupName]="i"><span formGroupName="drainer"><input pInputText type="number" formControlName="l2"></span></td>
           <td [formGroupName]="i"><span formGroupName="drainer"><input pInputText type="number" formControlName="istg"></span></td>
           <td [formGroupName]="i"><span formGroupName="drainer"><input pInputText type="number" formControlName="idr"></span></td>
-          <td [formGroupName]="i"><input pInputText type="number" formControlName="piecesNumber"></td>
+          <td [formGroupName]="i"><span><input pInputText type="number" formControlName="piecesNumber"></span></td>
           <td [formGroupName]="i"><span><input pInputText type="number" formControlName="cutting"></span></td>
           <td [formGroupName]="i"><span><input pInputText type="number" formControlName="profilingSum"></span></td>
           <td [formGroupName]="i"><span><input pInputText type="number" formControlName="drainerSum"></span></td>
@@ -56,8 +56,18 @@
           <td><p-button type="button" icon="pi pi-trash" styleClass="ui-button-danger" (click)="onDeleteEntry(i)"></p-button></td>
         </tr>
       </ng-template>
+      <ng-template pTemplate="footer">
+        <tr>
+            <td colspan="11" style="text-align: start"><span style="margin-left: 10px">Total</span></td>
+            <td formGroupName="entriesTotal"><span><input pInputText type="number" formControlName="totalPiecesNumber"></span></td>
+            <td formGroupName="entriesTotal"><span><input pInputText type="number" formControlName="totalCuttings"></span></td>
+            <td formGroupName="entriesTotal"><span><input pInputText type="number" formControlName="totalProfiling"></span></td>
+            <td formGroupName="entriesTotal"><span><input pInputText type="number" formControlName="totalDraining"></span></td>
+            <td formGroupName="entriesTotal"><span><input pInputText type="number" formControlName="totalArea"></span></td>
+        </tr>
+      </ng-template>
       <ng-template pTemplate="summary">
-        
+        Summary
       </ng-template>
     </p-table>
   </div>
@@ -104,7 +114,15 @@
           Cont nr.:*
         </div>
         <div class="p-col-10">
-          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['account']" size="60" placeholder="RO22BTRL0012345678">
+          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['first']" size="7" maxlength="4" placeholder="RO22">
+          <span style="margin: 4px">-</span>
+          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['second']" size="7" maxlength="4" placeholder="BTRL">
+          <span style="margin: 4px">-</span>
+          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['third']" size="7" maxlength="4" placeholder="0012">
+          <span style="margin: 4px">-</span>
+          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['fourth']" size="7" maxlength="4" placeholder="3456">
+          <span style="margin: 4px">-</span>
+          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['fifth']" size="7" maxlength="4" placeholder="3456">
         </div>
         <div class="p-col-2">
           Cont deschis la:*
@@ -128,6 +146,49 @@
     </div>
   </div>
   <div *ngIf="activeIndex === 2">
-
+    <div class="p-grid">
+      <div class="p-col-6">
+        <div class="p-grid">
+          <div class="p-col-4" style="text-align: end">Societatea:</div>
+          <div class="p-col-8"><b>{{addOrderForm.controls['clientMetadata'].controls['society'].value}}</b></div>
+          <div class="p-col-4" style="text-align: end">Adresa:</div>
+          <div class="p-col-8">
+            <span><b>{{addOrderForm.controls['clientMetadata'].controls['city'].value}}</b>, </span>
+            <span>str. <b>{{addOrderForm.controls['clientMetadata'].controls['street'].value}}</b>, </span>
+            <span>nr. <b>{{addOrderForm.controls['clientMetadata'].controls['streetNumber'].value}}</b></span>
+          </div>
+          <div class="p-col-4" style="text-align: end">CF RO:</div>
+          <div class="p-col-8"><b>{{addOrderForm.controls['clientMetadata'].controls['cfRo'].value}}</b></div>
+          <div class="p-col-4" style="text-align: end">RC:</div>
+          <div class="p-col-8"><b>{{addOrderForm.controls['clientMetadata'].controls['rc'].value}}</b></div>
+          <div class="p-col-4" style="text-align: end">Cont bancar:</div>
+          <div class="p-col-8">
+              <b>
+                <span style="margin-right: 5px">{{addOrderForm.controls['clientMetadata'].controls['account'].controls['first'].value}}</span>
+                <span style="margin-right: 5px">{{addOrderForm.controls['clientMetadata'].controls['account'].controls['second'].value}}</span>
+                <span style="margin-right: 5px">{{addOrderForm.controls['clientMetadata'].controls['account'].controls['third'].value}}</span>
+                <span style="margin-right: 5px">{{addOrderForm.controls['clientMetadata'].controls['account'].controls['fourth'].value}}</span>
+                <span>{{addOrderForm.controls['clientMetadata'].controls['account'].controls['fifth'].value}}</span>
+              </b>
+              <span>, deschis la <b>{{addOrderForm.controls['clientMetadata'].controls['bank'].value}}</b></span>
+          </div>
+          <div class="p-col-4" style="text-align: end">Reprezentat de:</div>
+          <div class="p-col-8">
+            <span><b>{{addOrderForm.controls['clientMetadata'].controls['owner'].value}}</b></span>
+            <span> in calitate de <b>{{addOrderForm.controls['clientMetadata'].controls['ownerStatus'].value}}</b></span>
+          </div>
+        </div>
+      </div>
+      <div class="p-col-6">
+        <div class="bar">
+          <div class="p-grid">
+            <div class="p-col-2" style="text-align: end">Numar Comanda:</div>
+            <div class="p-col-10">dsadsa</div>
+            <div class="p-col-2" style="text-align: end">Material:</div>
+            <div class="p-col-10">dsads</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </form>
