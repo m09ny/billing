@@ -17,22 +17,68 @@ public class Material implements Serializable {
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
+
+    private String type;
+
+    private double thickness;
+
+    private String surface;
+
+    private String finish;
+
+    private double price;
+
+    private double priceVat;
+
     public long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public String getType() {
+        return type;
+    }
 
-    /* id: long;
-    type: string;
-    name: string;
-    thickness: double;
-    surface: string;
-    finish: string;
-    price: double;
-    priceVat: double; */
+    public double getPriceVat() {
+        return priceVat;
+    }
 
+    public void setPriceVat(double priceVat) {
+        this.priceVat = priceVat;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getFinish() {
+        return finish;
+    }
+
+    public void setFinish(String finish) {
+        this.finish = finish;
+    }
+
+    public String getSurface() {
+        return surface;
+    }
+
+    public void setSurface(String surface) {
+        this.surface = surface;
+    }
+
+    public double getThickness() {
+        return thickness;
+    }
+
+    public void setThickness(double thickness) {
+        this.thickness = thickness;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
