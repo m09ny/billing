@@ -73,6 +73,17 @@
   </div>
   <div *ngIf="activeIndex === 1">
     <div class="container">
+      <p-pickList [source]="materials" [target]="selectedMaterials" filterBy="fullName" [showTargetFilter]="false" sourceHeader="Materiale" targetHeader="Materialul ales" [responsive]="true" dragdrop="true" [showSourceControls]="false" [showTargetControls]="false">
+        <ng-template let-material pTemplate="item">
+          <div class="ui-helper-clearfix">
+            <div style="">{{material.fullName}}</div>
+          </div>
+        </ng-template>
+      </p-pickList>
+    </div>
+  </div>
+  <div *ngIf="activeIndex === 2">
+    <div class="container">
       <div class="p-grid">
         <div class="p-col-2">
           Societatea:*
@@ -145,37 +156,37 @@
       </div>
     </div>
   </div>
-  <div *ngIf="activeIndex === 2">
+  <div *ngIf="activeIndex === 3">
     <div class="p-grid">
       <div class="p-col-6">
         <div class="p-grid">
           <div class="p-col-4" style="text-align: end">Societatea:</div>
-          <div class="p-col-8"><b>{{addOrderForm.controls['clientMetadata'].controls['society'].value}}</b></div>
+          <div class="p-col-8"><b>{{addOrderForm.value.clientMetadata.society}}</b></div>
           <div class="p-col-4" style="text-align: end">Adresa:</div>
           <div class="p-col-8">
-            <span><b>{{addOrderForm.controls['clientMetadata'].controls['city'].value}}</b>, </span>
-            <span>str. <b>{{addOrderForm.controls['clientMetadata'].controls['street'].value}}</b>, </span>
-            <span>nr. <b>{{addOrderForm.controls['clientMetadata'].controls['streetNumber'].value}}</b></span>
+            <span><b>{{addOrderForm.value.clientMetadata.city}}</b>, </span>
+            <span>str. <b>{{addOrderForm.value.clientMetadata.street}}</b>, </span>
+            <span>nr. <b>{{addOrderForm.value.clientMetadata.streetNumber}}</b></span>
           </div>
           <div class="p-col-4" style="text-align: end">CF RO:</div>
-          <div class="p-col-8"><b>{{addOrderForm.controls['clientMetadata'].controls['cfRo'].value}}</b></div>
+          <div class="p-col-8"><b>{{addOrderForm.value.clientMetadata.cfRo}}</b></div>
           <div class="p-col-4" style="text-align: end">RC:</div>
-          <div class="p-col-8"><b>{{addOrderForm.controls['clientMetadata'].controls['rc'].value}}</b></div>
+          <div class="p-col-8"><b>{{addOrderForm.value.clientMetadata.rc}}</b></div>
           <div class="p-col-4" style="text-align: end">Cont bancar:</div>
           <div class="p-col-8">
               <b>
-                <span style="margin-right: 5px">{{addOrderForm.controls['clientMetadata'].controls['account'].controls['first'].value}}</span>
-                <span style="margin-right: 5px">{{addOrderForm.controls['clientMetadata'].controls['account'].controls['second'].value}}</span>
-                <span style="margin-right: 5px">{{addOrderForm.controls['clientMetadata'].controls['account'].controls['third'].value}}</span>
-                <span style="margin-right: 5px">{{addOrderForm.controls['clientMetadata'].controls['account'].controls['fourth'].value}}</span>
-                <span>{{addOrderForm.controls['clientMetadata'].controls['account'].controls['fifth'].value}}</span>
+                <span style="margin-right: 5px">{{addOrderForm.value.clientMetadata.account.first}}</span>
+                <span style="margin-right: 5px">{{addOrderForm.value.clientMetadata.account.second}}</span>
+                <span style="margin-right: 5px">{{addOrderForm.value.clientMetadata.account.third}}</span>
+                <span style="margin-right: 5px">{{addOrderForm.value.clientMetadata.account.fourth}}</span>
+                <span>{{addOrderForm.value.clientMetadata.account.fifth}}</span>
               </b>
-              <span>, deschis la <b>{{addOrderForm.controls['clientMetadata'].controls['bank'].value}}</b></span>
+              <span>, deschis la <b>{{addOrderForm.value.clientMetadata.bank}}</b></span>
           </div>
           <div class="p-col-4" style="text-align: end">Reprezentat de:</div>
           <div class="p-col-8">
-            <span><b>{{addOrderForm.controls['clientMetadata'].controls['owner'].value}}</b></span>
-            <span> in calitate de <b>{{addOrderForm.controls['clientMetadata'].controls['ownerStatus'].value}}</b></span>
+            <span><b>{{addOrderForm.value.clientMetadata.owner}}</b></span>
+            <span> in calitate de <b>{{addOrderForm.value.clientMetadata.ownerStatus}}</b></span>
           </div>
         </div>
       </div>
@@ -183,10 +194,40 @@
         <div class="bar">
           <div class="p-grid">
             <div class="p-col-2" style="text-align: end">Numar Comanda:</div>
-            <div class="p-col-10">dsadsa</div>
+            <div class="p-col-10"><b>dfsdfsd</b></div>
             <div class="p-col-2" style="text-align: end">Material:</div>
-            <div class="p-col-10">dsads</div>
+            <div class="p-col-10"><b>dsads</b></div>
+            <div class="p-col-2" style="text-align: end">Taiere (m<sup>2</sup>):</div>
+            <div class="p-col-10"><b>{{addOrderForm.controls['entriesTotal'].controls['totalArea'].value}}</b></div>
+            <div class="p-col-2" style="text-align: end">Profilare:</div>
+            <div class="p-col-10"><b>{{addOrderForm.controls['entriesTotal'].controls['totalProfiling'].value}}</b></div>
+            <div class="p-col-2" style="text-align: end">Picurator:</div>
+            <div class="p-col-10"><b>{{addOrderForm.controls['entriesTotal'].controls['totalDraining'].value}}</b></div>
+            <div class="p-col-2" style="text-align: end">Numar de buc total:</div>
+            <div class="p-col-10"><b>{{addOrderForm.controls['entriesTotal'].controls['totalPiecesNumber'].value}}</b></div>
           </div>
+        </div>
+      </div>
+      <div class="p-col-12">
+        <div class="container" style="padding-top: 40px">
+          <table class="table table-striped table-sm">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Lungime (cm)</th>
+                <th scope="col">Latime (cm)</th>
+                <th scope="col">Nr de bucati</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let entry of addOrderForm.value.entries; index as i">
+                <th scope="row">{{i + 1}}</th>
+                <td>{{entry.dimensions.length}}</td>
+                <td>{{entry.dimensions.width}}</td>
+                <td>{{entry.piecesNumber}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

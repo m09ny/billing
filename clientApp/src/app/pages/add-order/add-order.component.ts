@@ -1,3 +1,4 @@
+import { Material } from './../../models/material';
 import { Component, OnInit, ViewEncapsulation, enableProdMode } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { MenuItem, SelectItem, ConfirmationService } from 'primeng/api';
@@ -14,6 +15,10 @@ export class AddOrderComponent implements OnInit {
   stepItems: MenuItem[];
 
   activeIndex = 0;
+
+  materials: Material[];
+
+  selectedMaterials: Material[];
 
   addOrderForm = new FormGroup({
     entries: new FormArray([]),
@@ -55,18 +60,35 @@ export class AddOrderComponent implements OnInit {
         }
       },
       {
-        label: 'Informatii client',
+        label: 'Material',
         command: (event: any) => {
           this.activeIndex = 1;
         }
       },
       {
-        label: 'Finalizare comanda',
+        label: 'Informatii client',
         command: (event: any) => {
           this.activeIndex = 2;
         }
+      },
+      {
+        label: 'Finalizare comanda',
+        command: (event: any) => {
+          this.activeIndex = 3;
+        }
       }
     ];
+
+    this.materials = [
+      new Material(1, 'dasdas', 'sadasd', 2, 'fsdfsd', 'fsdfsdf', 245.5, 345.6),
+      new Material(2, 'dasdas', 'sadasd', 2, 'fsdfsd', 'fsdfsdf', 4423.5, 8.6),
+      new Material(3, 'dasdas', 'sadasd', 2, 'fsdfsd', 'fsdfsdf', 423.5, 56.6),
+      new Material(4, 'dasdas', 'sadasd', 2, 'fsdfsd', 'fsdfsdf', 423.5, 43.6),
+      new Material(5, 'dasdas', 'sadasd', 2, 'fsdfsd', 'fsdfsdf', 34.5, 54.6),
+      new Material(6, 'dasdas', 'sadasd', 2, 'fsdfsd', 'fsdfsdf', 234.5, 6.6)
+    ];
+
+    this.selectedMaterials = [];
   }
 
   onSubmitAddOrderForm(): void {
@@ -75,6 +97,9 @@ export class AddOrderComponent implements OnInit {
 
   onAddEntry(): void {
     const entries = this.addOrderForm.get('entries') as FormArray;
+
+    console.log(this.addOrderForm.value);
+
     entries.push(new FormGroup({
       dimensions: new FormGroup({
         length: new FormControl(0, Validators.required),
