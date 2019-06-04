@@ -12,6 +12,6 @@ export class MaterialsService {
   constructor(private http: HttpClient) { }
 
   getMaterials(): Observable<Material[]> {
-    return this.http.get<Material[]>(environment.backendUrl + 'api/materials');
+    return this.http.get<Material[]>(environment.backendUrl + 'api/materials/');
   }
 }
