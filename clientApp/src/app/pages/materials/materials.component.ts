@@ -1,3 +1,4 @@
+import { EditableRow } from 'primeng/table';
 import { SelectItem } from 'primeng/api';
 import { Material } from './../../models/material';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
@@ -13,8 +14,6 @@ export class MaterialsComponent implements OnInit {
   materialsTableCols: any[];
 
   materials: Material[];
-
-  clonedMaterials: Material[];
 
   types: SelectItem[];
 
@@ -57,17 +56,12 @@ export class MaterialsComponent implements OnInit {
     })));
   }
 
-  onRowEditInit(material: Material) {
-    this.clonedMaterials[material.id] = {...material};
+  onRowEdit(material: Material) {
+
   }
 
-  onRowEditSave(material: Material) {
-    delete this.clonedMaterials[material.id];
-  }
+  onRowDelete(material: Material) {
 
-  onRowEditCancel(material: Material, index: number) {
-      this.materials[index] = this.clonedMaterials[material.id];
-      delete this.clonedMaterials[material.id];
   }
 
 }

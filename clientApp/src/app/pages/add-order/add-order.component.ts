@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, enableProdMode } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { MenuItem, SelectItem, ConfirmationService } from 'primeng/api';
-import { validateConfig } from '@angular/router/src/config';
 import { take, map, merge } from 'rxjs/operators';
 
 @Component({
