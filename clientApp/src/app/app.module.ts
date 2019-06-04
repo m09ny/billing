@@ -1,3 +1,4 @@
+import { MaterialsService } from './services/materials/materials.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -42,7 +43,9 @@ import { MaterialsComponent } from './pages/materials/materials.component';
     StepsModule,
     DropdownModule
   ],
-  providers: [],
+  providers: [
+    MaterialsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

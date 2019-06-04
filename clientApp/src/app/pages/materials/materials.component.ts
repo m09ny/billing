@@ -1,7 +1,7 @@
-import { EditableRow } from 'primeng/table';
 import { SelectItem } from 'primeng/api';
 import { Material } from './../../models/material';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MaterialsService } from 'src/app/services/materials/materials.service';
 
 @Component({
   selector: 'app-materials',
@@ -21,7 +21,8 @@ export class MaterialsComponent implements OnInit {
 
   finishes: SelectItem[];
 
-  constructor() { }
+  constructor(private materialsService: MaterialsService) {
+  }
 
   ngOnInit() {
     this.materialsTableCols = [
@@ -36,40 +37,41 @@ export class MaterialsComponent implements OnInit {
       { field: 'price', header: 'Pret fara T.V.A.' }
     ];
 
-    this.materials = [
-      new Material(1, 'GRANIT', 'ALLURE ROYALE', 2,
-      'LUSTRUIT', 'LASTRE', 838.13, 997.37),
-      new Material(2, 'GRANIT', 'ALLUfsdfsdE', 2,
-      'LUSTRUIT', 'Lfdsfsdfds', 43243, 942347),
-    ];
+    this.materialsService.getMaterials().subscribe(materials => {
+      this.materials = materials;
 
-    this.types = this.materials
+      this.types = materials
       .map(m => m.type)
       .filter((val, index, array) => !array.filter((v, i) => JSON.stringify(val) === JSON.stringify(v) && i < index).length)
       .map(t => {
         return { label: t, value: t };
       });
 
-    this.surfaces = this.materials
-    .map(m => m.surface)
-    .filter((val, index, array) => !array.filter((v, i) => JSON.stringify(val) === JSON.stringify(v) && i < index).length)
-    .map(s => {
-      return { label: s, value: s };
-    });
+      this.surfaces = materials
+      .map(m => m.surface)
+      .filter((val, index, array) => !array.filter((v, i) => JSON.stringify(val) === JSON.stringify(v) && i < index).length)
+      .map(s => {
+        return { label: s, value: s };
+      });
 
-    this.finishes = this.materials
-    .map(m => m.finish)
-    .filter((val, index, array) => !array.filter((v, i) => JSON.stringify(val) === JSON.stringify(v) && i < index).length)
-    .map(f => {
-      return { label: f, value: f };
+      this.finishes = materials
+      .map(m => m.finish)
+      .filter((val, index, array) => !array.filter((v, i) => JSON.stringify(val) === JSON.stringify(v) && i < index).length)
+      .map(f => {
+        return { label: f, value: f };
+      });
     });
   }
 
-  onRowEdit(material: Material) {
+  onMaterialAdd(): void {
 
   }
 
-  onRowDelete(material: Material) {
+  onMaterialEdit(material: Material) {
+
+  }
+
+  onMaterialDelete(material: Material) {
 
   }
 

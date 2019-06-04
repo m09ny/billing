@@ -6,7 +6,7 @@
           {{col.header}}
           <p-sortIcon [field]="col.field"></p-sortIcon>
         </th>
-        <th style="width:8em"></th>
+        <th style="width:95px"></th>
       </tr>
       <tr>
         <th *ngFor="let col of columns" [ngSwitch]="col.field">
@@ -16,6 +16,9 @@
           <p-dropdown *ngSwitchCase="'surface'" [options]="surfaces" [autoDisplayFirst]="false" [style]="{'width':'100%'}" (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
           <input *ngSwitchCase="'fullName'" pInputText type="text" (input)="materialsTable.filter($event.target.value, col.field, col.filterMatchMode)">
           <p-dropdown *ngSwitchCase="'finish'" [options]="finishes" [autoDisplayFirst]="false" [style]="{'width':'100%'}" (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
+        </th>
+        <th style="text-align:center">
+          <p-button type="button" icon="pi pi-plus" styleClass="ui-button-info" (click)="onMaterialAdd(rowData)"></p-button>
         </th>
       </tr>
     </ng-template>
@@ -32,8 +35,8 @@
           </p-cellEditor>
         </td>
         <td style="text-align:center">
-          <p-button type="button" icon="pi pi-pencil" styleClass="ui-button-info" (click)="onRowEdit(rowData)"></p-button>
-          <p-button type="button" icon="pi pi-trash" styleClass="ui-button-danger" (click)="onRowDelete(rowData)"></p-button>
+          <p-button type="button" icon="pi pi-pencil" styleClass="ui-button-info" (click)="onMaterialEdit(rowData)"></p-button>
+          <p-button type="button" icon="pi pi-trash" styleClass="ui-button-danger" (click)="onMaterialDelete(rowData)"></p-button>
         </td>
       </tr>
     </ng-template>
