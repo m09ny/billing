@@ -43,17 +43,26 @@ export class MaterialsComponent implements OnInit {
       'LUSTRUIT', 'Lfdsfsdfds', 43243, 942347),
     ];
 
-    this.types = Array.from(new Set(this.materials.map(m => {
-      return { label: m.type, value: m.type };
-    })));
+    this.types = this.materials
+      .map(m => m.type)
+      .filter((val, index, array) => !array.filter((v, i) => JSON.stringify(val) === JSON.stringify(v) && i < index).length)
+      .map(t => {
+        return { label: t, value: t };
+      });
 
-    this.surfaces = Array.from(new Set(this.materials.map(m => {
-      return { label: m.surface, value: m.surface };
-    })));
+    this.surfaces = this.materials
+    .map(m => m.surface)
+    .filter((val, index, array) => !array.filter((v, i) => JSON.stringify(val) === JSON.stringify(v) && i < index).length)
+    .map(s => {
+      return { label: s, value: s };
+    });
 
-    this.finishes = Array.from(new Set(this.materials.map(m => {
-      return { label: m.finish, value: m.finish };
-    })));
+    this.finishes = this.materials
+    .map(m => m.finish)
+    .filter((val, index, array) => !array.filter((v, i) => JSON.stringify(val) === JSON.stringify(v) && i < index).length)
+    .map(f => {
+      return { label: f, value: f };
+    });
   }
 
   onRowEdit(material: Material) {
