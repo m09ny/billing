@@ -2,6 +2,7 @@ package com.billing.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
@@ -9,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@Table(name = "MaterialsTable")
+@Table(name = "materials")
 public class Material implements Serializable {
 
     private static final long serialVersionUID = -1878723779846659510L;
@@ -18,16 +19,22 @@ public class Material implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column()
     private String type;
 
+    @Column()
     private double thickness;
 
+    @Column()
     private String surface;
 
+    @Column()
     private String finish;
 
+    @Column()
     private double price;
 
+    @Column()
     private double priceVat;
 
     public long getId() {
