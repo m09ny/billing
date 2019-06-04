@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { StepsModule } from 'primeng/steps';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { OrdersComponent } from './pages/orders/orders.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { ContractsComponent } from './pages/contracts/contracts.component';
 import { AddOrderComponent } from './pages/add-order/add-order.component';
+import { MaterialsComponent } from './pages/materials/materials.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { AddOrderComponent } from './pages/add-order/add-order.component';
     OrdersComponent,
     ReportsComponent,
     ContractsComponent,
-    AddOrderComponent
+    AddOrderComponent,
+    MaterialsComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { AddOrderComponent } from './pages/add-order/add-order.component';
     ReactiveFormsModule,
     FormsModule,
     InputTextModule,
-    StepsModule
+    StepsModule,
+    DropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

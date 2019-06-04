@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <p-table id="materialsTable" #materialsTable [columns]="materialsTableCols" [value]="materials" dataKey="id" sortMode="multiple" editMode="row">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+          {{col.header}}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+        <th style="width:8em"></th>
+      </tr>
+      <tr>
+        <th *ngFor="let col of columns" [ngSwitch]="col.field">
+          <p-dropdown *ngSwitchCase="'type'" [options]="types" [autoDisplayFirst]="false" [style]="{'width':'100%'}" (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
+          <input *ngSwitchCase="'name'" pInputText type="text" (input)="materialsTable.filter($event.target.value, col.field, col.filterMatchMode)">
+          <input *ngSwitchCase="'thickness'" pInputText type="number" (input)="materialsTable.filter($event.target.value, col.field, col.filterMatchMode)">
+          <p-dropdown *ngSwitchCase="'surface'" [options]="surfaces" [autoDisplayFirst]="false" [style]="{'width':'100%'}" (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
+          <input *ngSwitchCase="'fullName'" pInputText type="text" (input)="materialsTable.filter($event.target.value, col.field, col.filterMatchMode)">
+          <p-dropdown *ngSwitchCase="'finish'" [options]="finishes" [autoDisplayFirst]="false" [style]="{'width':'100%'}" (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex" let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="rowData[col.field]">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData[col.field]}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td style="text-align:center">
+          <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditInit(rowData)"></button>
+          <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success" style="margin-right: .5em" (click)="onRowEditSave(rowData)"></button>
+          <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger" (click)="onRowEditCancel(rowData, ri)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
