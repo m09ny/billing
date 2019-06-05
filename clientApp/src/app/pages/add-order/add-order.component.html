@@ -1,8 +1,19 @@
 <div class="container">
-    <p-steps [model]="stepItems" [(activeIndex)]="activeIndex" [readonly]="false"></p-steps>
+  <p-steps [model]="stepItems" [(activeIndex)]="activeIndex" [readonly]="false"></p-steps>
 </div>
 <form [formGroup]="addOrderForm" (ngSubmit)="onSubmitAddOrderForm()">
   <div *ngIf="activeIndex === 0">
+    <div class="container">
+      <p-pickList [source]="materials" [target]="selectedMaterials" filterBy="fullName" [showTargetFilter]="false" sourceHeader="Materiale" targetHeader="Materialul ales" [responsive]="true" dragdrop="true" [showSourceControls]="false" [showTargetControls]="false">
+        <ng-template let-material pTemplate="item">
+          <div class="ui-helper-clearfix">
+            <div>{{material.fullName}}</div>
+          </div>
+        </ng-template>
+      </p-pickList>
+    </div>
+  </div>
+  <div *ngIf="activeIndex === 1">
     <p-table id="newEntriesTable" [value]="addOrderForm.controls['entries'].controls" >
       <ng-template pTemplate="caption">
         <div>
@@ -70,17 +81,6 @@
         Summary
       </ng-template>
     </p-table>
-  </div>
-  <div *ngIf="activeIndex === 1">
-    <div class="container">
-      <p-pickList [source]="materials" [target]="selectedMaterials" filterBy="fullName" [showTargetFilter]="false" sourceHeader="Materiale" targetHeader="Materialul ales" [responsive]="true" dragdrop="true" [showSourceControls]="false" [showTargetControls]="false">
-        <ng-template let-material pTemplate="item">
-          <div class="ui-helper-clearfix">
-            <div style="">{{material.fullName}}</div>
-          </div>
-        </ng-template>
-      </p-pickList>
-    </div>
   </div>
   <div *ngIf="activeIndex === 2">
     <div class="container">

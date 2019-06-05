@@ -1,3 +1,4 @@
+import { MaterialsService } from 'src/app/services/materials/materials.service';
 import { Material } from './../../models/material';
 import { Component, OnInit, ViewEncapsulation, enableProdMode } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
@@ -49,18 +50,18 @@ export class AddOrderComponent implements OnInit {
     })
   });
 
-  constructor() { }
+  constructor(private materialsService: MaterialsService) { }
 
   ngOnInit() {
     this.stepItems = [
       {
-        label: 'Intrari',
+        label: 'Material',
         command: (event: any) => {
           this.activeIndex = 0;
         }
       },
       {
-        label: 'Material',
+        label: 'Intrari',
         command: (event: any) => {
           this.activeIndex = 1;
         }
@@ -79,14 +80,7 @@ export class AddOrderComponent implements OnInit {
       }
     ];
 
-    this.materials = [
-      new Material(1, 'dasdas', 'sadasd', 2, 'fsdfsd', 'fsdfsdf', 245.5, 345.6),
-      new Material(2, 'dasdas', 'sadasd', 2, 'fsdfsd', 'fsdfsdf', 4423.5, 8.6),
-      new Material(3, 'dasdas', 'sadasd', 2, 'fsdfsd', 'fsdfsdf', 423.5, 56.6),
-      new Material(4, 'dasdas', 'sadasd', 2, 'fsdfsd', 'fsdfsdf', 423.5, 43.6),
-      new Material(5, 'dasdas', 'sadasd', 2, 'fsdfsd', 'fsdfsdf', 34.5, 54.6),
-      new Material(6, 'dasdas', 'sadasd', 2, 'fsdfsd', 'fsdfsdf', 234.5, 6.6)
-    ];
+    this.materialsService.getMaterials().subscribe(materials => this.materials = materials);
 
     this.selectedMaterials = [];
   }

@@ -11,6 +11,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { StepsModule } from 'primeng/steps';
 import { DropdownModule } from 'primeng/dropdown';
 import { PickListModule } from 'primeng/picklist';
+import { DialogModule } from 'primeng/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -46,7 +47,8 @@ import { MaterialsComponent } from './pages/materials/materials.component';
     InputTextModule,
     StepsModule,
     DropdownModule,
-    PickListModule
+    PickListModule,
+    DialogModule
   ],
   providers: [
     MaterialsService

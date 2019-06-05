@@ -2,6 +2,7 @@ import { SelectItem } from 'primeng/api';
 import { Material } from './../../models/material';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MaterialsService } from 'src/app/services/materials/materials.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-materials',
@@ -20,6 +21,18 @@ export class MaterialsComponent implements OnInit {
   surfaces: SelectItem[];
 
   finishes: SelectItem[];
+
+  displayMaterialDialog = false;
+
+  addMaterialForm  = new FormGroup({
+    type: new FormControl('', Validators.required),
+    name: new FormControl('', Validators.required),
+    thickness: new FormControl(Validators.required),
+    surface: new FormControl('', Validators.required),
+    finish: new FormControl('', Validators.required),
+    price: new FormControl(Validators.required),
+    priceVat: new FormControl(Validators.required)
+  });
 
   constructor(private materialsService: MaterialsService) {
   }
@@ -64,7 +77,7 @@ export class MaterialsComponent implements OnInit {
   }
 
   onMaterialAdd(): void {
-
+    this.displayMaterialDialog = true;
   }
 
   onMaterialEdit(material: Material) {
