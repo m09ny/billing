@@ -3,6 +3,7 @@ import { Material } from './../../models/material';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MaterialsService } from 'src/app/services/materials/materials.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-materials',
@@ -38,7 +39,7 @@ export class MaterialsComponent implements OnInit {
     fullName: new FormControl(Validators.required)
   });
 
-  constructor(private materialsService: MaterialsService) {
+  constructor(private materialsService: MaterialsService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -54,7 +55,9 @@ export class MaterialsComponent implements OnInit {
       { field: 'price', header: 'Pret fara T.V.A.' }
     ];
 
-    this.refreshTable();
+    this.route.data.subscribe(data => {
+      this.materials = data.resolvedData;
+    });
   }
 
   onMaterialAdd(): void {
@@ -70,7 +73,7 @@ export class MaterialsComponent implements OnInit {
     this.materialsService.deleteMaterial(material.id).subscribe(
       response => {
         console.log(response);
-        this.refreshTable();
+        this.router.navigate(['/materials']);
       },
       error => console.log(error)
     );

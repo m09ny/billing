@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AddOrderComponent } from './pages/add-order/add-order.component';
 import { MaterialsComponent } from './pages/materials/materials.component';
+import { MaterialResolverService } from './services/materials/material-resolver.service';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -13,7 +14,7 @@ const routes: Routes = [
   { path: 'orders/add', component: AddOrderComponent },
   { path: 'reports', component: ReportsComponent },
   { path: 'contracts', component: ContractsComponent },
-  { path: 'materials', component: MaterialsComponent },
+  { path: 'materials', component: MaterialsComponent, resolve: { resolvedData: MaterialResolverService } },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
