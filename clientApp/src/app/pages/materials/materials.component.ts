@@ -28,7 +28,7 @@ export class MaterialsComponent implements OnInit {
     this.materialsTableCols = [
       { field: 'type', header: 'Tip' },
       { field: 'name', header: 'Denumirea' },
-      { field: 'thickness', header: 'Grosime / cm' },
+      { field: 'thickness', header: 'Grosime (cm)' },
       { field: 'surface', header: 'TIPO DIM.' },
       { field: 'finish', header: 'Finisaj' },
       { field: 'price', header: 'Pret fara T.V.A.' },

@@ -5,9 +5,11 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PostLoad;
 
 @Entity
 @Table(name = "materials")
@@ -21,6 +23,9 @@ public class Material implements Serializable {
 
     @Column()
     private String type;
+
+    @Column()
+    private String name;
 
     @Column()
     private double thickness;
@@ -37,9 +42,33 @@ public class Material implements Serializable {
     @Column()
     private double priceVat;
 
+    @Transient
+    private String fullName;
+
+    @PostLoad
+    private void postLoad() {
+        this.fullName = this.type + " " + this.name + " " + this.thickness + "cm " + this.surface + " " + this.finish;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+    
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     public long getId() {
-		return id;
-	}
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getType() {
         return type;

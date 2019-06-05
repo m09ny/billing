@@ -2,7 +2,7 @@
   <p-table id="materialsTable" #materialsTable [columns]="materialsTableCols" [value]="materials" dataKey="id" sortMode="multiple" editMode="row">
     <ng-template pTemplate="header" let-columns>
       <tr>
-        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field" style="text-align: center">
           {{col.header}}
           <p-sortIcon [field]="col.field"></p-sortIcon>
         </th>
@@ -10,12 +10,12 @@
       </tr>
       <tr>
         <th *ngFor="let col of columns" [ngSwitch]="col.field">
-          <p-dropdown *ngSwitchCase="'type'" [options]="types" [autoDisplayFirst]="false" [style]="{'width':'100%'}" (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
+          <p-dropdown *ngSwitchCase="'type'" [options]="types" showTransitionOptions="0ms ease-out" [autoDisplayFirst]="false" [style]="{'width':'100%'}" (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
           <input *ngSwitchCase="'name'" pInputText type="text" (input)="materialsTable.filter($event.target.value, col.field, col.filterMatchMode)">
           <input *ngSwitchCase="'thickness'" pInputText type="number" (input)="materialsTable.filter($event.target.value, col.field, col.filterMatchMode)">
-          <p-dropdown *ngSwitchCase="'surface'" [options]="surfaces" [autoDisplayFirst]="false" [style]="{'width':'100%'}" (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
+          <p-dropdown *ngSwitchCase="'surface'" [options]="surfaces" showTransitionOptions="0ms ease-out" [autoDisplayFirst]="false" [style]="{'width':'100%'}" (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
           <input *ngSwitchCase="'fullName'" pInputText type="text" (input)="materialsTable.filter($event.target.value, col.field, col.filterMatchMode)">
-          <p-dropdown *ngSwitchCase="'finish'" [options]="finishes" [autoDisplayFirst]="false" [style]="{'width':'100%'}" (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
+          <p-dropdown *ngSwitchCase="'finish'" [options]="finishes" showTransitionOptions="0ms ease-out" [autoDisplayFirst]="false" [style]="{'width':'100%'}" (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
         </th>
         <th style="text-align:center">
           <p-button type="button" icon="pi pi-plus" styleClass="ui-button-info" (click)="onMaterialAdd(rowData)"></p-button>
@@ -25,14 +25,7 @@
     <ng-template pTemplate="body" let-rowData let-columns="columns">
       <tr>
         <td *ngFor="let col of columns">
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="rowData[col.field]">
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{rowData[col.field]}}
-            </ng-template>
-          </p-cellEditor>
+          {{rowData[col.field]}}
         </td>
         <td style="text-align:center">
           <p-button type="button" icon="pi pi-pencil" styleClass="ui-button-info" (click)="onMaterialEdit(rowData)"></p-button>
