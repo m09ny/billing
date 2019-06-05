@@ -4,11 +4,16 @@
 <form [formGroup]="addOrderForm" (ngSubmit)="onSubmitAddOrderForm()">
   <div *ngIf="activeIndex === 0">
     <div class="container">
-      <p-pickList [source]="materials" [target]="selectedMaterials" filterBy="fullName" [showTargetFilter]="false" sourceHeader="Materiale" targetHeader="Materialul ales" [responsive]="true" dragdrop="true" [showSourceControls]="false" [showTargetControls]="false">
+      <p-pickList [source]="materials" [target]="selectedMaterials" filterBy="fullName" [showTargetFilter]="false" sourceHeader="Materiale" targetHeader="Materialul ales" [responsive]="true" dragdrop="true" [showSourceControls]="false" [showTargetControls]="false" sourceFilterPlaceholder="Cauta dupa nume">
         <ng-template let-material pTemplate="item">
-          <div class="ui-helper-clearfix">
-            <div>{{material.fullName}}</div>
+          <div style="font-size: 16px"><b>{{material.fullName}}</b></div>
+          <div>
+            <div><span>Pret fara T.V.A.</span><span style="float: right">{{material.price}} RON</span></div>
+            <div><span>Pret cu T.V.A.</span><span style="float: right">{{material.priceVat}} RON</span></div>
           </div>
+        </ng-template>
+        <ng-template let-material pTemplate="emptymessagetarget">
+          <div style="opacity: 0.5">Cosul este gol.</div>
         </ng-template>
       </p-pickList>
     </div>

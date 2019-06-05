@@ -40,7 +40,7 @@ button[icon="pi pi-angle-double-left"] {
 }
 
 .ui-picklist.ui-picklist-responsive .ui-picklist-target-wrapper {
-    padding-top: 245px;
+    padding-top: 225px;
 }
 
 .ui-picklist.ui-picklist-responsive .ui-picklist-source-wrapper .ui-picklist-list {
@@ -48,5 +48,10 @@ button[icon="pi pi-angle-double-left"] {
 }
 
 .ui-picklist.ui-picklist-responsive .ui-picklist-target-wrapper .ui-picklist-list {
-    height: 60px !important;
+    height: 100px !important;
+}
+
+.ui-picklist.ui-picklist-responsive .ui-picklist-target-wrapper .ui-picklist-list .ui-picklist-empty-message {
+    text-align: center;
+    padding: 35px;
 }
