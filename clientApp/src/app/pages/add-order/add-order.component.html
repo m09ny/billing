@@ -4,7 +4,7 @@
 <form [formGroup]="addOrderForm" (ngSubmit)="onSubmitAddOrderForm()">
   <div *ngIf="activeIndex === 0">
     <div class="container">
-      <p-pickList [source]="materials" [target]="selectedMaterials" (onMoveToTarget)="onMoveToTarget($event)" [disabled]="true" filterBy="fullName" [showTargetFilter]="false" sourceHeader="Materiale" targetHeader="Materialul ales" [responsive]="true" dragdrop="true" [showSourceControls]="false" [showTargetControls]="false" sourceFilterPlaceholder="Cauta dupa nume">
+      <p-pickList [source]="materials" [target]="selectedMaterials" (onMoveToTarget)="onMoveToTarget($event)" filterBy="fullName" [showTargetFilter]="false" sourceHeader="Materiale" targetHeader="Materialul ales" [responsive]="true" dragdrop="true" [showSourceControls]="false" [showTargetControls]="false" sourceFilterPlaceholder="Cauta dupa nume">
         <ng-template let-material pTemplate="item">
           <div style="font-size: 16px"><b>{{material.fullName}}</b></div>
           <div>
