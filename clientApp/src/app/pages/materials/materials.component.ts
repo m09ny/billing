@@ -57,6 +57,27 @@ export class MaterialsComponent implements OnInit {
 
     this.route.data.subscribe(data => {
       this.materials = data.resolvedData;
+
+      this.types = this.materials
+      .map(m => m.type)
+      .filter((val, index, array) => !array.filter((v, i) => JSON.stringify(val) === JSON.stringify(v) && i < index).length)
+      .map(t => {
+        return { label: t, value: t };
+      });
+
+      this.surfaces = this.materials
+      .map(m => m.surface)
+      .filter((val, index, array) => !array.filter((v, i) => JSON.stringify(val) === JSON.stringify(v) && i < index).length)
+      .map(s => {
+        return { label: s, value: s };
+      });
+
+      this.finishes = this.materials
+      .map(m => m.finish)
+      .filter((val, index, array) => !array.filter((v, i) => JSON.stringify(val) === JSON.stringify(v) && i < index).length)
+      .map(f => {
+        return { label: f, value: f };
+      });
     });
   }
 
