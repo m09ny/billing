@@ -217,4 +217,8 @@ export class AddOrderComponent implements OnInit {
     entriesTotal.get('totalArea').patchValue(totalArea);
   }
 
+  onMoveToTarget(event: any): void {
+    console.log(event.items);
+  }
+
 }

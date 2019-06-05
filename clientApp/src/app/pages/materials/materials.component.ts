@@ -82,6 +82,7 @@ export class MaterialsComponent implements OnInit {
   }
 
   onMaterialAdd(): void {
+    this.addMaterialForm.reset();
     this.displayAddMaterialDialog = true;
   }
 

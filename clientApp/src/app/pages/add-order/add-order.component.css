@@ -39,12 +39,8 @@ button[icon="pi pi-angle-double-left"] {
     display: none !important;
 }
 
-.ui-picklist.ui-picklist-responsive .ui-picklist-target-wrapper {
-    padding-top: 225px;
-}
-
 .ui-picklist.ui-picklist-responsive .ui-picklist-source-wrapper .ui-picklist-list {
-    height: 500px !important;
+    height: 50vh !important;
 }
 
 .ui-picklist.ui-picklist-responsive .ui-picklist-target-wrapper .ui-picklist-list {
