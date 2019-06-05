@@ -22,16 +22,20 @@ export class MaterialsComponent implements OnInit {
 
   finishes: SelectItem[];
 
-  displayMaterialDialog = false;
+  displayAddMaterialDialog = false;
 
-  addMaterialForm  = new FormGroup({
+  displayEditMaterialDialog = false;
+
+  addMaterialForm = new FormGroup({
+    id: new FormControl(),
     type: new FormControl('', Validators.required),
     name: new FormControl('', Validators.required),
     thickness: new FormControl(Validators.required),
     surface: new FormControl('', Validators.required),
     finish: new FormControl('', Validators.required),
     price: new FormControl(Validators.required),
-    priceVat: new FormControl(Validators.required)
+    priceVat: new FormControl(Validators.required),
+    fullName: new FormControl(Validators.required)
   });
 
   constructor(private materialsService: MaterialsService) {
@@ -50,6 +54,53 @@ export class MaterialsComponent implements OnInit {
       { field: 'price', header: 'Pret fara T.V.A.' }
     ];
 
+    this.refreshTable();
+  }
+
+  onMaterialAdd(): void {
+    this.displayAddMaterialDialog = true;
+  }
+
+  onMaterialEdit(material: Material) {
+    this.displayEditMaterialDialog = true;
+    this.addMaterialForm.setValue(material);
+  }
+
+  onMaterialDelete(material: Material) {
+    this.materialsService.deleteMaterial(material.id).subscribe(
+      response => {
+        console.log(response);
+        this.refreshTable();
+      },
+      error => console.log(error)
+    );
+  }
+
+  onSubmitAddMaterialForm(): void {
+    this.materialsService.addMaterial(this.addMaterialForm.value).subscribe(
+      response => {
+        console.log(response);
+        this.refreshTable();
+      },
+      error => console.log(error)
+    );
+
+    this.displayAddMaterialDialog = false;
+  }
+
+  onSubmitEditMaterialForm(): void {
+    this.materialsService.updateMaterial(this.addMaterialForm.value).subscribe(
+      response => {
+        console.log(response);
+        this.refreshTable();
+      },
+      error => console.log(error)
+    );
+
+    this.displayEditMaterialDialog = false;
+  }
+
+  private refreshTable(): void {
     this.materialsService.getMaterials().subscribe(materials => {
       this.materials = materials;
 
@@ -74,18 +125,6 @@ export class MaterialsComponent implements OnInit {
         return { label: f, value: f };
       });
     });
-  }
-
-  onMaterialAdd(): void {
-    this.displayMaterialDialog = true;
-  }
-
-  onMaterialEdit(material: Material) {
-
-  }
-
-  onMaterialDelete(material: Material) {
-
   }
 
 }

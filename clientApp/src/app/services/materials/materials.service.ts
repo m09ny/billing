@@ -28,7 +28,7 @@ export class MaterialsService {
     return this.http.put<string>(environment.backendUrl + 'api/materials/' + material.id, material, { headers: this.headers });
   }
 
-  deleteMaterial(id: string): Observable<string> {
+  deleteMaterial(id: number): Observable<string> {
     return this.http.delete<string>(environment.backendUrl + 'api/materials/' + id);
   }
 

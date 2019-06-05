@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <p-dialog header="Adauga material" [(visible)]="displayMaterialDialog" [style]="{width: '600px'}" [modal]="true" [resizable]="false" [draggable]="false">
+  <p-dialog header="Adauga material" [(visible)]="displayAddMaterialDialog" [style]="{width: '600px'}" [modal]="true" [resizable]="false" [draggable]="false">
     <form [formGroup]="addMaterialForm" (ngSubmit)="onSubmitAddMaterialForm()">
       <div class="p-grid" style="padding: 20px;">
         <div class="p-col-4">
@@ -49,6 +49,60 @@
         </div>
         <div class="p-col-12">
           <p-button label="Adauga" icon="pi pi-plus" type="submit" [disabled]="!addMaterialForm.valid"></p-button>
+        </div>
+      </div>
+    </form>
+  </p-dialog>
+  <p-dialog header="Editeaza material" [(visible)]="displayEditMaterialDialog" [style]="{width: '600px'}" [modal]="true" [resizable]="false" [draggable]="false">
+    <form [formGroup]="addMaterialForm" (ngSubmit)="onSubmitEditMaterialForm()">
+      <div class="p-grid" style="padding: 20px;">
+        <div class="p-col-4">
+          Tip*:
+        </div>
+        <div class="p-col-8">
+          <input pInputText type="text" formControlName="type" size="40">
+        </div>
+        <div class="p-col-4">
+          Denumirea*:
+        </div>
+        <div class="p-col-8">
+          <input pInputText type="text" formControlName="name" size="40">
+        </div>
+        <div class="p-col-4">
+          Grosime (cm)*:
+        </div>
+        <div class="p-col-8">
+          <input pInputText type="number" formControlName="thickness" size="40">
+        </div>
+        <div class="p-col-4">
+          TIPO DIM.*:
+        </div>
+        <div class="p-col-8">
+          <input pInputText type="text" formControlName="surface" size="40">
+        </div>
+        <div class="p-col-4">
+          Finisaj*:
+        </div>
+        <div class="p-col-8">
+          <input pInputText type="text" formControlName="finish" size="40">
+        </div>
+        <div class="p-col-4">
+          Pret fara T.V.A.*:
+        </div>
+        <div class="p-col-8">
+          <input pInputText type="number" formControlName="price" size="40">
+        </div>
+        <div class="p-col-4">
+          Pret cu T.V.A.*:
+        </div>
+        <div class="p-col-8">
+          <input pInputText type="number" formControlName="priceVat" size="40">
+        </div>
+        <div class="p-col-12">
+          <hr/>
+        </div>
+        <div class="p-col-12">
+          <p-button label="Editeaza" icon="pi pi-pencil" type="submit" [disabled]="!addMaterialForm.valid"></p-button>
         </div>
       </div>
     </form>

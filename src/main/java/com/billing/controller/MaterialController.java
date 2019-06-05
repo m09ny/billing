@@ -32,19 +32,17 @@ public class MaterialController {
     @PostMapping(path="/")
     public ResponseEntity<String> addMaterial(@RequestBody  Material material) {
         materialRepository.save(material);
-        return new ResponseEntity<String>("Created material successfully with id: " + material.getId(),  HttpStatus.OK);
+        return new ResponseEntity<String>("{ \"message\": \"Created material successfully with id: " + material.getId() + "\" }",  HttpStatus.OK);
     }
 
     @PutMapping(path="/{id}")
     public ResponseEntity<String> updateMaterial(@PathVariable long id, @RequestBody Material material) {
         try {
             if (!materialRepository.existsById(id)) {
-                return new ResponseEntity<String>("Id does not exists: " + id, HttpStatus.BAD_REQUEST);
-            } 
-
+                return new ResponseEntity<String>("{ \"message\": \"Id does not exists: " + id + "\" }",  HttpStatus.BAD_REQUEST);
+            }
             materialRepository.save(material);
-            return new ResponseEntity<String>("Updated material successfully with id: " + id,  HttpStatus.OK);
-
+            return new ResponseEntity<String>("{ \"message\": \"Updated material successfully with id: " + id + "\" }",  HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -54,12 +52,10 @@ public class MaterialController {
     public ResponseEntity<String> deleteMaterial(@PathVariable long id) {
         try {
             if (!materialRepository.existsById(id)) {
-                return new ResponseEntity<String>("Id does not exists: " + id, HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<String>("{ \"message\": \"Id does not exists: " + id + "\" }",  HttpStatus.BAD_REQUEST);
             }
-
             materialRepository.deleteById(id);
-            return new ResponseEntity<String>("Deleted material successfully with id: " + id,  HttpStatus.OK);
-
+            return new ResponseEntity<String>("{ \"message\": \"Deleted material successfully with id: " + id + "\" }",  HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
