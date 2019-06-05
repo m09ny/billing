@@ -39,12 +39,12 @@ public class MaterialController {
     public ResponseEntity<String> updateMaterial(@PathVariable long id, @RequestBody Material material) {
         try {
             if (!materialRepository.existsById(id)) {
-                return new ResponseEntity<String>("{ \"message\": \"Id does not exists: " + id + "\" }",  HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<String>("{ \"error\": \"Id does not exists: " + id + "\" }",  HttpStatus.BAD_REQUEST);
             }
             materialRepository.save(material);
             return new ResponseEntity<String>("{ \"message\": \"Updated material successfully with id: " + id + "\" }",  HttpStatus.OK);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("{ \"error\": \"" + e.getMessage() + "\" }", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -52,12 +52,12 @@ public class MaterialController {
     public ResponseEntity<String> deleteMaterial(@PathVariable long id) {
         try {
             if (!materialRepository.existsById(id)) {
-                return new ResponseEntity<String>("{ \"message\": \"Id does not exists: " + id + "\" }",  HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<String>("{ \"error\": \"Id does not exists: " + id + "\" }",  HttpStatus.BAD_REQUEST);
             }
             materialRepository.deleteById(id);
             return new ResponseEntity<String>("{ \"message\": \"Deleted material successfully with id: " + id + "\" }",  HttpStatus.OK);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>("{ \"error\": \"" + e.getMessage() + "\" }", HttpStatus.BAD_REQUEST);
         }
     }
 
