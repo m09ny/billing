@@ -1,8 +1,5 @@
 package com.billing.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -13,33 +10,24 @@ import javax.persistence.PostLoad;
 
 @Entity
 @Table(name = "materials")
-public class Material implements Serializable {
-
-    private static final long serialVersionUID = -1878723779846659510L;
+public class Material {
 
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column()
     private String type;
 
-    @Column()
     private String name;
 
-    @Column()
     private double thickness;
 
-    @Column()
     private String surface;
 
-    @Column()
     private String finish;
 
-    @Column()
     private double price;
 
-    @Column()
     private double priceVat;
 
     @Transient
@@ -50,16 +38,20 @@ public class Material implements Serializable {
         this.fullName = this.type + " " + this.name + " " + this.thickness + "cm " + this.surface + " " + this.finish;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getFullName() {
         return fullName;
     }
     
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public long getId() {
-        return id;
     }
 
     public String getName() {
