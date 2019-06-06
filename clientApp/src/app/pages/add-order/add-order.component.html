@@ -115,6 +115,12 @@
           <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['streetNumber']" size="60" placeholder="12345">
         </div>
         <div class="p-col-2">
+          Tel:*
+        </div>
+        <div class="p-col-10">
+          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['tel']" size="60" maxlength="10" placeholder="0748567895">
+        </div>
+        <div class="p-col-2">
           CF RO:*
         </div>
         <div class="p-col-10">
@@ -173,6 +179,8 @@
             <span>str. <b>{{addOrderForm.value.clientMetadata.street}}</b>, </span>
             <span>nr. <b>{{addOrderForm.value.clientMetadata.streetNumber}}</b></span>
           </div>
+          <div class="p-col-4" style="text-align: end">Tel:</div>
+          <div class="p-col-8"><b>{{addOrderForm.value.clientMetadata.tel}}</b></div>
           <div class="p-col-4" style="text-align: end">CF RO:</div>
           <div class="p-col-8"><b>{{addOrderForm.value.clientMetadata.cfRo}}</b></div>
           <div class="p-col-4" style="text-align: end">RC:</div>

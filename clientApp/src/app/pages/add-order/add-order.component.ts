@@ -22,6 +22,17 @@ export class AddOrderComponent implements OnInit {
   selectedMaterials: Material[];
 
   addOrderForm = new FormGroup({
+    material: new FormGroup({
+      id: new FormControl(Validators.required),
+      type: new FormControl(Validators.required),
+      name: new FormControl(Validators.required),
+      thickness: new FormControl(Validators.required),
+      surface: new FormControl(Validators.required),
+      finish: new FormControl(Validators.required),
+      price: new FormControl(Validators.required),
+      priceVat: new FormControl(Validators.required),
+      fullName: new FormControl(Validators.required)
+    }),
     entries: new FormArray([]),
     entriesTotal: new FormGroup({
       totalPiecesNumber: new FormControl({value: 0, disabled: true}),
@@ -35,6 +46,7 @@ export class AddOrderComponent implements OnInit {
       city: new FormControl('', Validators.required),
       street: new FormControl('', Validators.required),
       streetNumber: new FormControl('', Validators.required),
+      tel: new FormControl('', Validators.required),
       cfRo: new FormControl('', Validators.required),
       rc: new FormControl('', Validators.required),
       account: new FormGroup({
@@ -218,6 +230,8 @@ export class AddOrderComponent implements OnInit {
   }
 
   onMoveToTarget(event: any): void {
+    this.addOrderForm.get('material').patchValue(event.items[0]);
+    console.log(this.addOrderForm.value);
     console.log(event.items);
   }
 
