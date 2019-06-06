@@ -14,9 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "orders")
-public class Order implements Serializable {
-
-    private static final long serialVersionUID = 6579719876781806332L;
+public class Order {
 
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

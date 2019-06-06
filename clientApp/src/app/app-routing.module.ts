@@ -1,3 +1,4 @@
+import { OrderResolverService } from './services/orders/order-resolver.service';
 import { ContractsComponent } from './pages/contracts/contracts.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { OrdersComponent } from './pages/orders/orders.component';
@@ -10,11 +11,11 @@ import { MaterialResolverService } from './services/materials/material-resolver.
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'orders', component: OrdersComponent },
+  { path: 'orders', component: OrdersComponent, resolve: { resolvedOrdersData: OrderResolverService } },
   { path: 'orders/add', component: AddOrderComponent },
   { path: 'reports', component: ReportsComponent },
   { path: 'contracts', component: ContractsComponent },
-  { path: 'materials', component: MaterialsComponent, resolve: { resolvedData: MaterialResolverService } },
+  { path: 'materials', component: MaterialsComponent, resolve: { resolvedMaterialsData: MaterialResolverService } },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];

@@ -1,3 +1,5 @@
+import { ActivatedRoute } from '@angular/router';
+import { Order } from './../../models/order';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdersComponent implements OnInit {
 
-  constructor() { }
+  orders: Order[];
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    this.route.data.subscribe(data => this.orders = data.resolvedOrdersData);
+
   }
 
 }

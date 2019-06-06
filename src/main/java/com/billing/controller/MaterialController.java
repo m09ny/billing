@@ -30,7 +30,7 @@ public class MaterialController {
     }
 
     @PostMapping(path="/")
-    public ResponseEntity<String> addMaterial(@RequestBody  Material material) {
+    public ResponseEntity<String> addMaterial(@RequestBody Material material) {
         materialRepository.save(material);
         return new ResponseEntity<String>("{ \"message\": \"Created material successfully with id: " + material.getId() + "\" }",  HttpStatus.OK);
     }

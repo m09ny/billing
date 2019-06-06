@@ -56,7 +56,7 @@ export class MaterialsComponent implements OnInit {
     ];
 
     this.route.data.subscribe(data => {
-      this.materials = data.resolvedData;
+      this.materials = data.resolvedMaterialsData;
 
       this.types = this.materials
       .map(m => m.type)

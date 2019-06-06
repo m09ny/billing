@@ -1,9 +1,10 @@
+import { OrdersService } from './../../services/orders/orders.service';
 import { MaterialsService } from 'src/app/services/materials/materials.service';
 import { Material } from './../../models/material';
-import { Component, OnInit, ViewEncapsulation, enableProdMode } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { MenuItem, SelectItem, ConfirmationService } from 'primeng/api';
-import { take, map, merge } from 'rxjs/operators';
+import { MenuItem, } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-order',
@@ -62,7 +63,7 @@ export class AddOrderComponent implements OnInit {
     })
   });
 
-  constructor(private materialsService: MaterialsService) { }
+  constructor(private materialsService: MaterialsService, private ordersService: OrdersService, private router: Router ) { }
 
   ngOnInit() {
     this.stepItems = [
@@ -98,7 +99,14 @@ export class AddOrderComponent implements OnInit {
   }
 
   onSubmitAddOrderForm(): void {
+    this.ordersService.addOrder(this.addOrderForm.value).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => console.log(error)
+    );
 
+    this.router.navigate(['/orders']);
   }
 
   onAddEntry(): void {

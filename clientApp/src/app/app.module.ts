@@ -1,3 +1,4 @@
+import { OrdersService } from './services/orders/orders.service';
 import { MaterialsService } from './services/materials/materials.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -51,7 +52,8 @@ import { MaterialsComponent } from './pages/materials/materials.component';
     DialogModule
   ],
   providers: [
-    MaterialsService
+    MaterialsService,
+    OrdersService
   ],
   bootstrap: [AppComponent]
 })
