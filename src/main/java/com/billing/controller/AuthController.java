@@ -1,14 +1,5 @@
 package com.billing.controller;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
-import java.util.Base64;
-
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-
 import com.billing.model.User;
 import com.billing.repo.UserRepository;
 import com.billing.utils.Security;
@@ -26,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api/auth")
 public class AuthController {
+
+    private final String algorithm = "PBKDF2WithHmacSHA1";
 
     @Autowired
     private UserRepository userRepository;
@@ -50,7 +43,7 @@ public class AuthController {
         // generate hash
         byte[] hash = null;
         try {
-            hash = Security.generateHash("PBKDF2WithHmacSHA1", password, salt);
+            hash = Security.generateHash(algorithm, password, salt);
         } catch (Exception e) {
             return new ResponseEntity<Object>("{ \"error\": \"" + e.getMessage() + "\" }", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -78,7 +71,7 @@ public class AuthController {
         // generate hash
         byte[] hash = null;
         try {
-            hash = Security.generateHash("PBKDF2WithHmacSHA1", password, salt);
+            hash = Security.generateHash(algorithm, password, salt);
         } catch (Exception e) {
             return new ResponseEntity<String>("{ \"error\": \"" + e.getMessage() + "\" }", HttpStatus.INTERNAL_SERVER_ERROR);
         }
