@@ -11,6 +11,7 @@ import javax.crypto.spec.PBEKeySpec;
 
 import com.billing.model.User;
 import com.billing.repo.UserRepository;
+import com.billing.utils.Security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,76 +31,63 @@ public class AuthController {
     private UserRepository userRepository;
 
     @PostMapping(path = "/login")
-    public ResponseEntity<String> checkUserCredentials(@RequestBody User userCredentials) {
+    public ResponseEntity<Object> checkUserCredentials(@RequestBody User userCredentials) {
 
-        // findByUsername
+        // find user by username
         User foundUser = userRepository.findByUsername(userCredentials.getUsername());
 
-        // get the salt from the found user
-        String saltAsString = foundUser.getSalt();
-        byte[] salt = Base64.getEncoder().encode(saltAsString.getBytes());
-        
-        // get the password from coming credentials
+        // if no such username found
+        if (foundUser == null) {
+            return new ResponseEntity<Object>(false, HttpStatus.OK);
+        }
+
+        // get the plain password from the coming credentials
         String password = userCredentials.getPassword();
 
-        // start hashing the password
-        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
-
-        SecretKeyFactory factory = null;
-        try {
-            factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        } catch (NoSuchAlgorithmException e) {
-            return new ResponseEntity<String>("{ \"error\": \"" + e.getMessage() + "\" }", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
+        // get the salt from the found user as bytes
+        byte[] salt = Security.encode(foundUser.getSalt());
+        
+        // generate hash
         byte[] hash = null;
         try {
-            hash = factory.generateSecret(spec).getEncoded();
-        } catch (InvalidKeySpecException e) {
-            return new ResponseEntity<String>("{ \"error\": \"" + e.getMessage() + "\" }", HttpStatus.INTERNAL_SERVER_ERROR);
+            hash = Security.generateHash("PBKDF2WithHmacSHA1", password, salt);
+        } catch (Exception e) {
+            return new ResponseEntity<Object>("{ \"error\": \"" + e.getMessage() + "\" }", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        String hashAsString = new String(Base64.getDecoder().decode(hash));
-        
-        // compare hashes
-        if (userCredentials.getPassword().equals(hashAsString)) {
-            return new ResponseEntity<String>("{ \"message\": \"User credentials are valid\" }", HttpStatus.OK);
+        // get hashed password from found user
+        String hashedPassword = foundUser.getPassword();
+
+        // compare hashes as Strings
+        if (hashedPassword.equals(Security.decode(hash))) {
+            return new ResponseEntity<Object>(true, HttpStatus.OK);
         } else {
-            return new ResponseEntity<String>("{ \"message\": \"User credentials are invalid\" }", HttpStatus.OK);
+            return new ResponseEntity<Object>(false, HttpStatus.OK);
         }
     }
 
     @PostMapping(path = "/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
 
-        // generate salt
-        SecureRandom random = new SecureRandom();
-        byte[] salt = new byte[16];
-        random.nextBytes(salt);
+        // get user's plain password
+        String password = user.getPassword();
+        
+        // generate a random salt
+        byte[] salt = Security.generateSalt();
 
-        KeySpec spec = new PBEKeySpec(user.getPassword().toCharArray(), salt, 65536, 128);
-
-        SecretKeyFactory factory = null;
-        try {
-            factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        } catch (NoSuchAlgorithmException e) {
-            return new ResponseEntity<String>("{ \"error\": \"" + e.getMessage() + "\" }", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
+        // generate hash
         byte[] hash = null;
         try {
-            hash = factory.generateSecret(spec).getEncoded();
-        } catch (InvalidKeySpecException e) {
+            hash = Security.generateHash("PBKDF2WithHmacSHA1", password, salt);
+        } catch (Exception e) {
             return new ResponseEntity<String>("{ \"error\": \"" + e.getMessage() + "\" }", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        // set the user's hashed password
-        String hashAsString = new String(Base64.getDecoder().decode(hash));
-        user.setPassword(hashAsString);
+        // set the user's hashed password as String
+        user.setPassword(Security.decode(hash));
 
-        // set the salt
-        String saltAsString = new String(Base64.getDecoder().decode(salt));
-        user.setSalt(saltAsString);
+        // set the salt as String
+        user.setSalt(Security.decode(salt));
 
         // save user
         this.userRepository.save(user);
