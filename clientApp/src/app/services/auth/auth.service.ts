@@ -16,7 +16,7 @@ export class AuthService {
   private headers: HttpHeaders;
 
   get isLoggedIn(): boolean {
-    return !!this.currentUserLocalStorage;
+    return !!this.currentUserLocalStorage || !!this.currentUser;
   }
 
   get currentUserLocalStorage(): User {

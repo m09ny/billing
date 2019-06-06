@@ -37,6 +37,10 @@ export class LoginComponent implements OnInit {
         return;
       }
       /*
+        Save current user
+      */
+      this.authService.currentUser = user;
+      /*
         Save current user to broswer local storage
       */
       if (this.rememberMe) {
