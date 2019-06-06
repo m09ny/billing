@@ -21,12 +21,12 @@ public class OrderController {
     @Autowired
     private OrderRepository orderRepository;
 
-    @GetMapping(path="/")
+    @GetMapping(path = "/")
     public Iterable<Order> getOrders() {
         return orderRepository.findAll();
     }
 
-    @PostMapping(path="/")
+    @PostMapping(path = "/")
     public ResponseEntity<String> addOrder(@RequestBody Order order) {
         orderRepository.save(order);
         return new ResponseEntity<String>("{ \"message\": \"Created order successfully with id: " + order.getId() + "\" }",  HttpStatus.OK);

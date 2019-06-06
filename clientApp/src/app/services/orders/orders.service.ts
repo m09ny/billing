@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class OrdersService {
 
-  headers: HttpHeaders;
+  private headers: HttpHeaders;
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });

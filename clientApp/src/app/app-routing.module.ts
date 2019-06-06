@@ -8,14 +8,27 @@ import { Routes, RouterModule } from '@angular/router';
 import { AddOrderComponent } from './pages/add-order/add-order.component';
 import { MaterialsComponent } from './pages/materials/materials.component';
 import { MaterialResolverService } from './services/materials/material-resolver.service';
+import { AuthGuard } from './guards/auth/auth.guard';
+import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'orders', component: OrdersComponent, resolve: { resolvedOrdersData: OrderResolverService } },
-  { path: 'orders/add', component: AddOrderComponent },
-  { path: 'reports', component: ReportsComponent },
-  { path: 'contracts', component: ContractsComponent },
-  { path: 'materials', component: MaterialsComponent, resolve: { resolvedMaterialsData: MaterialResolverService } },
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'orders',
+    component: OrdersComponent,
+    resolve: { resolvedOrdersData: OrderResolverService },
+    canActivate: [AuthGuard]
+  },
+  { path: 'orders/add', component: AddOrderComponent, canActivate: [AuthGuard] },
+  { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
+  { path: 'contracts', component: ContractsComponent, canActivate: [AuthGuard] },
+  {
+    path: 'materials',
+    component: MaterialsComponent,
+    resolve: { resolvedMaterialsData: MaterialResolverService },
+    canActivate: [AuthGuard]
+  },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];

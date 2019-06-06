@@ -1,0 +1,27 @@
+<div class="container">
+  <form [formGroup]="userLoginForm" (ngSubmit)="onSubmitUserLoginForm()">
+    <div class="p-grid">
+      <div class="p-col-12" *ngIf="showErrorMessage">
+        Credentialele sunt incorecte.
+      </div>
+      <div class="p-col-4">
+        Utilizator:
+      </div>
+      <div class="p-col-8">
+        <input pInputText type="text" formControlName="username" size="40">
+      </div>
+      <div class="p-col-4">
+        Parola:
+      </div>
+      <div class="p-col-8">
+        <input pInputText type="text" formControlName="password" size="40">
+      </div>
+      <div class="p-col-12">
+        <p-checkbox [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}" binary="true" label="Tine-ma minte"></p-checkbox>
+      </div>
+      <div class="p-col-12">
+        <p-button label="Intra" type="submit" [disabled]="!userLoginForm.valid"></p-button>
+      </div>
+    </div>
+  </form>
+</div>

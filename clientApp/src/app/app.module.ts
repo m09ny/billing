@@ -13,6 +13,7 @@ import { StepsModule } from 'primeng/steps';
 import { DropdownModule } from 'primeng/dropdown';
 import { PickListModule } from 'primeng/picklist';
 import { DialogModule } from 'primeng/dialog';
+import { CheckboxModule } from 'primeng/checkbox';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +24,7 @@ import { ReportsComponent } from './pages/reports/reports.component';
 import { ContractsComponent } from './pages/contracts/contracts.component';
 import { AddOrderComponent } from './pages/add-order/add-order.component';
 import { MaterialsComponent } from './pages/materials/materials.component';
+import { LoginComponent } from './pages/login/login.component';
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import { MaterialsComponent } from './pages/materials/materials.component';
     ReportsComponent,
     ContractsComponent,
     AddOrderComponent,
-    MaterialsComponent
+    MaterialsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,8 @@ import { MaterialsComponent } from './pages/materials/materials.component';
     StepsModule,
     DropdownModule,
     PickListModule,
-    DialogModule
+    DialogModule,
+    CheckboxModule
   ],
   providers: [
     MaterialsService,

@@ -24,18 +24,18 @@ public class MaterialController {
     @Autowired
     private MaterialRepository materialRepository;
     
-    @GetMapping(path="/")
+    @GetMapping(path = "/")
     public Iterable<Material> getMaterials() {
         return materialRepository.findAll();
     }
 
-    @PostMapping(path="/")
+    @PostMapping(path = "/")
     public ResponseEntity<String> addMaterial(@RequestBody Material material) {
         materialRepository.save(material);
         return new ResponseEntity<String>("{ \"message\": \"Created material successfully with id: " + material.getId() + "\" }",  HttpStatus.OK);
     }
 
-    @PutMapping(path="/{id}")
+    @PutMapping(path = "/{id}")
     public ResponseEntity<String> updateMaterial(@PathVariable long id, @RequestBody Material material) {
         try {
             if (!materialRepository.existsById(id)) {
@@ -48,7 +48,7 @@ public class MaterialController {
         }
     }
 
-    @DeleteMapping(path="/{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> deleteMaterial(@PathVariable long id) {
         try {
             if (!materialRepository.existsById(id)) {
