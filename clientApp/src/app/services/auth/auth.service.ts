@@ -1,3 +1,4 @@
+import { UserCredentials } from './../../models/user-credentials';
 import { Observable } from 'rxjs/internal/Observable';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { User } from './../../models/user';
@@ -34,8 +35,8 @@ export class AuthService {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   }
 
-  login(user: User): Observable<boolean> {
-    return this.http.post<boolean>(environment.backendUrl + 'api/auth/login', user, { headers: this.headers });
+  login(credentials: UserCredentials): Observable<any> {
+    return this.http.post<any>(environment.backendUrl + 'api/auth/login', credentials, { headers: this.headers });
   }
 
   logout(): void {

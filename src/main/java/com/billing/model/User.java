@@ -1,5 +1,6 @@
 package com.billing.model;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,9 +15,8 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String username;
-
-    private String password;
+    @Embedded
+    private UserCredentials credentials;
 
     private String salt;
 
@@ -24,6 +24,14 @@ public class User {
 
     public long getId() {
         return id;
+    }
+
+    public UserCredentials getCredentials() {
+        return credentials;
+    }
+
+    public void setCredentials(UserCredentials credentials) {
+        this.credentials = credentials;
     }
 
     public String getSalt() {
@@ -40,22 +48,6 @@ public class User {
 
     public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public void setId(long id) {

@@ -12,7 +12,6 @@ export class AuthGuard implements CanActivate  {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
       if (this.authService.isLoggedIn) {
-        this.authService.currentUser = this.authService.currentUserLocalStorage;
         return true;
       }
       this.authService.redirectUrl = state.url;

@@ -1,6 +1,7 @@
 package com.billing.controller;
 
 import com.billing.model.User;
+import com.billing.model.UserCredentials;
 import com.billing.repo.UserRepository;
 import com.billing.utils.Security;
 
@@ -24,10 +25,10 @@ public class AuthController {
     private UserRepository userRepository;
 
     @PostMapping(path = "/login")
-    public ResponseEntity<Object> checkUserCredentials(@RequestBody User userCredentials) {
+    public ResponseEntity<Object> checkUserCredentials(@RequestBody UserCredentials credentials) {
 
         // find user by username
-        User foundUser = userRepository.findByUsername(userCredentials.getUsername());
+        User foundUser = userRepository.findByCredentialsUsername(credentials.getUsername());
 
         // if no such username found
         if (foundUser == null) {
@@ -35,7 +36,7 @@ public class AuthController {
         }
 
         // get the plain password from the coming credentials
-        String password = userCredentials.getPassword();
+        String password = credentials.getPassword();
 
         // get the salt from the found user as bytes
         byte[] salt = Security.encode(foundUser.getSalt());
@@ -49,11 +50,11 @@ public class AuthController {
         }
 
         // get hashed password from found user
-        String hashedPassword = foundUser.getPassword();
+        String hashedPassword = foundUser.getCredentials().getPassword();
 
         // compare hashes as Strings
         if (hashedPassword.equals(Security.decode(hash))) {
-            return new ResponseEntity<Object>(true, HttpStatus.OK);
+            return new ResponseEntity<Object>("{ \"username\": \"" + foundUser.getCredentials().getUsername() + "\", \"isAdmin\": \"" + foundUser.getIsAdmin() + "\" }", HttpStatus.OK);
         } else {
             return new ResponseEntity<Object>(false, HttpStatus.OK);
         }
@@ -63,7 +64,7 @@ public class AuthController {
     public ResponseEntity<String> registerUser(@RequestBody User user) {
 
         // get user's plain password
-        String password = user.getPassword();
+        String password = user.getCredentials().getPassword();
         
         // generate a random salt
         byte[] salt = Security.generateSalt();
@@ -77,7 +78,7 @@ public class AuthController {
         }
 
         // set the user's hashed password as String
-        user.setPassword(Security.decode(hash));
+        user.getCredentials().setPassword(Security.decode(hash));
 
         // set the salt as String
         user.setSalt(Security.decode(salt));

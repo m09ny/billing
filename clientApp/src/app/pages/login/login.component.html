@@ -6,7 +6,7 @@
         <div class="login-sub-wrapper">
           <form [formGroup]="userLoginForm" (ngSubmit)="onSubmitUserLoginForm()" autocomplete="off">
 
-            <div *ngIf="validAuth == false" class="invalid-user-errormessage">Your authentication information is incorrect.</div>
+            <div *ngIf="showErrorMessage" class="invalid-user-errormessage">Credentialele sunt incorecte.</div>
             <div class="login-inputs-container">
               <span class="ui-float-label login-input">
                 <input pInputText id="username" class="login-input" type="text" formControlName="username">

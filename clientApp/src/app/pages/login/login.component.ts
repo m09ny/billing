@@ -1,3 +1,4 @@
+import { UserCredentials } from './../../models/user-credentials';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -13,11 +14,12 @@ export class LoginComponent implements OnInit {
 
   userLoginForm = new FormGroup({
     username: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
-    isAdmin: new FormControl(false, Validators.required)
+    password: new FormControl('', Validators.required)
   });
 
   rememberMe = false;
+
+  isAdmin = false;
 
   showErrorMessage = false;
 
@@ -27,25 +29,25 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmitUserLoginForm(): void {
-    const user = this.userLoginForm.value;
+    const userCredentials = this.userLoginForm.value;
 
-    this.authService.login(user).subscribe(response => {
+    this.authService.login(userCredentials).subscribe(response => {
       /*
         If backend says the credentials are bad
       */
-      if (response === false) {
+      if (!response) {
         this.showErrorMessage = true;
         return;
       }
       /*
         Save current user
       */
-      this.authService.currentUser = user;
+      this.authService.currentUser = response;
       /*
         Save current user to broswer local storage
       */
       if (this.rememberMe) {
-        this.authService.currentUserLocalStorage = user;
+        this.authService.currentUserLocalStorage = response;
       }
       /*
         Check if the user wanted to navigate to a certain page and he was not logged in yet

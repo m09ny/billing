@@ -15,7 +15,10 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit() {
 
-    this.route.data.subscribe(data => this.orders = data.resolvedOrdersData);
+    this.route.data.subscribe(
+      data => this.orders = data.resolvedOrdersData,
+      error => console.log(error)
+    );
 
   }
 
