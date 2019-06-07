@@ -7,16 +7,29 @@
 
 .login-bg {
     width: 300px;
-    height: 220px;
+    height: 240px;
     position: relative;
     top: 30vh;
     align-items: center;
     background-color: white;
-    padding: 20px;
+    padding: 25px;
 }
 
 .invalid-user-errormessage {
     color: red;
     font-size: 12px;
     margin-bottom: 13px;
+}
+
+.login-input {
+    height: 32px;
+    width: 240px;
+    font-size: 14px;
+    border-width: 0.7px;
+}
+
+#remember-me {
+    height: 40px;
+    width: 100%;
+    font-size: 14px;
 }

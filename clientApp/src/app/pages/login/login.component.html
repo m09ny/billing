@@ -7,18 +7,18 @@
         </div>
         <div class="p-col-12">
           <span class="ui-float-label">
-            <input pInputText id="username" type="text" formControlName="username" size="30">
+            <input pInputText id="username" class="login-input" type="text" formControlName="username" size="30">
             <label for="username">Utilizator</label>
           </span>
         </div>
         <div class="p-col-12">
           <span class="ui-float-label">
-            <input pInputText id="password" type="password" formControlName="password" size="30">
+            <input pInputText id="password" class="login-input" type="password" formControlName="password" size="30">
             <label for="password">Parola</label>
           </span>
         </div>
         <div class="p-col-12">
-          <p-checkbox [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}" binary="true" label="Tine-ma minte"></p-checkbox>
+          <p-checkbox id="remember-me" [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}" binary="true" label="Tine-ma minte"></p-checkbox>
         </div>
         <div class="p-col-12">
           <p-button label="Intra" type="submit" [disabled]="!userLoginForm.valid"></p-button>
