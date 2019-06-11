@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 
-import com.billing.model.User;
+import com.billing.models.User;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {

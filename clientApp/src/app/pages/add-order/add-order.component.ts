@@ -7,7 +7,6 @@ import { MenuItem, } from 'primeng/api';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-add-order',
   templateUrl: './add-order.component.html',
   styleUrls: ['./add-order.component.css'],
   encapsulation: ViewEncapsulation.None

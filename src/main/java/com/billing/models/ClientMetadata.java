@@ -1,4 +1,4 @@
-package com.billing.model;
+package com.billing.models;
 
 import javax.persistence.AttributeOverrides;
 import javax.persistence.AttributeOverride;

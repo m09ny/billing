@@ -1,7 +1,7 @@
-package com.billing.controller;
+package com.billing.controllers;
 
-import com.billing.model.User;
-import com.billing.model.UserCredentials;
+import com.billing.models.User;
+import com.billing.models.UserCredentials;
 import com.billing.repo.UserRepository;
 import com.billing.utils.Security;
 

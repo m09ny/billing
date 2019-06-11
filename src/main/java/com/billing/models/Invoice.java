@@ -1,4 +1,4 @@
-package com.billing.model;
+package com.billing.models;
 
 import java.io.Serializable;
 

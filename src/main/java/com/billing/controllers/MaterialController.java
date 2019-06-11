@@ -1,6 +1,6 @@
-package com.billing.controller;
+package com.billing.controllers;
 
-import com.billing.model.Material;
+import com.billing.models.Material;
 import com.billing.repo.MaterialRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

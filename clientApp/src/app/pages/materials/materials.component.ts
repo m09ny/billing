@@ -6,7 +6,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-materials',
   templateUrl: './materials.component.html',
   styleUrls: ['./materials.component.css'],
   encapsulation: ViewEncapsulation.None

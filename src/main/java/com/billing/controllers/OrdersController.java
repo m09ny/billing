@@ -1,4 +1,4 @@
-package com.billing.controller;
+package com.billing.controllers;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.billing.model.Orders;
+import com.billing.models.Orders;
 import com.billing.repo.InvoiceRepository;
 import com.billing.repo.OrdersRepository;
 

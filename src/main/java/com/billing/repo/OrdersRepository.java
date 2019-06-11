@@ -9,8 +9,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.billing.model.Invoice;
-import com.billing.model.Orders;
+import com.billing.models.Invoice;
+import com.billing.models.Orders;
 
 public interface OrdersRepository  extends CrudRepository<Orders, Long> {
 	@Transactional

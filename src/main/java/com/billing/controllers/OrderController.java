@@ -1,6 +1,6 @@
-package com.billing.controller;
+package com.billing.controllers;
 
-import com.billing.model.Order;
+import com.billing.models.Order;
 import com.billing.repo.OrderRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

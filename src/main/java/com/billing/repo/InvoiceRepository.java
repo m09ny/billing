@@ -5,7 +5,7 @@ import java.util.Set;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.billing.model.Invoice;
+import com.billing.models.Invoice;
 
 public interface InvoiceRepository extends CrudRepository<Invoice, Long> {
 	@Transactional

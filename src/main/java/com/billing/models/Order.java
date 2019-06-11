@@ -1,4 +1,4 @@
-package com.billing.model;
+package com.billing.models;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;

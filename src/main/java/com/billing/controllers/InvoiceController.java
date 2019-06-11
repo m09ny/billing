@@ -1,4 +1,4 @@
-package com.billing.controller;
+package com.billing.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.billing.model.Invoice;
+import com.billing.models.Invoice;
 import com.billing.repo.InvoiceRepository;
 import com.billing.repo.OrdersRepository;
 
