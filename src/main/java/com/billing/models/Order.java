@@ -55,7 +55,7 @@ public class Order {
     private double bizotTotalPriceVat;
 
     @Formula(value = "")
-    private double MaterialTotalPrice;
+    private double materialTotalPrice;
 
     private double totalPrice;
 
@@ -83,11 +83,11 @@ public class Order {
     }
 
     public double getMaterialTotalPrice() {
-        return MaterialTotalPrice;
+        return materialTotalPrice;
     }
 
     public void setMaterialTotalPrice(double materialTotalPrice) {
-        this.MaterialTotalPrice = materialTotalPrice;
+        this.materialTotalPrice = materialTotalPrice;
     }
 
     public double getBizotTotalPriceVat() {
