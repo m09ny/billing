@@ -32,6 +32,10 @@ export class AuthService {
   }
 
   constructor(private http: HttpClient) {
+    if (!!this.currentUserLocalStorage) {
+      this.currentUser = this.currentUserLocalStorage;
+    }
+
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   }
 
