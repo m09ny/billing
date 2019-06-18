@@ -20,8 +20,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './directives/navbar/navbar.component';
 import { HomeComponent } from './pages/home/home.component';
 import { OrdersComponent } from './pages/orders/orders.component';
-import { ReportsComponent } from './pages/reports/reports.component';
-import { ContractsComponent } from './pages/contracts/contracts.component';
 import { AddOrderComponent } from './pages/orders/add-order/add-order.component';
 import { MaterialsComponent } from './pages/materials/materials.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -36,8 +34,6 @@ import { WorkmanshipService } from './services/workmanship/workmanship.service';
     NavbarComponent,
     HomeComponent,
     OrdersComponent,
-    ReportsComponent,
-    ContractsComponent,
     AddOrderComponent,
     MaterialsComponent,
     LoginComponent,

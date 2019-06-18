@@ -51,3 +51,11 @@ button[icon="pi pi-angle-double-left"] {
     text-align: center;
     padding: 35px;
 }
+
+#order-summary-table th {
+    text-align: center;
+}
+
+#order-summary-table td {
+    text-align: center;
+}

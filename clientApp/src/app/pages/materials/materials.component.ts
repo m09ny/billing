@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth/auth.service';
 import { SelectItem } from 'primeng/api';
 import { Material } from './../../models/material';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
@@ -38,7 +39,8 @@ export class MaterialsComponent implements OnInit {
     fullName: new FormControl(Validators.required)
   });
 
-  constructor(private materialsService: MaterialsService, private route: ActivatedRoute, private router: Router) {
+  constructor(private materialsService: MaterialsService, private route: ActivatedRoute,
+              private router: Router, private authService: AuthService) {
   }
 
   ngOnInit() {

@@ -113,7 +113,7 @@
         {{col.header}}
         <p-sortIcon [field]="col.field"></p-sortIcon>
       </th>
-      <th rowspan="2" style="width:95px; text-align:center;">
+      <th *ngIf="authService.currentUser.isAdmin" rowspan="2" style="width:95px; text-align:center;">
         <p-button type="button" icon="pi pi-plus" styleClass="ui-button-info" (click)="onMaterialAdd(rowData)"></p-button>
       </th>
     </tr>
@@ -133,7 +133,7 @@
       <td *ngFor="let col of columns">
         {{rowData[col.field]}}
       </td>
-      <td style="text-align:center">
+      <td *ngIf="authService.currentUser.isAdmin" style="text-align:center">
         <p-button type="button" icon="pi pi-pencil" styleClass="ui-button-info" (click)="onMaterialEdit(rowData)"></p-button>
         <p-button type="button" icon="pi pi-trash" styleClass="ui-button-danger" (click)="onMaterialDelete(rowData)"></p-button>
       </td>

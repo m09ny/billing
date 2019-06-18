@@ -23,15 +23,15 @@ export class AddOrderComponent implements OnInit {
 
   addOrderForm = new FormGroup({
     material: new FormGroup({
-      id: new FormControl(Validators.required),
-      type: new FormControl(Validators.required),
-      name: new FormControl(Validators.required),
-      thickness: new FormControl(Validators.required),
-      surface: new FormControl(Validators.required),
-      finish: new FormControl(Validators.required),
-      price: new FormControl(Validators.required),
-      priceVat: new FormControl(Validators.required),
-      fullName: new FormControl(Validators.required)
+      id: new FormControl('', Validators.required),
+      type: new FormControl('', Validators.required),
+      name: new FormControl('', Validators.required),
+      thickness: new FormControl('', Validators.required),
+      surface: new FormControl('', Validators.required),
+      finish: new FormControl('', Validators.required),
+      price: new FormControl('', Validators.required),
+      priceVat: new FormControl('', Validators.required),
+      fullName: new FormControl('', Validators.required)
     }),
     entries: new FormArray([]),
     entriesTotal: new FormGroup({
@@ -42,11 +42,11 @@ export class AddOrderComponent implements OnInit {
       totalArea: new FormControl({value: 0, disabled: true})
     }),
     workmanship: new FormGroup({
-      decupajeLavoare: new FormControl(Validators.required),
-      decupajePeCurb: new FormControl(Validators.required),
-      gauriCarota: new FormControl(Validators.required),
-      lipireAdaos: new FormControl(Validators.required),
-      canalAntiderapant: new FormControl(Validators.required),
+      decupajeLavoare: new FormControl('', Validators.required),
+      decupajePeCurb: new FormControl('', Validators.required),
+      gauriCarota: new FormControl('', Validators.required),
+      lipireAdaos: new FormControl('', Validators.required),
+      canalAntiderapant: new FormControl('', Validators.required),
     }),
     clientMetadata: new FormGroup({
       society: new FormControl('', Validators.required),
