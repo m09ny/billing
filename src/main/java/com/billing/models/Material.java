@@ -34,7 +34,7 @@ public class Material {
     private String fullName;
 
     @PostLoad
-    private void postLoad() {
+    private void onPostLoad() {
         this.fullName = this.type + " " + this.name + " " + this.thickness + "cm " + this.surface + " " + this.finish;
     }
 

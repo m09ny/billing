@@ -1,22 +1,28 @@
 package com.billing.models;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
+import javax.persistence.PostLoad;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
-import org.hibernate.annotations.Formula;
+import com.google.gson.Gson;
 
 @Entity
 @Table(name = "orders")
@@ -40,8 +46,11 @@ public class Order {
     @Embedded
     private ClientMetadata clientMetadata;
 
-    @ElementCollection
-    private Set<Entry> entries;
+    @Lob
+    private String entriesJson;
+
+    @Transient
+    private List<Entry> entries;
 
     @Embedded
     private EntriesTotal entriesTotal;
@@ -54,7 +63,6 @@ public class Order {
 
     private double bizotTotalPriceVat;
 
-    @Formula("material.priceVat * entriesTotal.totalArea")
     private double materialTotalPrice;
 
     private double totalPrice;
@@ -62,15 +70,43 @@ public class Order {
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
+    @PrePersist
+    private void onPrePersist() {
+        Gson gson = new Gson();
+        this.entriesJson = gson.toJson(this.entries);
+    }
+
+    @PostLoad
+    private void onPostLoad() {
+        Gson gson = new Gson();
+        this.entries = Arrays.asList(gson.fromJson(this.entriesJson, Entry[].class));
+    }
+
     public long getId() {
         return id;
     }
 
-    public Set<Entry> getEntries() {
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getEntriesJson() {
+        return entriesJson;
+    }
+
+    public void setEntriesJson(String entriesJson) {
+        this.entriesJson = entriesJson;
+    }
+
+    public List<Entry> getEntries() {
         return entries;
     }
 
-    public void setEntries(Set<Entry> entries) {
+    public void setEntries(List<Entry> entries) {
         this.entries = entries;
     }
 

@@ -1,8 +1,5 @@
 package com.billing.models;
 
-import javax.persistence.Embeddable;
-
-@Embeddable
 public class Entry {
 
     private double length;
