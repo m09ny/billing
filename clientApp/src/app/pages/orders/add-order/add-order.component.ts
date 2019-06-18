@@ -1,10 +1,10 @@
-import { OrdersService } from './../../services/orders/orders.service';
+import { OrdersService } from '../../../services/orders/orders.service';
 import { MaterialsService } from 'src/app/services/materials/materials.service';
-import { Material } from './../../models/material';
+import { Material } from '../../../models/material';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { MenuItem, } from 'primeng/api';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: './add-order.component.html',
@@ -41,6 +41,13 @@ export class AddOrderComponent implements OnInit {
       totalDraining: new FormControl({value: 0, disabled: true}),
       totalArea: new FormControl({value: 0, disabled: true})
     }),
+    workmanship: new FormGroup({
+      decupajeLavoare: new FormControl(Validators.required),
+      decupajePeCurb: new FormControl(Validators.required),
+      gauriCarota: new FormControl(Validators.required),
+      lipireAdaos: new FormControl(Validators.required),
+      canalAntiderapant: new FormControl(Validators.required),
+    }),
     clientMetadata: new FormGroup({
       society: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
@@ -62,7 +69,8 @@ export class AddOrderComponent implements OnInit {
     })
   });
 
-  constructor(private materialsService: MaterialsService, private ordersService: OrdersService, private router: Router ) { }
+  constructor(private materialsService: MaterialsService, private ordersService: OrdersService,
+              private router: Router, private route: ActivatedRoute ) { }
 
   ngOnInit() {
     this.stepItems = [
@@ -79,20 +87,26 @@ export class AddOrderComponent implements OnInit {
         }
       },
       {
-        label: 'Informatii client',
+        label: 'Manopera',
         command: (event: any) => {
           this.activeIndex = 2;
         }
       },
       {
-        label: 'Finalizare comanda',
+        label: 'Informatii client',
         command: (event: any) => {
           this.activeIndex = 3;
+        }
+      },
+      {
+        label: 'Finalizare comanda',
+        command: (event: any) => {
+          this.activeIndex = 4;
         }
       }
     ];
 
-    this.materialsService.getMaterials().subscribe(materials => this.materials = materials);
+    this.route.data.subscribe(data => { this.materials = data.resolvedMaterialsData; });
 
     this.selectedMaterials = [];
   }

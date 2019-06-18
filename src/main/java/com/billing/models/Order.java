@@ -1,6 +1,6 @@
 package com.billing.models;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -54,7 +54,7 @@ public class Order {
 
     private double bizotTotalPriceVat;
 
-    @Formula(value = "")
+    @Formula("material.priceVat * entriesTotal.totalArea")
     private double materialTotalPrice;
 
     private double totalPrice;

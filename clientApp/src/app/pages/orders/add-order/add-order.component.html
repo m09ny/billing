@@ -19,10 +19,10 @@
     </div>
   </div>
   <div *ngIf="activeIndex === 1">
-    <p-table id="newEntriesTable" [value]="addOrderForm.controls['entries'].controls" >
+    <p-table id="newEntriesTable" [value]="addOrderForm.controls['entries'].controls">
       <ng-template pTemplate="caption">
         <div>
-          <p-button label="Intrare noua" icon="pi pi-plus" iconPos="left" (onClick)="onAddEntry()"></p-button>
+          <p-button type="button" label="Intrare noua" icon="pi pi-plus" iconPos="left" (onClick)="onAddEntry()"></p-button>
         </div>
       </ng-template>
       <ng-template pTemplate="header">
@@ -88,6 +88,42 @@
     </p-table>
   </div>
   <div *ngIf="activeIndex === 2">
+    <div class="container">
+      <div class="p-grid">
+        <div class="p-col-2">
+          Decupaje lavoare
+        </div>
+        <div class="p-col-10">
+          <input pInputText type="number" [formControl]="addOrderForm.controls['workmanship'].controls['decupajeLavoare']">
+        </div>
+        <div class="p-col-2">
+          Decupaje pe curb
+        </div>
+        <div class="p-col-10">
+          <input pInputText type="number" [formControl]="addOrderForm.controls['workmanship'].controls['decupajePeCurb']">
+        </div>
+        <div class="p-col-2">
+          Gauri carota
+        </div>
+        <div class="p-col-10">
+          <input pInputText type="number" [formControl]="addOrderForm.controls['workmanship'].controls['gauriCarota']">
+        </div>
+        <div class="p-col-2">
+          Lipire adaos
+        </div>
+        <div class="p-col-10">
+          <input pInputText type="number" [formControl]="addOrderForm.controls['workmanship'].controls['lipireAdaos']">
+        </div>
+        <div class="p-col-2">
+          Canal antiderapant
+        </div>
+        <div class="p-col-10">
+          <input pInputText type="number" [formControl]="addOrderForm.controls['workmanship'].controls['canalAntiderapant']">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="activeIndex === 3">
     <div class="container">
       <div class="p-grid">
         <div class="p-col-2">
@@ -167,7 +203,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="activeIndex === 3">
+  <div *ngIf="activeIndex === 4">
     <div class="p-grid">
       <div class="p-col-6">
         <div class="p-grid">

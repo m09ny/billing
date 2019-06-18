@@ -20,6 +20,6 @@ export class OrdersService {
   }
 
   addOrder(order: Order): Observable<string> {
-    return this.http.post<string>(environment.backendUrl + 'api/materials/', order, { headers: this.headers });
+    return this.http.post<string>(environment.backendUrl + 'api/orders/', order, { headers: this.headers });
   }
 }

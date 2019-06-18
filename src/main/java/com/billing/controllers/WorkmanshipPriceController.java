@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin
 @RestController
-@RequestMapping(path = "/api/workmanshipPrice")
+@RequestMapping(path = "/api/workmanship/price")
 public class WorkmanshipPriceController {
 
     @Autowired

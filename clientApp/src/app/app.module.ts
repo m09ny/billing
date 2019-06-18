@@ -22,9 +22,12 @@ import { HomeComponent } from './pages/home/home.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { ContractsComponent } from './pages/contracts/contracts.component';
-import { AddOrderComponent } from './pages/add-order/add-order.component';
+import { AddOrderComponent } from './pages/orders/add-order/add-order.component';
 import { MaterialsComponent } from './pages/materials/materials.component';
 import { LoginComponent } from './pages/login/login.component';
+import { WorkmanshipPricesComponent } from './pages/workmanship-prices/workmanship-prices.component';
+import { AuthService } from './services/auth/auth.service';
+import { WorkmanshipService } from './services/workmanship/workmanship.service';
 
 
 @NgModule({
@@ -37,7 +40,8 @@ import { LoginComponent } from './pages/login/login.component';
     ContractsComponent,
     AddOrderComponent,
     MaterialsComponent,
-    LoginComponent
+    LoginComponent,
+    WorkmanshipPricesComponent
   ],
   imports: [
     BrowserModule,
@@ -56,8 +60,10 @@ import { LoginComponent } from './pages/login/login.component';
     CheckboxModule
   ],
   providers: [
+    AuthService,
     MaterialsService,
-    OrdersService
+    OrdersService,
+    WorkmanshipService
   ],
   bootstrap: [AppComponent]
 })

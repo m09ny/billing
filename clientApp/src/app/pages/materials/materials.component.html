@@ -106,7 +106,7 @@
     </div>
   </form>
 </p-dialog>
-<p-table id="materialsTable" #materialsTable [columns]="materialsTableCols" [value]="materials" dataKey="id" sortMode="multiple" editMode="row">
+<p-table id="materialsTable" #materialsTable [columns]="materialsTableCols" [value]="materials" dataKey="id" sortMode="multiple">
   <ng-template pTemplate="header" let-columns>
     <tr>
       <th *ngFor="let col of columns" [pSortableColumn]="col.field" style="text-align: center">
