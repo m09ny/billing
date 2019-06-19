@@ -1,3 +1,4 @@
+import { AddOrderGuard } from './guards/add-order/add-order.guard';
 import { WorkmanshipPricesComponent } from './pages/workmanship-prices/workmanship-prices.component';
 import { OrderResolverService } from './services/orders/order-resolver.service';
 import { OrdersComponent } from './pages/orders/orders.component';
@@ -16,8 +17,17 @@ const routes: Routes = [
   { path: 'orders',
     canActivate: [AuthGuard],
     children: [
-      { path: '', component: OrdersComponent, resolve: { resolvedOrdersData: OrderResolverService } },
-      { path: 'add', component: AddOrderComponent, resolve: { resolvedMaterialsData: MaterialResolverService } }
+      {
+        path: '',
+        component: OrdersComponent,
+        resolve: { resolvedOrdersData: OrderResolverService }
+      },
+      {
+        path: 'add',
+        component: AddOrderComponent,
+        resolve: { resolvedMaterialsData: MaterialResolverService },
+        canDeactivate: [AddOrderGuard]
+      }
     ]
   },
   {
@@ -26,7 +36,11 @@ const routes: Routes = [
     resolve: { resolvedMaterialsData: MaterialResolverService },
     canActivate: [AuthGuard]
   },
-  { path: 'workmanship/prices', component: WorkmanshipPricesComponent, canActivate: [AuthGuard] },
+  {
+    path: 'workmanship/prices',
+    component: WorkmanshipPricesComponent,
+    canActivate: [AuthGuard]
+  },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];

@@ -206,7 +206,7 @@
   <div *ngIf="activeIndex === 4">
     <div class="container">
       <div class="p-grid">
-        <div class="p-col-12">
+        <div class="p-col-10">
           <div class="p-grid">
             <div class="p-col-4" style="text-align: end">Societatea:</div>
             <div class="p-col-8"><b>{{addOrderForm.value.clientMetadata.society}}</b></div>
@@ -240,15 +240,18 @@
             </div>
           </div>
         </div>
+        <div class="p-col-2">
+          <p-button label="Finalizare comanda" type="submit" icon="pi pi-angle-double-right" [disabled]="!addOrderForm.valid"></p-button>
+        </div>
         <div class="p-col-12">
           <div class="container" style="padding-top: 40px">
             <table id="order-summary-table" class="table table-striped table-sm table-bordered">
-              <thead class="table-dark">
-                <tr>
+              <thead>
+                <tr class="thead-dark">
                   <th colspan="2">Material</th>
                   <th colspan="5">{{addOrderForm.value.material.fullName}}</th>
                 </tr>
-                <tr>
+                <tr class="table-secondary">
                   <th colspan="1" rowspan="2"></th>
                   <th colspan="1" rowspan="2"></th>
                   <th colspan="1">Taiere (m<sup>2</sup>)</th>
@@ -257,12 +260,12 @@
                   <th colspan="2">Numar de bucati total</th>
                 </tr>
                 <tr>
-                  <th colspan="1">{{addOrderForm.controls['entriesTotal'].controls['totalArea'].value}}</th>
-                  <th colspan="1">{{addOrderForm.controls['entriesTotal'].controls['totalProfiling'].value}}</th>
-                  <th colspan="1">{{addOrderForm.controls['entriesTotal'].controls['totalDraining'].value}}</th>
-                  <th colspan="2">{{addOrderForm.controls['entriesTotal'].controls['totalPiecesNumber'].value}}</th>
+                  <td colspan="1">{{addOrderForm.controls['entriesTotal'].controls['totalArea'].value}}</td>
+                  <td colspan="1">{{addOrderForm.controls['entriesTotal'].controls['totalProfiling'].value}}</td>
+                  <td colspan="1">{{addOrderForm.controls['entriesTotal'].controls['totalDraining'].value}}</td>
+                  <td colspan="2">{{addOrderForm.controls['entriesTotal'].controls['totalPiecesNumber'].value}}</td>
                 </tr>
-                <tr>
+                <tr class="table-secondary">
                   <th colspan="1">#</th>
                   <th colspan="2">Lungime (cm)</th>
                   <th colspan="2">Latime (cm)</th>
@@ -278,28 +281,52 @@
                 </tr>
               </tbody>
               <tfoot>
-                <tr>
-                  <td colspan="5">Decupaje lavoare (bucati)</td>
-                  <td colspan="2">{{addOrderForm.value.workmanship.decupajeLavoare}}</td>
+                <tr class="thead-dark">
+                  <th colspan="7"></th>
+                </tr>
+                <tr class="table-secondary">
+                  <th colspan="1" rowspan="6"></th>
+                  <th colspan="1" rowspan="2"></th>
+                  <th colspan="1">Decupaje lavoare</th>
+                  <th colspan="1">Decupaje pe curb</th>
+                  <th colspan="1">Gauri carota</th>
+                  <th colspan="1">Lipire adaos</th>
+                  <th colspan="1">Canal antiderapant</th>
                 </tr>
                 <tr>
-                  <td colspan="5">Decupaje pe curb (ML)</td>
-                  <td colspan="2">{{addOrderForm.value.workmanship.decupajePeCurb}}</td>
+                  <td colspan="1">{{addOrderForm.value.workmanship.decupajeLavoare}} bucati</td>
+                  <td colspan="1">{{addOrderForm.value.workmanship.decupajePeCurb}} ML</td>
+                  <td colspan="1">{{addOrderForm.value.workmanship.gauriCarota}} bucati</td>
+                  <td colspan="1">{{addOrderForm.value.workmanship.lipireAdaos}} ML</td>
+                  <td colspan="1">{{addOrderForm.value.workmanship.canalAntiderapant}} ML</td>
+                </tr>
+                <tr class="table-secondary">
+                  <th colspan="3">Semibaston</th>
+                  <th colspan="3">Bizot</th>
                 </tr>
                 <tr>
-                  <td colspan="5">Gauri carota (bucati)</td>
-                  <td colspan="2">{{addOrderForm.value.workmanship.gauriCarota}}</td>
+                  <th colspan="2">Manopera finisaj</th>
+                  <td colspan="1">{{addOrderForm.value.semibastonWorkmanshipPrice}} lei</td>
+                  <th colspan="2">Manopera finisaj</th>
+                  <td colspan="1">{{addOrderForm.value.bizotWorkmanshipPrice}} lei</td>
                 </tr>
                 <tr>
-                  <td colspan="5">Lipire adaos (ML)</td>
-                  <td colspan="2">{{addOrderForm.value.workmanship.lipireAdaos}}</td>
+                  <th colspan="2">Semibaston total general fara TVA</th>
+                  <td colspan="1">{{addOrderForm.value.semibastonTotalPrice}} lei</td>
+                  <th colspan="2">Bizot total general fara TVA</th>
+                  <td colspan="1">{{addOrderForm.value.bizotTotalPrice}} lei</td>
                 </tr>
                 <tr>
-                  <td colspan="5">Canal antiderapant (ML)</td>
-                  <td colspan="2">{{addOrderForm.value.workmanship.canalAntiderapant}}</td>
+                  <th colspan="2">Semibaston total general cu TVA</th>
+                  <td colspan="1">{{addOrderForm.value.semibastonTotalPriceVat}} lei</td>
+                  <th colspan="2">Bizot total general cu TVA</th>
+                  <td colspan="1">{{addOrderForm.value.bizotTotalPriceVat}} lei</td>
                 </tr>
                 <tr class="thead-dark">
-                  <th colspan="7" style="text-align: end">Total: 4343 lei</th>
+                  <th colspan="7" style="text-align: end">Total Material: {{addOrderForm.value.materialTotalPrice}} lei</th>
+                </tr>
+                <tr class="thead-dark">
+                  <th colspan="7" style="text-align: end">Total: {{addOrderForm.value.totalPrice}} lei</th>
                 </tr>
               </tfoot>
             </table>

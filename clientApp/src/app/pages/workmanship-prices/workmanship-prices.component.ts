@@ -1,4 +1,4 @@
-import { WorkmanshipService } from './../../services/workmanship/workmanship.service';
+import { WorkmanshipPriceService } from './../../services/workmanship-price/workmanship-price.service';
 import { WorkmanshipPrice } from './../../models/workmanship-price';
 import { Component, OnInit } from '@angular/core';
 
@@ -13,7 +13,7 @@ export class WorkmanshipPricesComponent implements OnInit {
 
   workmanshipPricesTableCols: any[];
 
-  constructor(private workmanshipService: WorkmanshipService) { }
+  constructor(private workmanshipPriceService: WorkmanshipPriceService) { }
 
   ngOnInit() {
     this.workmanshipPricesTableCols = [
@@ -21,7 +21,7 @@ export class WorkmanshipPricesComponent implements OnInit {
       { field: 'price', header: 'Pret' }
     ];
 
-    this.workmanshipService.getWorkmanshipPrices().subscribe(prices => {
+    this.workmanshipPriceService.getWorkmanshipPrices().subscribe(prices => {
       this.workmanshipPrices = prices;
     });
   }

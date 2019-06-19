@@ -14,6 +14,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { PickListModule } from 'primeng/picklist';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,7 +26,8 @@ import { MaterialsComponent } from './pages/materials/materials.component';
 import { LoginComponent } from './pages/login/login.component';
 import { WorkmanshipPricesComponent } from './pages/workmanship-prices/workmanship-prices.component';
 import { AuthService } from './services/auth/auth.service';
-import { WorkmanshipService } from './services/workmanship/workmanship.service';
+import { WorkmanshipPriceService } from './services/workmanship-price/workmanship-price.service';
+import { ConfirmationService } from 'primeng/api';
 
 
 @NgModule({
@@ -53,13 +55,15 @@ import { WorkmanshipService } from './services/workmanship/workmanship.service';
     DropdownModule,
     PickListModule,
     DialogModule,
-    CheckboxModule
+    CheckboxModule,
+    ConfirmDialogModule
   ],
   providers: [
     AuthService,
     MaterialsService,
     OrdersService,
-    WorkmanshipService
+    WorkmanshipPriceService,
+    ConfirmationService
   ],
   bootstrap: [AppComponent]
 })
