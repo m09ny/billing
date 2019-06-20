@@ -3,7 +3,7 @@ package com.billing.controllers;
 import com.billing.models.User;
 import com.billing.models.UserCredentials;
 import com.billing.repo.UserRepository;
-import com.billing.utils.Security;
+import com.billing.services.SecurityService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +24,12 @@ public class AuthController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private SecurityService securityService;
+
     @PostMapping(path = "/login")
     public ResponseEntity<Object> checkUserCredentials(@RequestBody UserCredentials credentials) {
-
+        
         // find user by username
         User foundUser = userRepository.findByCredentialsUsername(credentials.getUsername());
 
@@ -39,12 +42,12 @@ public class AuthController {
         String password = credentials.getPassword();
 
         // get the salt from the found user as bytes
-        byte[] salt = Security.encode(foundUser.getSalt());
+        byte[] salt = securityService.encode(foundUser.getSalt());
         
         // generate hash
         byte[] hash = null;
         try {
-            hash = Security.generateHash(algorithm, password, salt);
+            hash = securityService.generateHash(algorithm, password, salt);
         } catch (Exception e) {
             return new ResponseEntity<Object>("{ \"error\": \"" + e.getMessage() + "\" }", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -53,7 +56,7 @@ public class AuthController {
         String hashedPassword = foundUser.getCredentials().getPassword();
 
         // compare hashes as Strings
-        if (hashedPassword.equals(Security.decode(hash))) {
+        if (hashedPassword.equals(securityService.decode(hash))) {
             return new ResponseEntity<Object>("{ \"username\": \"" + foundUser.getCredentials().getUsername() + "\", \"isAdmin\": \"" + foundUser.getIsAdmin() + "\" }", HttpStatus.OK);
         } else {
             return new ResponseEntity<Object>(false, HttpStatus.OK);
@@ -67,21 +70,21 @@ public class AuthController {
         String password = user.getCredentials().getPassword();
         
         // generate a random salt
-        byte[] salt = Security.generateSalt();
+        byte[] salt = securityService.generateSalt();
 
         // generate hash
         byte[] hash = null;
         try {
-            hash = Security.generateHash(algorithm, password, salt);
+            hash = securityService.generateHash(algorithm, password, salt);
         } catch (Exception e) {
             return new ResponseEntity<String>("{ \"error\": \"" + e.getMessage() + "\" }", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         // set the user's hashed password as String
-        user.getCredentials().setPassword(Security.decode(hash));
+        user.getCredentials().setPassword(securityService.decode(hash));
 
         // set the salt as String
-        user.setSalt(Security.decode(salt));
+        user.setSalt(securityService.decode(salt));
 
         // save user
         this.userRepository.save(user);

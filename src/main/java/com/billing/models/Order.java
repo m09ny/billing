@@ -76,6 +76,14 @@ public class Order {
     private void onPrePersist() {
         Gson gson = new Gson();
         this.entriesJson = gson.toJson(this.entries);
+
+        this.creationDate = new Date();
+    }
+
+    @PostLoad
+    private void onPostLoad() {
+        Gson gson = new Gson();
+        this.entries = Arrays.asList(gson.fromJson(this.entriesJson, Entry[].class));
     }
 
     public Date getCreationDate() {
@@ -100,12 +108,6 @@ public class Order {
 
     public void setSemibastonWorkmanshipPrice(double semibastonWorkmanshipPrice) {
         this.semibastonWorkmanshipPrice = semibastonWorkmanshipPrice;
-    }
-
-    @PostLoad
-    private void onPostLoad() {
-        Gson gson = new Gson();
-        this.entries = Arrays.asList(gson.fromJson(this.entriesJson, Entry[].class));
     }
 
     public long getId() {

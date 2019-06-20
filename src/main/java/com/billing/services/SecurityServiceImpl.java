@@ -1,4 +1,4 @@
-package com.billing.utils;
+package com.billing.services;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -9,16 +9,19 @@ import java.util.Base64;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-public class Security {
+import org.springframework.stereotype.Service;
 
-    public static byte[] generateSalt() {
+@Service
+public class SecurityServiceImpl implements SecurityService {
+
+    public byte[] generateSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);
         return salt;
     }
 
-    public static byte[] generateHash(String algorithm, String plainText, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public byte[] generateHash(String algorithm, String plainText, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
         
         if (plainText == null) {
             throw new NullPointerException("Parameter plainText is null");
@@ -52,11 +55,11 @@ public class Security {
         return hash;
     }
 
-    public static String decode(byte[] byteArray) {
+    public String decode(byte[] byteArray) {
         return Base64.getEncoder().encodeToString(byteArray);
     }
 
-    public static byte[] encode(String string) {
+    public byte[] encode(String string) {
         return Base64.getDecoder().decode(string);
     }
 
