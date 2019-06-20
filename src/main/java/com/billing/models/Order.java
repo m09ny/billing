@@ -1,10 +1,8 @@
 package com.billing.models;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
@@ -55,6 +53,10 @@ public class Order {
     @Embedded
     private EntriesTotal entriesTotal;
 
+    private double semibastonWorkmanshipPrice;
+
+    private double bizotWorkmanshipPrice;
+
     private double semibastonTotalPrice;
 
     private double semibastonTotalPriceVat;
@@ -67,13 +69,37 @@ public class Order {
 
     private double totalPrice;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date timestamp;
+    @Temporal(TemporalType.DATE)
+    private Date creationDate;
 
     @PrePersist
     private void onPrePersist() {
         Gson gson = new Gson();
         this.entriesJson = gson.toJson(this.entries);
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public double getBizotWorkmanshipPrice() {
+        return bizotWorkmanshipPrice;
+    }
+
+    public void setBizotWorkmanshipPrice(double bizotWorkmanshipPrice) {
+        this.bizotWorkmanshipPrice = bizotWorkmanshipPrice;
+    }
+
+    public double getSemibastonWorkmanshipPrice() {
+        return semibastonWorkmanshipPrice;
+    }
+
+    public void setSemibastonWorkmanshipPrice(double semibastonWorkmanshipPrice) {
+        this.semibastonWorkmanshipPrice = semibastonWorkmanshipPrice;
     }
 
     @PostLoad
@@ -84,14 +110,6 @@ public class Order {
 
     public long getId() {
         return id;
-    }
-
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
     }
 
     public String getEntriesJson() {

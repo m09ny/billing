@@ -2,7 +2,7 @@ import { OrdersService } from '../../../services/orders/orders.service';
 import { Material } from '../../../models/material';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { MenuItem, ConfirmationService } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -76,6 +76,8 @@ export class AddOrderComponent implements OnInit {
     totalPrice: new FormControl('', Validators.required)
   });
 
+  isAddOrderFormSubmitted = false;
+
   constructor(private ordersService: OrdersService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -129,11 +131,11 @@ export class AddOrderComponent implements OnInit {
     this.ordersService.addOrder(this.addOrderForm.value).subscribe(
       response => {
         console.log(response);
+        this.isAddOrderFormSubmitted = true;
+        this.router.navigate(['/orders']);
       },
       error => console.log(error)
     );
-
-    this.router.navigate(['/orders']);
   }
 
   isAddOrderFormDirty(): boolean {
