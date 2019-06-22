@@ -12,9 +12,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AddOrderComponent implements OnInit {
 
-  stepItems: MenuItem[];
-
   activeIndex = 0;
+
+  stepItems: MenuItem[];
 
   materials: Material[];
 
@@ -128,6 +128,7 @@ export class AddOrderComponent implements OnInit {
   }
 
   onSubmitAddOrderForm(): void {
+    this.addOrderForm.get('entriesTotal').enable();
     this.ordersService.addOrder(this.addOrderForm.value).subscribe(
       response => {
         console.log(response);

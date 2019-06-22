@@ -1,15 +1,20 @@
-<p-table [columns]="workmanshipPricesTableCols" [value]="workmanshipPrices">
+<p-table id="workmanshipPricesTable" [value]="workmanshipPrices">
   <ng-template pTemplate="header">
     <tr>
-      <th *ngFor="let col of cols">
-        {{col.header}}
-      </th>
+        <th>Nume</th>
+        <th>Pret (lei)</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-workmanshipPrice>
     <tr>
-      <td *ngFor="let col of cols">
-        {{workmanshipPrice[col.field]}}
+      <td>
+        {{workmanshipPrice.name}}
+      </td>
+      <td>
+        {{workmanshipPrice.price}}
+      </td>
+      <td *ngIf="authService.currentUser.isAdmin" style="text-align: center">
+        <p-button type="button" icon="pi pi-pencil" styleClass="ui-button-info" (click)="onWorkmanshipEdit(workmanshipPrice)"></p-button>
       </td>
     </tr>
   </ng-template>

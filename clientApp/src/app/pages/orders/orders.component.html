@@ -1,1 +1,30 @@
-
+<p-table id="ordersTable" #ordersTable [columns]="ordersTableCols" [value]="orders" dataKey="id" sortMode="multiple">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field" style="text-align: center">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+            <th rowspan="2" style="width: 55px"></th>
+        </tr>
+        <tr>
+            <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                <input *ngSwitchCase="'society'" pInputText type="text" (input)="ordersTable.filter($event.target.value, col.field, col.filterMatchMode)">
+                <input *ngSwitchCase="'tel'" pInputText type="text" (input)="ordersTable.filter($event.target.value, col.field, col.filterMatchMode)">
+                <input *ngSwitchCase="'creationDate'" pInputText type="text" (input)="ordersTable.filter($event.target.value, col.field, col.filterMatchMode)">
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-order>
+        <tr>
+            <td>{{order.id}}</td>
+            <td>{{order.clientMetadata.society}}</td>
+            <td>{{order.clientMetadata.tel}}</td>
+            <td>{{order.totalPrice}}</td>
+            <td>{{order.creationDate}}</td>
+            <td style="text-align: center">
+                <p-button type="button" icon="pi pi-search" styleClass="ui-button-info" (click)="onOrderShow(order)"></p-button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

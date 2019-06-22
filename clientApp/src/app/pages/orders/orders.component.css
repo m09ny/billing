@@ -1,0 +1,7 @@
+#ordersTable input {
+    width: 100%;
+}
+
+#ordersTable table {
+   table-layout: auto !important;
+}

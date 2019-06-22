@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavigationStart, NavigationEnd, NavigationCancel, NavigationError, Router, Event } from '@angular/router';
+import { Router, Event, ResolveStart, ResolveEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,14 +15,15 @@ export class AppComponent {
     });
   }
 
+  /* not NavigationStart because there is no reason to show the spinner
+  if the user is still blocked by the guards. He first needs to pass the
+  GuardsCheckEnd event and then he gets to the ResolveStart event */
   checkRouterEvent(routerEvent: Event): void {
-    if (routerEvent instanceof NavigationStart) {
+    if (routerEvent instanceof ResolveStart) {
       this.loading = true;
     }
 
-    if (routerEvent instanceof NavigationEnd ||
-        routerEvent instanceof NavigationCancel ||
-        routerEvent instanceof NavigationError) {
+    if (routerEvent instanceof ResolveEnd) {
       this.loading = false;
     }
   }

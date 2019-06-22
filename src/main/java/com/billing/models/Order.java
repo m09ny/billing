@@ -34,7 +34,7 @@ public class Order {
      * Foreign Key - "material_id" is a column in "orders" table, that reffers to
      * the primary key "id" in the "materials" table
      */
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn(name = "material_id")
     private Material material;
 
