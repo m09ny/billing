@@ -19,8 +19,13 @@ export class OrdersService {
     return this.http.get<Order[]>(environment.backendUrl + 'api/orders/');
   }
 
+  getOrder(id: number): Observable<Order> {
+    return this.http.get<Order>(environment.backendUrl + 'api/orders/' + id);
+  }
+
   addOrder(order: Order): Observable<string> {
     console.log(JSON.stringify(order));
     return this.http.post<string>(environment.backendUrl + 'api/orders/', order, { headers: this.headers });
   }
+
 }

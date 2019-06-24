@@ -8,4 +8,6 @@ import com.billing.models.Material;
 @Repository
 public interface MaterialRepository extends CrudRepository<Material, Long> {
     
+    Iterable<Material> findAllByOrderByIdAsc();
+
 }

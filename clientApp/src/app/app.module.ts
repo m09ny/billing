@@ -28,6 +28,8 @@ import { WorkmanshipPricesComponent } from './pages/workmanship-prices/workmansh
 import { AuthService } from './services/auth/auth.service';
 import { WorkmanshipPriceService } from './services/workmanship-price/workmanship-price.service';
 import { ConfirmationService } from 'primeng/api';
+import { ViewOrderComponent } from './pages/orders/view-order/view-order.component';
+import { OrderSummaryComponent } from './directives/order-summary/order-summary.component';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { ConfirmationService } from 'primeng/api';
     AddOrderComponent,
     MaterialsComponent,
     LoginComponent,
-    WorkmanshipPricesComponent
+    WorkmanshipPricesComponent,
+    ViewOrderComponent,
+    OrderSummaryComponent
   ],
   imports: [
     BrowserModule,

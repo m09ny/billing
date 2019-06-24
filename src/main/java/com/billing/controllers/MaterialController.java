@@ -26,7 +26,7 @@ public class MaterialController {
     
     @GetMapping(path = "/")
     public Iterable<Material> getMaterials() {
-        return materialRepository.findAll();
+        return materialRepository.findAllByOrderByIdAsc();
     }
 
     @PostMapping(path = "/")

@@ -134,7 +134,7 @@
         {{rowData[col.field]}}
       </td>
       <td *ngIf="authService.currentUser.isAdmin" style="text-align: center">
-        <p-button type="button" icon="pi pi-pencil" styleClass="ui-button-info" (click)="onMaterialEdit(rowData)"></p-button>
+        <p-button type="button" icon="pi pi-pencil" styleClass="ui-button-warning" (click)="onMaterialEdit(rowData)"></p-button>
         <p-button type="button" icon="pi pi-trash" styleClass="ui-button-danger" (click)="onMaterialDelete(rowData)"></p-button>
       </td>
     </tr>

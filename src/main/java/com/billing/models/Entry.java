@@ -2,25 +2,11 @@ package com.billing.models;
 
 public class Entry {
 
-    private double length;
+    private Dimension dimension;
 
-    private double width;
+    private Profiling profiling;
 
-    private double profilingL1;
-
-    private double profilingL2;
-
-    private double profilingIstg;
-
-    private double profilingIdr;
-
-    private double drainerL1;
-
-    private double drainerL2;
-
-    private double drainerIstg;
-
-    private double drainerIdr;
+    private Drainer drainer;
 
     private double piecesNumber;
 
@@ -30,12 +16,32 @@ public class Entry {
 
     private double area;
 
-    public double getLength() {
-        return length;
-    }
-
     public double getArea() {
         return area;
+    }
+
+    public Drainer getDrainer() {
+        return drainer;
+    }
+
+    public void setDrainer(Drainer drainer) {
+        this.drainer = drainer;
+    }
+
+    public Profiling getProfiling() {
+        return profiling;
+    }
+
+    public void setProfiling(Profiling profiling) {
+        this.profiling = profiling;
+    }
+
+    public Dimension getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(Dimension dimension) {
+        this.dimension = dimension;
     }
 
     public void setArea(double area) {
@@ -64,81 +70,5 @@ public class Entry {
 
     public void setPiecesNumber(double piecesNumber) {
         this.piecesNumber = piecesNumber;
-    }
-
-    public double getDrainerIdr() {
-        return drainerIdr;
-    }
-
-    public void setDrainerIdr(double drainerIdr) {
-        this.drainerIdr = drainerIdr;
-    }
-
-    public double getDrainerIstg() {
-        return drainerIstg;
-    }
-
-    public void setDrainerIstg(double drainerIstg) {
-        this.drainerIstg = drainerIstg;
-    }
-
-    public double getDrainerL2() {
-        return drainerL2;
-    }
-
-    public void setDrainerL2(double drainerL2) {
-        this.drainerL2 = drainerL2;
-    }
-
-    public double getDrainerL1() {
-        return drainerL1;
-    }
-
-    public void setDrainerL1(double drainerL1) {
-        this.drainerL1 = drainerL1;
-    }
-
-    public double getProfilingIdr() {
-        return profilingIdr;
-    }
-
-    public void setProfilingIdr(double profilingIdr) {
-        this.profilingIdr = profilingIdr;
-    }
-
-    public double getProfilingIstg() {
-        return profilingIstg;
-    }
-
-    public void setProfilingIstg(double profilingIstg) {
-        this.profilingIstg = profilingIstg;
-    }
-
-    public double getProfilingL2() {
-        return profilingL2;
-    }
-
-    public void setProfilingL2(double profilingL2) {
-        this.profilingL2 = profilingL2;
-    }
-
-    public double getProfilingL1() {
-        return profilingL1;
-    }
-
-    public void setProfilingL1(double profilingL1) {
-        this.profilingL1 = profilingL1;
-    }
-
-    public double getWidth() {
-        return width;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    public void setLength(double length) {
-        this.length = length;
     }
 }

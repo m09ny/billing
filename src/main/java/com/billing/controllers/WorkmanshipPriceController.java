@@ -26,7 +26,7 @@ public class WorkmanshipPriceController {
 
     @GetMapping(path = "/")
     public Iterable<WorkmanshipPrice> getWorkmanshipPrices() {
-        return workmanshipRepository.findAll();
+        return workmanshipRepository.findAllByOrderByIdAsc();
     }
 
     @PostMapping(path = "/")

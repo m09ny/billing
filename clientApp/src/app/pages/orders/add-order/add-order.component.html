@@ -54,8 +54,8 @@
       <ng-template pTemplate="body" let-entry let-i="rowIndex">
         <tr formArrayName="entries">
           <td>{{i}}</td>
-          <td [formGroupName]="i"><span formGroupName="dimensions"><input pInputText type="number" formControlName="length"></span></td>
-          <td [formGroupName]="i"><span formGroupName="dimensions"><input pInputText type="number" formControlName="width"></span></td>
+          <td [formGroupName]="i"><span formGroupName="dimension"><input pInputText type="number" formControlName="length"></span></td>
+          <td [formGroupName]="i"><span formGroupName="dimension"><input pInputText type="number" formControlName="width"></span></td>
           <td [formGroupName]="i"><span formGroupName="profiling"><input pInputText type="number" formControlName="l1"></span></td>
           <td [formGroupName]="i"><span formGroupName="profiling"><input pInputText type="number" formControlName="l2"></span></td>
           <td [formGroupName]="i"><span formGroupName="profiling"><input pInputText type="number" formControlName="istg"></span></td>
@@ -275,8 +275,8 @@
               <tbody>
                 <tr *ngFor="let entry of addOrderForm.value.entries; index as i">
                   <th colspan="1">{{i + 1}}</th>
-                  <td colspan="2">{{entry.dimensions.length}}</td>
-                  <td colspan="2">{{entry.dimensions.width}}</td>
+                  <td colspan="2">{{entry.dimension.length}}</td>
+                  <td colspan="2">{{entry.dimension.width}}</td>
                   <td colspan="2">{{entry.piecesNumber}}</td>
                 </tr>
               </tbody>

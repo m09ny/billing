@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Order } from './../../models/order';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
@@ -13,7 +13,7 @@ export class OrdersComponent implements OnInit {
 
   orders: Order[];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
 
@@ -32,8 +32,11 @@ export class OrdersComponent implements OnInit {
 
   }
 
-  onOrderShow(order: Order): void {
+  onOrderShow(orderId: number): void {
+    this.router.navigate(['/orders', 'view', orderId]);
+  }
 
+  onOrderPrint(orderId: number): void {
   }
 
 }

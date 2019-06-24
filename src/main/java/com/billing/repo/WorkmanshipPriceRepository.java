@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WorkmanshipPriceRepository extends CrudRepository<WorkmanshipPrice, Long> {
-    
+ 
+    Iterable<WorkmanshipPrice> findAllByOrderByIdAsc();
+
 }

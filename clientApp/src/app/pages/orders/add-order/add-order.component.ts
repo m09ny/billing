@@ -122,7 +122,7 @@ export class AddOrderComponent implements OnInit {
       }
     ];
 
-    this.route.data.subscribe(data => { this.materials = data.resolvedMaterialsData; });
+    this.route.data.subscribe(data => this.materials = data.resolvedMaterialsData);
 
     this.selectedMaterials = [];
   }
@@ -147,7 +147,7 @@ export class AddOrderComponent implements OnInit {
     const entries = this.addOrderForm.get('entries') as FormArray;
 
     entries.push(new FormGroup({
-      dimensions: new FormGroup({
+      dimension: new FormGroup({
         length: new FormControl(0, Validators.required),
         width: new FormControl(0, Validators.required)
       }),
@@ -171,14 +171,14 @@ export class AddOrderComponent implements OnInit {
     }));
 
     const index = entries.length - 1;
-    entries.at(index).get('dimensions').valueChanges.subscribe(val => {
+    entries.at(index).get('dimension').valueChanges.subscribe(val => {
       const piecesNumber = entries.at(index).get('piecesNumber').value;
       entries.at(index).get('cutting').patchValue((val.length + val.width) * piecesNumber);
       entries.at(index).get('area').patchValue((val.length * val.width * piecesNumber) / 10000);
     });
     entries.at(index).get('piecesNumber').valueChanges.subscribe(val => {
-      const length = entries.at(index).get('dimensions').get('length').value;
-      const width = entries.at(index).get('dimensions').get('width').value;
+      const length = entries.at(index).get('dimension').get('length').value;
+      const width = entries.at(index).get('dimension').get('width').value;
       entries.at(index).get('cutting').patchValue((length + width) * val);
       entries.at(index).get('area').patchValue((length * width * val) / 10000);
     });

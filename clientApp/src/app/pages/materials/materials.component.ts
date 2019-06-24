@@ -39,8 +39,11 @@ export class MaterialsComponent implements OnInit {
     fullName: new FormControl(Validators.required)
   });
 
-  constructor(private materialsService: MaterialsService, private route: ActivatedRoute,
-              private router: Router, private authService: AuthService) {
+  constructor(
+    private materialsService: MaterialsService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService) {
   }
 
   ngOnInit() {

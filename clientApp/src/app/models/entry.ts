@@ -1,15 +1,11 @@
+import { Dimension } from './dimension';
+import { Profiling } from './profiling';
+import { Drainer } from './drainer';
 export class Entry {
     id: number;
-    length: number;
-    width: number;
-    profilingL1: number;
-    profilingL2: number;
-    profilingIstg: number;
-    profilingIdr: number;
-    drainerL1: number;
-    drainerL2: number;
-    drainerIstg: number;
-    drainerIdr: number;
+    dimension: Dimension;
+    profiling: Profiling;
+    drainer: Drainer;
     piecesNumber: number;
     cutting: number;
     profilingSum: number;
