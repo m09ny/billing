@@ -34,11 +34,11 @@ export class AddOrderComponent implements OnInit {
     }),
     entries: new FormArray([]),
     entriesTotal: new FormGroup({
-      totalPiecesNumber: new FormControl({value: 0, disabled: true}),
-      totalCuttings: new FormControl({value: 0, disabled: true}),
-      totalProfiling: new FormControl({value: 0, disabled: true}),
-      totalDraining: new FormControl({value: 0, disabled: true}),
-      totalArea: new FormControl({value: 0, disabled: true})
+      totalPiecesNumber: new FormControl(0, Validators.required),
+      totalCuttings: new FormControl(0, Validators.required),
+      totalProfiling: new FormControl(0, Validators.required),
+      totalDraining: new FormControl(0, Validators.required),
+      totalArea: new FormControl(0, Validators.required)
     }),
     workmanship: new FormGroup({
       decupajeLavoare: new FormControl('', Validators.required),
@@ -91,6 +91,7 @@ export class AddOrderComponent implements OnInit {
       {
         label: 'Intrari',
         command: (event: any) => {
+          this.addOrderForm.get('entriesTotal').disable();
           this.activeIndex = 1;
         }
       },
@@ -109,6 +110,7 @@ export class AddOrderComponent implements OnInit {
       {
         label: 'Finalizare comanda',
         command: (event: any) => {
+          this.addOrderForm.get('entriesTotal').enable();
           this.calculateSemibastonWorkmanshipPrice();
           this.calculateBizotWorkmanshipPrice();
           this.calculateSemibastonTotalPrice();
@@ -128,7 +130,6 @@ export class AddOrderComponent implements OnInit {
   }
 
   onSubmitAddOrderForm(): void {
-    this.addOrderForm.get('entriesTotal').enable();
     this.ordersService.addOrder(this.addOrderForm.value).subscribe(
       response => {
         console.log(response);

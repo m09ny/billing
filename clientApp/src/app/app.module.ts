@@ -15,6 +15,7 @@ import { PickListModule } from 'primeng/picklist';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { NgxPrintModule } from 'ngx-print';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +31,7 @@ import { WorkmanshipPriceService } from './services/workmanship-price/workmanshi
 import { ConfirmationService } from 'primeng/api';
 import { ViewOrderComponent } from './pages/orders/view-order/view-order.component';
 import { OrderSummaryComponent } from './directives/order-summary/order-summary.component';
+import { PrintableContractComponent } from './directives/printable-contract/printable-contract.component';
 
 
 @NgModule({
@@ -43,7 +45,8 @@ import { OrderSummaryComponent } from './directives/order-summary/order-summary.
     LoginComponent,
     WorkmanshipPricesComponent,
     ViewOrderComponent,
-    OrderSummaryComponent
+    OrderSummaryComponent,
+    PrintableContractComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,8 @@ import { OrderSummaryComponent } from './directives/order-summary/order-summary.
     PickListModule,
     DialogModule,
     CheckboxModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    NgxPrintModule
   ],
   providers: [
     AuthService,
