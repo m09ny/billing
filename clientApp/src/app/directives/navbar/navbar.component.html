@@ -8,11 +8,13 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/home">Acasa</a>
       </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/orders">Comenzi</a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/orders/add">Comanda noua</a>
+      <li class="nav-item dropdown" routerLinkActive="active">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Comenzi</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/orders">Vezi Comenzi</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" routerLink="/orders/add">Comanda Noua</a>
+        </div>
       </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/materials">Materiale</a>
