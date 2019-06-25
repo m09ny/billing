@@ -1,3 +1,13 @@
+<ng-template appPrintHost></ng-template>
+<p-dialog header="Printeaza comanda" [(visible)]="displayPrintDialog">
+    <div class="print-dialog-content">
+        <i class="pi pi-print"></i><span>Esti sigur ca vrei sa printezi comanda cu numarul {{currentPrintOrderId}}?</span>
+    </div>
+    <p-footer>
+        <button type="button" pButton pButton ngxPrint printSectionId="print-section" [useExistingCss]="true" icon="pi pi-check" label="Da" (click)="onDialogAccept()"></button>
+        <button type="button" pButton icon="pi pi-times" label="Nu" (click)="onDialogClose()"></button>
+    </p-footer>
+</p-dialog>
 <p-table id="ordersTable" #ordersTable [columns]="ordersTableCols" [value]="orders" dataKey="id" sortMode="multiple">
     <ng-template pTemplate="header" let-columns>
         <tr>
@@ -24,7 +34,7 @@
             <td>{{order.creationDate}}</td>
             <td style="text-align: center">
                 <p-button type="button" icon="pi pi-search" styleClass="ui-button-info" (click)="onOrderShow(order.id)"></p-button>
-                <p-button type="button" icon="pi pi-print" styleClass="ui-button-success" (click)="onOrderPrint(order.id)"></p-button>
+                <p-button type="button" icon="pi pi-print" styleClass="ui-button-success" (click)="onOrderPrint(order)"></p-button>
             </td>
         </tr>
     </ng-template>

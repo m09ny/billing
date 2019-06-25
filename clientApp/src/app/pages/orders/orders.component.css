@@ -5,3 +5,13 @@
 #ordersTable table {
    table-layout: auto !important;
 }
+
+.print-dialog-content {
+    padding: 10px 60px 20px 10px;
+}
+
+.print-dialog-content .pi-print {
+    font-size: 24px;
+    margin-right: 6px;
+    vertical-align: middle;
+}

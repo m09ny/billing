@@ -1,4 +1,4 @@
-<div id="print-section" style="display: none">
+<div *ngIf="order" id="print-section" style="display: none">
   <div class="contract-section">
     <div class="bold">CONTRACT DE VANZARE-CUMPARARE NR ____________/____________</div>
     <div style="margin-top: 120px; margin-bottom: 20px;">Incheiat intre:</div>
@@ -17,7 +17,7 @@
     <div>4.1. CUMPARATORUL va achita 30% din valorea marfii si restul de 70% la LIVRARE</div>
     <div class="bold">5. OBLIGATIILE VANZATORULUI</div>
     <div>5.1. Sa anunte CUMPARATORUL cu cel putin 2 zile lucratoare inainte de sosirea marfii.</div>
-    <div class="p-grid p-justify-between" style="margin-top: 120px">
+    <div class="p-grid p-justify-between" style="margin-top: 160px">
       <div class="p-col-4">
         <div>S.C. LEMET-STONE SRL</div>
         <div>BOGDAN STOICA</div>

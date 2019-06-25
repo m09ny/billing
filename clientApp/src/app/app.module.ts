@@ -32,6 +32,7 @@ import { ConfirmationService } from 'primeng/api';
 import { ViewOrderComponent } from './pages/orders/view-order/view-order.component';
 import { OrderSummaryComponent } from './directives/order-summary/order-summary.component';
 import { PrintableContractComponent } from './directives/printable-contract/printable-contract.component';
+import { PrintDirective } from './directives/print/print.directive';
 
 
 @NgModule({
@@ -46,6 +47,10 @@ import { PrintableContractComponent } from './directives/printable-contract/prin
     WorkmanshipPricesComponent,
     ViewOrderComponent,
     OrderSummaryComponent,
+    PrintableContractComponent,
+    PrintDirective
+  ],
+  entryComponents: [
     PrintableContractComponent
   ],
   imports: [
