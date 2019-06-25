@@ -8,10 +8,10 @@
         <button type="button" pButton icon="pi pi-times" label="Nu" (click)="onDialogClose()"></button>
     </p-footer>
 </p-dialog>
-<p-table id="ordersTable" #ordersTable [columns]="ordersTableCols" [value]="orders" dataKey="id" sortMode="multiple">
+<p-table id="ordersTable" #ordersTable [columns]="ordersTableCols" [value]="orders" dataKey="id">
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th *ngFor="let col of columns" [pSortableColumn]="col.field" style="text-align: center">
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field" style="text-align: center">
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>

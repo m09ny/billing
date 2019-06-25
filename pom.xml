@@ -12,7 +12,7 @@
 	<groupId>com</groupId>
 	<artifactId>billing</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<name>billing</name>
 	<description>Billing Project</description>
 
@@ -81,7 +81,26 @@
 	</dependencies>
 
 	<build>
+		<finalName>billing</finalName>
 		<plugins>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals><goal>copy-resources</goal></goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/classes/static/</outputDirectory>   
+								<resources>
+									<resource>
+										<directory>clientApp/dist/clientApp</directory>
+									</resource>
+								</resources>
+						</configuration>        
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -90,8 +109,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-
-
 	</build>
 
 </project>
