@@ -4,6 +4,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 import { Router, ActivatedRoute } from '@angular/router';
+import { WorkmanshipPrice } from 'src/app/models/workmanship-price';
 
 @Component({
   templateUrl: './add-order.component.html',
@@ -66,17 +67,19 @@ export class AddOrderComponent implements OnInit {
       owner: new FormControl('', Validators.required),
       ownerStatus: new FormControl('', Validators.required)
     }),
-    semibastonWorkmanshipPrice: new FormControl('', Validators.required),
-    semibastonTotalPrice: new FormControl('', Validators.required),
-    semibastonTotalPriceVat: new FormControl('', Validators.required),
-    bizotWorkmanshipPrice: new FormControl('', Validators.required),
-    bizotTotalPrice: new FormControl('', Validators.required),
-    bizotTotalPriceVat: new FormControl('', Validators.required),
-    materialTotalPrice: new FormControl('', Validators.required),
-    totalPrice: new FormControl('', Validators.required)
+    semibastonWorkmanshipPrice: new FormControl(0, Validators.required),
+    semibastonTotalPrice: new FormControl(0, Validators.required),
+    semibastonTotalPriceVat: new FormControl(0, Validators.required),
+    bizotWorkmanshipPrice: new FormControl(0, Validators.required),
+    bizotTotalPrice: new FormControl(0, Validators.required),
+    bizotTotalPriceVat: new FormControl(0, Validators.required),
+    materialTotalPrice: new FormControl(0, Validators.required),
+    totalPrice: new FormControl(0, Validators.required)
   });
 
   isAddOrderFormSubmitted = false;
+
+  workmanshipPrices: { [key: string]: number } = {};
 
   constructor(private ordersService: OrdersService, private router: Router, private route: ActivatedRoute) { }
 
@@ -111,20 +114,65 @@ export class AddOrderComponent implements OnInit {
         label: 'Finalizare comanda',
         command: (event: any) => {
           this.addOrderForm.get('entriesTotal').enable();
+          this.calculateMaterialTotalPrice();
           this.calculateSemibastonWorkmanshipPrice();
           this.calculateBizotWorkmanshipPrice();
           this.calculateSemibastonTotalPrice();
           this.calculateSemibastonTotalPriceVat();
           this.calculateBizotTotalPrice();
           this.calculateBizotTotalPriceVat();
-          this.calculateMaterialTotalPrice();
           this.calculateTotalPrice();
           this.activeIndex = 4;
         }
       }
     ];
 
-    this.route.data.subscribe(data => this.materials = data.resolvedMaterialsData);
+    this.route.data.subscribe(data => {
+      this.materials = data.resolvedMaterialsData;
+      for (let i = 0; i < data.resolvedWorkmanShipPricesData.length; i++) {
+        switch(data.resolvedWorkmanShipPricesData[i].id) {
+          case 1: {
+            this.workmanshipPrices['semibaston'] = data.resolvedWorkmanShipPricesData[i].price;
+            break;
+          }
+          case 2: {
+            this.workmanshipPrices['bizot'] = data.resolvedWorkmanShipPricesData[i].price;
+            break;
+          }
+          case 3: {
+            this.workmanshipPrices['picurator'] = data.resolvedWorkmanShipPricesData[i].price;
+            break;
+          }
+          case 4: {
+            this.workmanshipPrices['taiat'] = data.resolvedWorkmanShipPricesData[i].price;
+            break;
+          }
+          case 5: {
+            this.workmanshipPrices['decupajeLavoare'] = data.resolvedWorkmanShipPricesData[i].price;
+            break;
+          }
+          case 6: {
+            this.workmanshipPrices['decupajePeCurb'] = data.resolvedWorkmanShipPricesData[i].price;
+            break;
+          }
+          case 7: {
+            this.workmanshipPrices['gauriCarota'] = data.resolvedWorkmanShipPricesData[i].price;
+            break;
+          }
+          case 8: {
+            this.workmanshipPrices['lipireAdaos'] = data.resolvedWorkmanShipPricesData[i].price;
+            break;
+          }
+          case 9: {
+            this.workmanshipPrices['canalAntiderapant'] = data.resolvedWorkmanShipPricesData[i].price;
+            break;
+          }
+          default: {
+             break;
+          }
+       }
+      }
+    }, error => console.log(error));
 
     this.selectedMaterials = [];
   }
@@ -182,12 +230,19 @@ export class AddOrderComponent implements OnInit {
       const width = entries.at(index).get('dimension').get('width').value;
       entries.at(index).get('cutting').patchValue((length + width) * val);
       entries.at(index).get('area').patchValue((length * width * val) / 10000);
+
+      const profiling = entries.at(index).get('profiling').value;
+      entries.at(index).get('profilingSum').patchValue((profiling.l1 + profiling.l2 + profiling.istg + profiling.idr) * val);
+      const drainer = entries.at(index).get('drainer').value;
+      entries.at(index).get('drainerSum').patchValue((drainer.l1 + drainer.l2 + drainer.istg + drainer.idr) * val);
     });
     entries.at(index).get('profiling').valueChanges.subscribe(val => {
-      entries.at(index).get('profilingSum').patchValue(val.l1 + val.l2 + val.istg + val.idr);
+      const piecesNumber = entries.at(index).get('piecesNumber').value;
+      entries.at(index).get('profilingSum').patchValue((val.l1 + val.l2 + val.istg + val.idr) * piecesNumber);
     });
     entries.at(index).get('drainer').valueChanges.subscribe(val => {
-      entries.at(index).get('drainerSum').patchValue(val.l1 + val.l2 + val.istg + val.idr);
+      const piecesNumber = entries.at(index).get('piecesNumber').value;
+      entries.at(index).get('drainerSum').patchValue((val.l1 + val.l2 + val.istg + val.idr) * piecesNumber);
     });
 
     const entriesTotal = this.addOrderForm.get('entriesTotal') as FormGroup;
@@ -274,47 +329,60 @@ export class AddOrderComponent implements OnInit {
     this.addOrderForm.get('material').patchValue(event.items[0]);
   }
 
-  // TBD
   private calculateSemibastonWorkmanshipPrice(): void {
-    const semibastonWorkmanshipPrice = 0;
-    this.addOrderForm.get('semibastonWorkmanshipPrice').patchValue(semibastonWorkmanshipPrice);
+    const semibastonWorkmanshipPrice =
+    this.addOrderForm.get('entriesTotal').get('totalArea').value * this.workmanshipPrices['taiat'] + 
+    this.addOrderForm.get('entriesTotal').get('totalProfiling').value * this.workmanshipPrices['semibaston'] +
+    this.addOrderForm.get('entriesTotal').get('totalDraining').value * this.workmanshipPrices['picurator'] +
+    this.workmanshipPrices['decupajeLavoare'] * this.addOrderForm.get('workmanship').get('decupajeLavoare').value +
+    this.workmanshipPrices['decupajePeCurb'] * this.addOrderForm.get('workmanship').get('decupajePeCurb').value +
+    this.workmanshipPrices['gauriCarota'] * this.addOrderForm.get('workmanship').get('gauriCarota').value +
+    this.workmanshipPrices['lipireAdaos'] * this.addOrderForm.get('workmanship').get('lipireAdaos').value +
+    this.workmanshipPrices['canalAntiderapant'] * this.addOrderForm.get('workmanship').get('canalAntiderapant').value;
+    this.addOrderForm.get('semibastonWorkmanshipPrice').patchValue(semibastonWorkmanshipPrice.toFixed(2));
   }
 
-  // TBD
   private calculateBizotWorkmanshipPrice(): void {
-    const bizotWorkmanshipPrice = 0;
-    this.addOrderForm.get('bizotWorkmanshipPrice').patchValue(bizotWorkmanshipPrice);
+    const bizotWorkmanshipPrice =
+    this.addOrderForm.get('entriesTotal').get('totalArea').value * this.workmanshipPrices['taiat'] + 
+    this.addOrderForm.get('entriesTotal').get('totalProfiling').value * this.workmanshipPrices['bizot'] +
+    this.addOrderForm.get('entriesTotal').get('totalDraining').value * this.workmanshipPrices['picurator'] + 
+    this.workmanshipPrices['decupajeLavoare'] * this.addOrderForm.get('workmanship').get('decupajeLavoare').value +
+    this.workmanshipPrices['decupajePeCurb'] * this.addOrderForm.get('workmanship').get('decupajePeCurb').value +
+    this.workmanshipPrices['gauriCarota'] * this.addOrderForm.get('workmanship').get('gauriCarota').value +
+    this.workmanshipPrices['lipireAdaos'] * this.addOrderForm.get('workmanship').get('lipireAdaos').value +
+    this.workmanshipPrices['canalAntiderapant'] * this.addOrderForm.get('workmanship').get('canalAntiderapant').value;
+    this.addOrderForm.get('bizotWorkmanshipPrice').patchValue(bizotWorkmanshipPrice.toFixed(2));
   }
 
   private calculateSemibastonTotalPrice(): void {
-    const semibastonTotalPrice = this.addOrderForm.value.materialTotalPrice + this.addOrderForm.value.semibastonWorkmanshipPrice;
-    this.addOrderForm.get('semibastonTotalPrice').patchValue(semibastonTotalPrice);
+    const semibastonTotalPrice = +this.addOrderForm.value.materialTotalPrice + +this.addOrderForm.value.semibastonWorkmanshipPrice;
+    this.addOrderForm.get('semibastonTotalPrice').patchValue(semibastonTotalPrice.toFixed(2));
   }
 
   private calculateSemibastonTotalPriceVat(): void {
     const semibastonTotalPriceVat = this.addOrderForm.value.semibastonTotalPrice * 1.19;
-    this.addOrderForm.get('semibastonTotalPriceVat').patchValue(semibastonTotalPriceVat);
+    this.addOrderForm.get('semibastonTotalPriceVat').patchValue(+semibastonTotalPriceVat.toFixed(2));
   }
 
   private calculateBizotTotalPrice(): void {
-    const bizotTotalPrice = this.addOrderForm.value.materialTotalPrice + this.addOrderForm.value.bizotWorkmanshipPrice;
-    this.addOrderForm.get('bizotTotalPrice').patchValue(bizotTotalPrice);
+    const bizotTotalPrice = +this.addOrderForm.value.materialTotalPrice + +this.addOrderForm.value.bizotWorkmanshipPrice;
+    this.addOrderForm.get('bizotTotalPrice').patchValue(+bizotTotalPrice.toFixed(2));
   }
 
   private calculateBizotTotalPriceVat(): void {
     const bizotTotalPriceVat = this.addOrderForm.value.bizotTotalPrice * 1.19;
-    this.addOrderForm.get('bizotTotalPriceVat').patchValue(bizotTotalPriceVat);
+    this.addOrderForm.get('bizotTotalPriceVat').patchValue(+bizotTotalPriceVat.toFixed(2));
   }
 
   private calculateMaterialTotalPrice(): void {
     const materialTotalPrice = this.addOrderForm.get('entriesTotal').get('totalArea').value * this.addOrderForm.value.material.price;
-    this.addOrderForm.get('materialTotalPrice').patchValue(materialTotalPrice);
+    this.addOrderForm.get('materialTotalPrice').patchValue(materialTotalPrice.toFixed(2));
   }
 
-  // TBD
   private calculateTotalPrice(): void {
     const totalPrice = 0;
-    this.addOrderForm.get('totalPrice').patchValue(totalPrice);
+    this.addOrderForm.get('totalPrice').patchValue(totalPrice.toFixed(2));
   }
 
 }

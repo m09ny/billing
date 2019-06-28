@@ -11,7 +11,7 @@ export class WorkmanshipPriceService {
 
   private headers: HttpHeaders;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   }
 

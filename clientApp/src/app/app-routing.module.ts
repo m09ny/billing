@@ -12,6 +12,7 @@ import { MaterialsComponent } from './pages/materials/materials.component';
 import { AuthGuard } from './guards/auth/auth.guard';
 import { LoginComponent } from './pages/login/login.component';
 import { ViewOrderComponent } from './pages/orders/view-order/view-order.component';
+import { WorkmanshipPriceResolverService } from './services/workmanship-price/workmanship-price-resolver.service';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -27,7 +28,7 @@ const routes: Routes = [
       {
         path: 'add',
         component: AddOrderComponent,
-        resolve: { resolvedMaterialsData: MaterialsResolverService },
+        resolve: { resolvedMaterialsData: MaterialsResolverService, resolvedWorkmanShipPricesData: WorkmanshipPriceResolverService },
         canDeactivate: [AddOrderGuard]
       },
       {
@@ -46,6 +47,7 @@ const routes: Routes = [
   {
     path: 'workmanship/prices',
     component: WorkmanshipPricesComponent,
+    resolve: { resolvedWorkmanShipPricesData: WorkmanshipPriceResolverService },
     canActivate: [AuthGuard]
   },
   { path: '', redirectTo: 'home', pathMatch: 'full' },

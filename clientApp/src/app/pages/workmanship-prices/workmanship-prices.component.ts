@@ -23,12 +23,16 @@ export class WorkmanshipPricesComponent implements OnInit {
     price: new FormControl()
   });
 
-  constructor(private workmanshipPriceService: WorkmanshipPriceService, private authService: AuthService) { }
+  constructor(
+    private workmanshipPriceService: WorkmanshipPriceService,
+    private authService: AuthService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.workmanshipPriceService.getWorkmanshipPrices().subscribe(prices => {
-      this.workmanshipPrices = prices;
-    });
+    this.route.data.subscribe(
+      data => { this.workmanshipPrices = data.resolvedWorkmanShipPricesData; },
+      error => console.log(error)
+    );
   }
 
   onWorkmanshipEdit(workmanshipPrice: WorkmanshipPrice): void {
