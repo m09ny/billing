@@ -34,8 +34,8 @@ export class OrdersComponent implements OnInit {
 
     this.ordersTableCols = [
       { field: 'id', header: 'Numar comanda' },
-      { field: 'society', header: 'Societatea' },
-      { field: 'tel', header: 'Numar telefon' },
+      { field: 'clientMetadata.society', header: 'Societatea' },
+      { field: 'clientMetadata.tel', header: 'Numar telefon' },
       { field: 'totalPrice', header: 'Total pret cu T.V.A.' },
       { field: 'creationDate', header: 'Data crearii' }
     ];

@@ -57,7 +57,7 @@ public class AuthController {
 
         // compare hashes as Strings
         if (hashedPassword.equals(securityService.decode(hash))) {
-            return new ResponseEntity<Object>("{ \"username\": \"" + foundUser.getCredentials().getUsername() + "\", \"isAdmin\": \"" + foundUser.getIsAdmin() + "\" }", HttpStatus.OK);
+            return new ResponseEntity<Object>("{ \"username\": \"" + foundUser.getCredentials().getUsername() + "\", \"isAdmin\": " + foundUser.getIsAdmin() + " }", HttpStatus.OK);
         } else {
             return new ResponseEntity<Object>(false, HttpStatus.OK);
         }

@@ -77,6 +77,8 @@ export class AddOrderComponent implements OnInit {
     totalPrice: new FormControl(0, Validators.required)
   });
 
+  selectedWorkmanshipType: string;
+
   isAddOrderFormSubmitted = false;
 
   workmanshipPrices: { [key: string]: number } = {};
@@ -130,7 +132,7 @@ export class AddOrderComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.materials = data.resolvedMaterialsData;
       for (let i = 0; i < data.resolvedWorkmanShipPricesData.length; i++) {
-        switch(data.resolvedWorkmanShipPricesData[i].id) {
+        switch (data.resolvedWorkmanShipPricesData[i].id) {
           case 1: {
             this.workmanshipPrices['semibaston'] = data.resolvedWorkmanShipPricesData[i].price;
             break;
@@ -168,9 +170,9 @@ export class AddOrderComponent implements OnInit {
             break;
           }
           default: {
-             break;
+            break;
           }
-       }
+        }
       }
     }, error => console.log(error));
 
@@ -213,10 +215,10 @@ export class AddOrderComponent implements OnInit {
         idr: new FormControl(0, Validators.required)
       }),
       piecesNumber: new FormControl(0, Validators.required),
-      cutting: new FormControl({value: 0, disabled: true}),
-      profilingSum: new FormControl({value: 0, disabled: true}),
-      drainerSum: new FormControl({value: 0, disabled: true}),
-      area: new FormControl({value: 0, disabled: true})
+      cutting: new FormControl({ value: 0, disabled: true }),
+      profilingSum: new FormControl({ value: 0, disabled: true }),
+      drainerSum: new FormControl({ value: 0, disabled: true }),
+      area: new FormControl({ value: 0, disabled: true })
     }));
 
     const index = entries.length - 1;
@@ -331,27 +333,27 @@ export class AddOrderComponent implements OnInit {
 
   private calculateSemibastonWorkmanshipPrice(): void {
     const semibastonWorkmanshipPrice =
-    this.addOrderForm.get('entriesTotal').get('totalArea').value * this.workmanshipPrices['taiat'] + 
-    this.addOrderForm.get('entriesTotal').get('totalProfiling').value * this.workmanshipPrices['semibaston'] +
-    this.addOrderForm.get('entriesTotal').get('totalDraining').value * this.workmanshipPrices['picurator'] +
-    this.workmanshipPrices['decupajeLavoare'] * this.addOrderForm.get('workmanship').get('decupajeLavoare').value +
-    this.workmanshipPrices['decupajePeCurb'] * this.addOrderForm.get('workmanship').get('decupajePeCurb').value +
-    this.workmanshipPrices['gauriCarota'] * this.addOrderForm.get('workmanship').get('gauriCarota').value +
-    this.workmanshipPrices['lipireAdaos'] * this.addOrderForm.get('workmanship').get('lipireAdaos').value +
-    this.workmanshipPrices['canalAntiderapant'] * this.addOrderForm.get('workmanship').get('canalAntiderapant').value;
+      this.addOrderForm.get('entriesTotal').get('totalArea').value * this.workmanshipPrices['taiat'] +
+      this.addOrderForm.get('entriesTotal').get('totalProfiling').value * this.workmanshipPrices['semibaston'] +
+      this.addOrderForm.get('entriesTotal').get('totalDraining').value * this.workmanshipPrices['picurator'] +
+      this.workmanshipPrices['decupajeLavoare'] * this.addOrderForm.get('workmanship').get('decupajeLavoare').value +
+      this.workmanshipPrices['decupajePeCurb'] * this.addOrderForm.get('workmanship').get('decupajePeCurb').value +
+      this.workmanshipPrices['gauriCarota'] * this.addOrderForm.get('workmanship').get('gauriCarota').value +
+      this.workmanshipPrices['lipireAdaos'] * this.addOrderForm.get('workmanship').get('lipireAdaos').value +
+      this.workmanshipPrices['canalAntiderapant'] * this.addOrderForm.get('workmanship').get('canalAntiderapant').value;
     this.addOrderForm.get('semibastonWorkmanshipPrice').patchValue(semibastonWorkmanshipPrice.toFixed(2));
   }
 
   private calculateBizotWorkmanshipPrice(): void {
     const bizotWorkmanshipPrice =
-    this.addOrderForm.get('entriesTotal').get('totalArea').value * this.workmanshipPrices['taiat'] + 
-    this.addOrderForm.get('entriesTotal').get('totalProfiling').value * this.workmanshipPrices['bizot'] +
-    this.addOrderForm.get('entriesTotal').get('totalDraining').value * this.workmanshipPrices['picurator'] + 
-    this.workmanshipPrices['decupajeLavoare'] * this.addOrderForm.get('workmanship').get('decupajeLavoare').value +
-    this.workmanshipPrices['decupajePeCurb'] * this.addOrderForm.get('workmanship').get('decupajePeCurb').value +
-    this.workmanshipPrices['gauriCarota'] * this.addOrderForm.get('workmanship').get('gauriCarota').value +
-    this.workmanshipPrices['lipireAdaos'] * this.addOrderForm.get('workmanship').get('lipireAdaos').value +
-    this.workmanshipPrices['canalAntiderapant'] * this.addOrderForm.get('workmanship').get('canalAntiderapant').value;
+      this.addOrderForm.get('entriesTotal').get('totalArea').value * this.workmanshipPrices['taiat'] +
+      this.addOrderForm.get('entriesTotal').get('totalProfiling').value * this.workmanshipPrices['bizot'] +
+      this.addOrderForm.get('entriesTotal').get('totalDraining').value * this.workmanshipPrices['picurator'] +
+      this.workmanshipPrices['decupajeLavoare'] * this.addOrderForm.get('workmanship').get('decupajeLavoare').value +
+      this.workmanshipPrices['decupajePeCurb'] * this.addOrderForm.get('workmanship').get('decupajePeCurb').value +
+      this.workmanshipPrices['gauriCarota'] * this.addOrderForm.get('workmanship').get('gauriCarota').value +
+      this.workmanshipPrices['lipireAdaos'] * this.addOrderForm.get('workmanship').get('lipireAdaos').value +
+      this.workmanshipPrices['canalAntiderapant'] * this.addOrderForm.get('workmanship').get('canalAntiderapant').value;
     this.addOrderForm.get('bizotWorkmanshipPrice').patchValue(bizotWorkmanshipPrice.toFixed(2));
   }
 

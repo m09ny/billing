@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom-bg">
   <a class="navbar-brand" routerLink="/home">Lemet Stone</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -9,7 +10,8 @@
         <a class="nav-link" routerLink="/home">Acasa</a>
       </li>
       <li class="nav-item dropdown" routerLinkActive="active">
-        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Comenzi</a>
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">Comenzi</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" routerLink="/orders">Vezi Comenzi</a>
           <div class="dropdown-divider"></div>
@@ -23,5 +25,15 @@
         <a class="nav-link" routerLink="/workmanship/prices">Preturi Manopera</a>
       </li>
     </ul>
+    <div *ngIf="authService.currentUser" class="nav-item dropdown" style="margin-left: auto; color: white;">
+      <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        <span style="vertical-align: middle"><i class="pi pi-user"></i></span>
+        <span>{{authService.currentUser.username}}</span>
+      </a>
+      <div class="dropdown-menu" style="left: -40px" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" routerLink="/login" (click)="authService.logout()">Delogheaza-te</a>
+      </div>
+    </div>
   </div>
 </nav>

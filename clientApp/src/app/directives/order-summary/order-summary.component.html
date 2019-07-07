@@ -20,14 +20,14 @@
       <div class="p-col-8"><b>{{order.clientMetadata.rc}}</b></div>
       <div class="p-col-4" style="text-align: end">Cont bancar:</div>
       <div class="p-col-8">
-          <b>
-            <span style="margin-right: 5px">{{order.clientMetadata.account.first}}</span>
-            <span style="margin-right: 5px">{{order.clientMetadata.account.second}}</span>
-            <span style="margin-right: 5px">{{order.clientMetadata.account.third}}</span>
-            <span style="margin-right: 5px">{{order.clientMetadata.account.fourth}}</span>
-            <span>{{order.clientMetadata.account.fifth}}</span>
-          </b>
-          <span>, deschis la <b>{{order.clientMetadata.bank}}</b></span>
+        <b>
+          <span style="margin-right: 5px">{{order.clientMetadata.account.first}}</span>
+          <span style="margin-right: 5px">{{order.clientMetadata.account.second}}</span>
+          <span style="margin-right: 5px">{{order.clientMetadata.account.third}}</span>
+          <span style="margin-right: 5px">{{order.clientMetadata.account.fourth}}</span>
+          <span>{{order.clientMetadata.account.fifth}}</span>
+        </b>
+        <span>, deschis la <b>{{order.clientMetadata.bank}}</b></span>
       </div>
       <div class="p-col-4" style="text-align: end">Reprezentat de:</div>
       <div class="p-col-8">
@@ -37,8 +37,10 @@
     </div>
   </div>
   <div class="p-col-2">
-    <button *ngIf="printButton" pButton ngxPrint printSectionId="print-section" [useExistingCss]="true" label="Printeaza comanda" class="ui-button-success" type="button" icon="pi pi-print"></button>
-    <p-button *ngIf="submitButton" label="Finalizare comanda" styleClass="ui-button-info" type="submit" icon="pi pi-angle-double-right"></p-button>
+    <button *ngIf="printButton" pButton ngxPrint printSectionId="print-section" [useExistingCss]="true"
+      label="Printeaza comanda" class="ui-button-success" type="button" icon="pi pi-print"></button>
+    <p-button *ngIf="submitButton" label="Finalizare comanda" styleClass="ui-button-info" type="submit"
+      icon="pi pi-angle-double-right"></p-button>
   </div>
   <div class="p-col-12">
     <div class="container" style="padding-top: 40px">

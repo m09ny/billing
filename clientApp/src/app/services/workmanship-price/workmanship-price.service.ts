@@ -21,6 +21,6 @@ export class WorkmanshipPriceService {
 
   updateWorkmanshipPrice(workmanshipPrice: WorkmanshipPrice): Observable<string> {
     return this.http.put<string>(environment.backendUrl + 'api/workmanship/price/' + workmanshipPrice.id, workmanshipPrice,
-    { headers: this.headers });
+      { headers: this.headers });
   }
 }

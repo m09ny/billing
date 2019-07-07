@@ -4,7 +4,10 @@
 <form [formGroup]="addOrderForm" (ngSubmit)="onSubmitAddOrderForm()">
   <div *ngIf="activeIndex === 0">
     <div class="container">
-      <p-pickList [source]="materials" [target]="selectedMaterials" (onMoveToTarget)="onMoveToTarget($event)" filterBy="fullName" [showTargetFilter]="false" sourceHeader="Materiale" targetHeader="Materialul ales" [responsive]="true" dragdrop="true" [showSourceControls]="false" [showTargetControls]="false" sourceFilterPlaceholder="Cauta dupa nume">
+      <p-pickList [source]="materials" [target]="selectedMaterials" (onMoveToTarget)="onMoveToTarget($event)"
+        filterBy="fullName" [showTargetFilter]="false" sourceHeader="Materiale" targetHeader="Materialul ales"
+        [responsive]="true" dragdrop="true" [showSourceControls]="false" [showTargetControls]="false"
+        sourceFilterPlaceholder="Cauta dupa nume">
         <ng-template let-material pTemplate="item">
           <div style="font-size: 16px"><b>{{material.fullName}}</b></div>
           <div>
@@ -22,7 +25,8 @@
     <p-table id="newEntriesTable" [value]="addOrderForm.controls['entries'].controls">
       <ng-template pTemplate="caption">
         <div>
-          <p-button type="button" label="Intrare noua" icon="pi pi-plus" iconPos="left" (onClick)="onAddEntry()"></p-button>
+          <p-button type="button" label="Intrare noua" icon="pi pi-plus" iconPos="left" (onClick)="onAddEntry()">
+          </p-button>
         </div>
       </ng-template>
       <ng-template pTemplate="header">
@@ -39,47 +43,65 @@
           <th rowspan="2" style="width:30px"></th>
         </tr>
         <tr>
-            <th colspan="1">Lungime</th>
-            <th colspan="1">Latime</th>
-            <th colspan="1">L1</th>
-            <th colspan="1">L2</th>
-            <th colspan="1">Istg</th>
-            <th colspan="1">Idr</th>
-            <th colspan="1">L1</th>
-            <th colspan="1">L2</th>
-            <th colspan="1">Istg</th>
-            <th colspan="1">Idr</th>
+          <th colspan="1">Lungime</th>
+          <th colspan="1">Latime</th>
+          <th colspan="1">L1</th>
+          <th colspan="1">L2</th>
+          <th colspan="1">Istg</th>
+          <th colspan="1">Idr</th>
+          <th colspan="1">L1</th>
+          <th colspan="1">L2</th>
+          <th colspan="1">Istg</th>
+          <th colspan="1">Idr</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-entry let-i="rowIndex">
         <tr formArrayName="entries">
           <td>{{i}}</td>
-          <td [formGroupName]="i"><span formGroupName="dimension"><input pInputText type="number" formControlName="length"></span></td>
-          <td [formGroupName]="i"><span formGroupName="dimension"><input pInputText type="number" formControlName="width"></span></td>
-          <td [formGroupName]="i"><span formGroupName="profiling"><input pInputText type="number" formControlName="l1"></span></td>
-          <td [formGroupName]="i"><span formGroupName="profiling"><input pInputText type="number" formControlName="l2"></span></td>
-          <td [formGroupName]="i"><span formGroupName="profiling"><input pInputText type="number" formControlName="istg"></span></td>
-          <td [formGroupName]="i"><span formGroupName="profiling"><input pInputText type="number" formControlName="idr"></span></td>
-          <td [formGroupName]="i"><span formGroupName="drainer"><input pInputText type="number" formControlName="l1"></span></td>
-          <td [formGroupName]="i"><span formGroupName="drainer"><input pInputText type="number" formControlName="l2"></span></td>
-          <td [formGroupName]="i"><span formGroupName="drainer"><input pInputText type="number" formControlName="istg"></span></td>
-          <td [formGroupName]="i"><span formGroupName="drainer"><input pInputText type="number" formControlName="idr"></span></td>
+          <td [formGroupName]="i"><span formGroupName="dimension"><input pInputText type="number"
+                formControlName="length"></span></td>
+          <td [formGroupName]="i"><span formGroupName="dimension"><input pInputText type="number"
+                formControlName="width"></span></td>
+          <td [formGroupName]="i"><span formGroupName="profiling"><input pInputText type="number"
+                formControlName="l1"></span></td>
+          <td [formGroupName]="i"><span formGroupName="profiling"><input pInputText type="number"
+                formControlName="l2"></span></td>
+          <td [formGroupName]="i"><span formGroupName="profiling"><input pInputText type="number"
+                formControlName="istg"></span></td>
+          <td [formGroupName]="i"><span formGroupName="profiling"><input pInputText type="number"
+                formControlName="idr"></span></td>
+          <td [formGroupName]="i"><span formGroupName="drainer"><input pInputText type="number"
+                formControlName="l1"></span></td>
+          <td [formGroupName]="i"><span formGroupName="drainer"><input pInputText type="number"
+                formControlName="l2"></span></td>
+          <td [formGroupName]="i"><span formGroupName="drainer"><input pInputText type="number"
+                formControlName="istg"></span></td>
+          <td [formGroupName]="i"><span formGroupName="drainer"><input pInputText type="number"
+                formControlName="idr"></span></td>
           <td [formGroupName]="i"><span><input pInputText type="number" formControlName="piecesNumber"></span></td>
           <td [formGroupName]="i"><span><input pInputText type="number" formControlName="cutting"></span></td>
           <td [formGroupName]="i"><span><input pInputText type="number" formControlName="profilingSum"></span></td>
           <td [formGroupName]="i"><span><input pInputText type="number" formControlName="drainerSum"></span></td>
           <td [formGroupName]="i"><span><input pInputText type="number" formControlName="area"></span></td>
-          <td><p-button type="button" icon="pi pi-trash" styleClass="ui-button-danger" (click)="onDeleteEntry(i)"></p-button></td>
+          <td>
+            <p-button type="button" icon="pi pi-trash" styleClass="ui-button-danger" (click)="onDeleteEntry(i)">
+            </p-button>
+          </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="footer">
         <tr>
-            <td colspan="11" style="text-align: start"><span style="margin-left: 10px">Total</span></td>
-            <td formGroupName="entriesTotal"><span><input pInputText type="number" formControlName="totalPiecesNumber"></span></td>
-            <td formGroupName="entriesTotal"><span><input pInputText type="number" formControlName="totalCuttings"></span></td>
-            <td formGroupName="entriesTotal"><span><input pInputText type="number" formControlName="totalProfiling"></span></td>
-            <td formGroupName="entriesTotal"><span><input pInputText type="number" formControlName="totalDraining"></span></td>
-            <td formGroupName="entriesTotal"><span><input pInputText type="number" formControlName="totalArea"></span></td>
+          <td colspan="11" style="text-align: start"><span style="margin-left: 10px">Total</span></td>
+          <td formGroupName="entriesTotal"><span><input pInputText type="number"
+                formControlName="totalPiecesNumber"></span></td>
+          <td formGroupName="entriesTotal"><span><input pInputText type="number" formControlName="totalCuttings"></span>
+          </td>
+          <td formGroupName="entriesTotal"><span><input pInputText type="number"
+                formControlName="totalProfiling"></span></td>
+          <td formGroupName="entriesTotal"><span><input pInputText type="number" formControlName="totalDraining"></span>
+          </td>
+          <td formGroupName="entriesTotal"><span><input pInputText type="number" formControlName="totalArea"></span>
+          </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="summary">
@@ -90,35 +112,51 @@
   <div *ngIf="activeIndex === 2">
     <div class="container">
       <div class="p-grid">
-        <div class="p-col-3">
-          Decupaje lavoare(bucati)
+        <div class="p-col-7">
+          <div class="p-grid">
+            <div class="p-col-5">
+              Decupaje lavoare (buc)
+            </div>
+            <div class="p-col-7">
+              <input pInputText type="number"
+                [formControl]="addOrderForm.controls['workmanship'].controls['decupajeLavoare']">
+            </div>
+            <div class="p-col-5">
+              Decupaje pe curb (ML)
+            </div>
+            <div class="p-col-7">
+              <input pInputText type="number"
+                [formControl]="addOrderForm.controls['workmanship'].controls['decupajePeCurb']">
+            </div>
+            <div class="p-col-5">
+              Gauri carota (buc)
+            </div>
+            <div class="p-col-7">
+              <input pInputText type="number"
+                [formControl]="addOrderForm.controls['workmanship'].controls['gauriCarota']">
+            </div>
+            <div class="p-col-5">
+              Lipire adaos (ML)
+            </div>
+            <div class="p-col-7">
+              <input pInputText type="number"
+                [formControl]="addOrderForm.controls['workmanship'].controls['lipireAdaos']">
+            </div>
+            <div class="p-col-5">
+              Canal antiderapant (ML)
+            </div>
+            <div class="p-col-7">
+              <input pInputText type="number"
+                [formControl]="addOrderForm.controls['workmanship'].controls['canalAntiderapant']">
+            </div>
+          </div>
         </div>
-        <div class="p-col-9">
-          <input pInputText type="number" [formControl]="addOrderForm.controls['workmanship'].controls['decupajeLavoare']">
-        </div>
-        <div class="p-col-3">
-          Decupaje pe curb(ML)
-        </div>
-        <div class="p-col-9">
-          <input pInputText type="number" [formControl]="addOrderForm.controls['workmanship'].controls['decupajePeCurb']">
-        </div>
-        <div class="p-col-3">
-          Gauri carota(bucati)
-        </div>
-        <div class="p-col-9">
-          <input pInputText type="number" [formControl]="addOrderForm.controls['workmanship'].controls['gauriCarota']">
-        </div>
-        <div class="p-col-3">
-          Lipire adaos(ML)
-        </div>
-        <div class="p-col-9">
-          <input pInputText type="number" [formControl]="addOrderForm.controls['workmanship'].controls['lipireAdaos']">
-        </div>
-        <div class="p-col-3">
-          Canal antiderapant(ML)
-        </div>
-        <div class="p-col-9">
-          <input pInputText type="number" [formControl]="addOrderForm.controls['workmanship'].controls['canalAntiderapant']">
+        <div class="p-col-5">
+          <div class="p-grid">
+            <div class="p-col-12"><p-radioButton name="workmanshipGroup" label="Semibaston" value="Semibaston" [(ngModel)]="selectedWorkmanshipType" [ngModelOptions]="{standalone: true}"></p-radioButton></div>
+            <div class="p-col-12"><p-radioButton name="workmanshipGroup" label="Bizot" value="Bizot" [(ngModel)]="selectedWorkmanshipType" [ngModelOptions]="{standalone: true}"></p-radioButton></div>
+            <div class="p-col-12"><p-radioButton name="workmanshipGroup" label="Profil special" value="ProfilSpecial" [(ngModel)]="selectedWorkmanshipType" [ngModelOptions]="{standalone: true}"></p-radioButton></div>
+          </div>
         </div>
       </div>
     </div>
@@ -130,75 +168,95 @@
           Societatea:*
         </div>
         <div class="p-col-10">
-          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['society']" size="60" placeholder="Pietricica lucioasa SRL">
+          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['society']"
+            size="60" placeholder="Pietricica lucioasa SRL">
         </div>
         <div class="p-col-2">
           Localitate Sediu:*
         </div>
         <div class="p-col-10">
-          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['city']" size="60" placeholder="Baicoi">
+          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['city']"
+            size="60" placeholder="Baicoi">
         </div>
         <div class="p-col-2">
           Str:*
         </div>
         <div class="p-col-10">
-          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['street']" size="60" placeholder="Debitarii">
+          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['street']"
+            size="60" placeholder="Debitarii">
         </div>
         <div class="p-col-2">
           Nr:*
         </div>
         <div class="p-col-10">
-          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['streetNumber']" size="60" placeholder="12345">
+          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['streetNumber']"
+            size="60" placeholder="12345">
         </div>
         <div class="p-col-2">
           Tel:*
         </div>
         <div class="p-col-10">
-          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['tel']" size="60" maxlength="10" placeholder="0748567895">
+          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['tel']"
+            size="60" maxlength="10" placeholder="0748567895">
         </div>
         <div class="p-col-2">
           CF RO:*
         </div>
         <div class="p-col-10">
-          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['cfRo']" size="60" placeholder="1234567">
+          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['cfRo']"
+            size="60" placeholder="1234567">
         </div>
         <div class="p-col-2">
           RC:*
         </div>
         <div class="p-col-10">
-          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['rc']" size="60" placeholder="J08/1224/1997">
+          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['rc']" size="60"
+            placeholder="J08/1224/1997">
         </div>
         <div class="p-col-2">
           Cont nr.:*
         </div>
         <div class="p-col-10">
-          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['first']" size="7" maxlength="4" placeholder="RO22">
+          <input pInputText type="text"
+            [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['first']" size="7"
+            maxlength="4" placeholder="RO22">
           <span style="margin: 4px">-</span>
-          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['second']" size="7" maxlength="4" placeholder="BTRL">
+          <input pInputText type="text"
+            [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['second']" size="7"
+            maxlength="4" placeholder="BTRL">
           <span style="margin: 4px">-</span>
-          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['third']" size="7" maxlength="4" placeholder="0012">
+          <input pInputText type="text"
+            [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['third']" size="7"
+            maxlength="4" placeholder="0012">
           <span style="margin: 4px">-</span>
-          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['fourth']" size="7" maxlength="4" placeholder="3456">
+          <input pInputText type="text"
+            [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['fourth']" size="7"
+            maxlength="4" placeholder="3456">
           <span style="margin: 4px">-</span>
-          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['fifth']" size="7" maxlength="4" placeholder="3456">
+          <input pInputText type="text"
+            [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['fifth']" size="7"
+            maxlength="4" placeholder="3456">
         </div>
         <div class="p-col-2">
           Cont deschis la:*
         </div>
         <div class="p-col-10">
-          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['bank']" size="60" placeholder="BCR">
+          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['bank']"
+            size="60" placeholder="BCR">
         </div>
         <div class="p-col-2">
           Reprezentat de:*
         </div>
         <div class="p-col-10">
-          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['owner']" size="60" placeholder="Gigi Marmoratu'">
+          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['owner']"
+            size="60" placeholder="Gigi Marmoratu'">
         </div>
         <div class="p-col-2">
           In calitate de:*
         </div>
         <div class="p-col-10">
-          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['ownerStatus']" size="60" placeholder="Sef de trib">
+          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['ownerStatus']"
+            size="60" placeholder="Sef de trib">
         </div>
       </div>
     </div>

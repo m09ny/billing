@@ -1,4 +1,5 @@
-<p-dialog header="Editeaza pretul" [(visible)]="displayEditWorkmanshipPriceDialog" [style]="{width: '500px'}" [modal]="true" [resizable]="false" [draggable]="false">
+<p-dialog header="Editeaza pretul" [(visible)]="displayEditWorkmanshipPriceDialog" [style]="{width: '500px'}"
+  [modal]="true" [resizable]="false" [draggable]="false">
   <form [formGroup]="editWorkmanshipPriceForm" (ngSubmit)="onSubmitEditWorkmanshipPriceForm()">
     <div class="p-grid" style="padding: 20px">
       <div class="p-col-4">
@@ -8,7 +9,8 @@
         <input pInputText type="number" formControlName="price">
       </div>
       <div class="p-col-12">
-        <p-button label="Editeaza" icon="pi pi-pencil" type="submit" [disabled]="!editWorkmanshipPriceForm.valid"></p-button>
+        <p-button label="Editeaza" icon="pi pi-pencil" type="submit" [disabled]="!editWorkmanshipPriceForm.valid">
+        </p-button>
       </div>
     </div>
   </form>
@@ -16,9 +18,9 @@
 <p-table id="workmanshipPricesTable" [value]="workmanshipPrices">
   <ng-template pTemplate="header">
     <tr>
-        <th>Nume</th>
-        <th>Pret fara T.V.A.</th>
-        <th style="width: 55px"></th>
+      <th>Nume</th>
+      <th>Pret fara T.V.A.</th>
+      <th *ngIf="authService.currentUser.isAdmin" style="width: 55px"></th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-workmanshipPrice>
@@ -30,7 +32,8 @@
         {{workmanshipPrice.price}}
       </td>
       <td *ngIf="authService.currentUser.isAdmin" style="text-align: center">
-        <p-button type="button" icon="pi pi-pencil" styleClass="ui-button-warning" (click)="onWorkmanshipEdit(workmanshipPrice)"></p-button>
+        <p-button type="button" icon="pi pi-pencil" styleClass="ui-button-warning"
+          (click)="onWorkmanshipEdit(workmanshipPrice)"></p-button>
       </td>
     </tr>
   </ng-template>
