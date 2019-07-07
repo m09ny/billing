@@ -1,0 +1,61 @@
+.ui-steps .ui-steps-item {
+    width: 20%;
+}
+
+.ui-steps {
+    margin-bottom: 30px;
+}
+
+.bar {
+    border-left: 1px solid gray;
+    height: 230px;
+    padding-left: 20px;
+}
+
+#newEntriesTable .ui-table th {
+    text-align: center;
+}
+
+#newEntriesTable .ui-table .ui-table-tbody > tr > td {
+    padding: 0px !important;
+    text-align: center;
+}
+
+#newEntriesTable .ui-table .ui-table-tfoot > tr > td {
+    padding: 0px !important;
+    text-align: center;
+}
+
+#newEntriesTable .ui-inputtext {
+    width: 100%;
+    border-radius: unset !important;
+}
+
+button[icon="pi pi-angle-double-right"] {
+    display: none !important;
+}
+
+button[icon="pi pi-angle-double-left"] {
+    display: none !important;
+}
+
+.ui-picklist.ui-picklist-responsive .ui-picklist-source-wrapper .ui-picklist-list {
+    height: 50vh !important;
+}
+
+.ui-picklist.ui-picklist-responsive .ui-picklist-target-wrapper .ui-picklist-list {
+    height: 100px !important;
+}
+
+.ui-picklist.ui-picklist-responsive .ui-picklist-target-wrapper .ui-picklist-list .ui-picklist-empty-message {
+    text-align: center;
+    padding: 35px;
+}
+
+#order-summary-table th {
+    text-align: center;
+}
+
+#order-summary-table td {
+    text-align: center;
+}

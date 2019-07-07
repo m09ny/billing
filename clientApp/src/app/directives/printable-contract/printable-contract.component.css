@@ -1,0 +1,34 @@
+.contract-section {
+    font-size: 19px;
+    padding: 30px;
+    text-align: justify;
+}
+
+.bold { 
+    font-weight: bold;
+}
+
+.signatures {
+    display: flex;
+}
+
+.pagebreak {
+    page-break-after: always;
+}
+
+.annex-section {
+    font-size: 19px;
+    padding: 30px;
+}
+
+table {
+    font-size: 14px;
+    margin-top: 40px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+    text-align: center;
+}

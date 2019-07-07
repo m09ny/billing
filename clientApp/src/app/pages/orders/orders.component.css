@@ -1,0 +1,21 @@
+#ordersTable input {
+    width: 100%;
+}
+
+#ordersTable table {
+   table-layout: auto !important;
+}
+
+#ordersTable thead tr th:first-child {
+    width: 100px;
+}
+
+.print-dialog-content {
+    padding: 10px 60px 20px 10px;
+}
+
+.print-dialog-content .pi-print {
+    font-size: 24px;
+    margin-right: 6px;
+    vertical-align: middle;
+}

@@ -1,0 +1,31 @@
+<div class="container-fluid login-page-container">
+  <div class="login-centering-wrapper">
+    <div class="login-main-wrapper">
+      <div class="login-main-container">
+        <div class="login-stream-logo">Lemet Stone</div>
+        <div class="login-sub-wrapper">
+          <form [formGroup]="userLoginForm" (ngSubmit)="onSubmitUserLoginForm()" autocomplete="off">
+
+            <div *ngIf="showErrorMessage" class="invalid-user-errormessage">Credentialele sunt incorecte.</div>
+            <div class="login-inputs-container">
+              <span class="ui-float-label login-input">
+                <input pInputText id="username" class="login-input" type="text" formControlName="username">
+                <label for="username">Utilizator</label>
+              </span>
+              <span class="ui-float-label login-input">
+                <input pInputText id="password" class="login-input" type="password" formControlName="password">
+                <label for="password">Parola</label>
+              </span>
+            </div>
+            <p-checkbox id="remember-me" [(ngModel)]="rememberMe" [ngModelOptions]="{standalone: true}" binary="true" label="Tine-ma minte"></p-checkbox>
+          
+            <div class="login-sign-in-btn-wrapper">
+              <button id="sign-in-btn" label="Sign in" type="submit">Logheaza-te</button>
+            </div>
+          
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

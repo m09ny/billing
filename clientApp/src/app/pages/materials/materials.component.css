@@ -1,0 +1,11 @@
+#materialsTable input {
+    width: 100%;
+}
+
+#materialsTable table {
+   table-layout: auto !important;
+}
+
+p-dialog input {
+    width: 300px !important;
+}
