@@ -14,6 +14,7 @@ import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,10 +24,11 @@ import com.google.gson.Gson;
 
 @Entity
 @Table(name = "orders")
+@SequenceGenerator(name = "seq", initialValue = 350, allocationSize = 1)
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     private long id;
 
     /*
@@ -52,17 +54,13 @@ public class Order {
     @Embedded
     private EntriesTotal entriesTotal;
 
-    private double semibastonWorkmanshipPrice;
+    private String workmanshipFinishType;
 
-    private double bizotWorkmanshipPrice;
+    private double workmanshipFinishPrice;
 
-    private double semibastonTotalPrice;
+    private double workmanshipFinishTotalPrice;
 
-    private double semibastonTotalPriceVat;
-
-    private double bizotTotalPrice;
-
-    private double bizotTotalPriceVat;
+    private double workmanshipFinishTotalPriceVat;
 
     private double materialTotalPrice;
 
@@ -79,6 +77,38 @@ public class Order {
         this.creationDate = new Date();
     }
 
+    public double getWorkmanshipFinishTotalPriceVat() {
+        return workmanshipFinishTotalPriceVat;
+    }
+
+    public void setWorkmanshipFinishTotalPriceVat(double workmanshipFinishTotalPriceVat) {
+        this.workmanshipFinishTotalPriceVat = workmanshipFinishTotalPriceVat;
+    }
+
+    public double getWorkmanshipFinishTotalPrice() {
+        return workmanshipFinishTotalPrice;
+    }
+
+    public void setWorkmanshipFinishTotalPrice(double workmanshipFinishTotalPrice) {
+        this.workmanshipFinishTotalPrice = workmanshipFinishTotalPrice;
+    }
+
+    public double getWorkmanshipFinishPrice() {
+        return workmanshipFinishPrice;
+    }
+
+    public void setWorkmanshipFinishPrice(double workmanshipFinishPrice) {
+        this.workmanshipFinishPrice = workmanshipFinishPrice;
+    }
+
+    public String getWorkmanshipFinishType() {
+        return workmanshipFinishType;
+    }
+
+    public void setWorkmanshipFinishType(String workmanshipFinishType) {
+        this.workmanshipFinishType = workmanshipFinishType;
+    }
+
     @PostLoad
     private void onPostLoad() {
         Gson gson = new Gson();
@@ -91,22 +121,6 @@ public class Order {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
-    }
-
-    public double getBizotWorkmanshipPrice() {
-        return bizotWorkmanshipPrice;
-    }
-
-    public void setBizotWorkmanshipPrice(double bizotWorkmanshipPrice) {
-        this.bizotWorkmanshipPrice = bizotWorkmanshipPrice;
-    }
-
-    public double getSemibastonWorkmanshipPrice() {
-        return semibastonWorkmanshipPrice;
-    }
-
-    public void setSemibastonWorkmanshipPrice(double semibastonWorkmanshipPrice) {
-        this.semibastonWorkmanshipPrice = semibastonWorkmanshipPrice;
     }
 
     public long getId() {
@@ -143,38 +157,6 @@ public class Order {
 
     public void setMaterialTotalPrice(double materialTotalPrice) {
         this.materialTotalPrice = materialTotalPrice;
-    }
-
-    public double getBizotTotalPriceVat() {
-        return bizotTotalPriceVat;
-    }
-
-    public void setBizotTotalPriceVat(double bizotTotalPriceVat) {
-        this.bizotTotalPriceVat = bizotTotalPriceVat;
-    }
-
-    public double getBizotTotalPrice() {
-        return bizotTotalPrice;
-    }
-
-    public void setBizotTotalPrice(double bizotTotalPrice) {
-        this.bizotTotalPrice = bizotTotalPrice;
-    }
-
-    public double getSemibastonTotalPriceVat() {
-        return semibastonTotalPriceVat;
-    }
-
-    public void setSemibastonTotalPriceVat(double semibastonTotalPriceVat) {
-        this.semibastonTotalPriceVat = semibastonTotalPriceVat;
-    }
-
-    public double getSemibastonTotalPrice() {
-        return semibastonTotalPrice;
-    }
-
-    public void setSemibastonTotalPrice(double semibastonTotalPrice) {
-        this.semibastonTotalPrice = semibastonTotalPrice;
     }
 
     public Workmanship getWorkmanship() {

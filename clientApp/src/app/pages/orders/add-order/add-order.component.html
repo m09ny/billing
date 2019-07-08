@@ -153,9 +153,9 @@
         </div>
         <div class="p-col-5">
           <div class="p-grid">
-            <div class="p-col-12"><p-radioButton name="workmanshipGroup" label="Semibaston" value="Semibaston" [(ngModel)]="selectedWorkmanshipType" [ngModelOptions]="{standalone: true}"></p-radioButton></div>
-            <div class="p-col-12"><p-radioButton name="workmanshipGroup" label="Bizot" value="Bizot" [(ngModel)]="selectedWorkmanshipType" [ngModelOptions]="{standalone: true}"></p-radioButton></div>
-            <div class="p-col-12"><p-radioButton name="workmanshipGroup" label="Profil special" value="ProfilSpecial" [(ngModel)]="selectedWorkmanshipType" [ngModelOptions]="{standalone: true}"></p-radioButton></div>
+            <div class="p-col-12"><p-radioButton name="workmanshipGroup" label="Semibaston" value="semibaston" [formControl]="addOrderForm.controls['workmanshipFinishType']"></p-radioButton></div>
+            <div class="p-col-12"><p-radioButton name="workmanshipGroup" label="Bizot" value="bizot" [formControl]="addOrderForm.controls['workmanshipFinishType']"></p-radioButton></div>
+            <div class="p-col-12"><p-radioButton name="workmanshipGroup" label="Profil special" value="profilSpecial" [formControl]="addOrderForm.controls['workmanshipFinishType']"></p-radioButton></div>
           </div>
         </div>
       </div>
@@ -169,49 +169,48 @@
         </div>
         <div class="p-col-10">
           <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['society']"
-            size="60" placeholder="Pietricica lucioasa SRL">
+            size="60">
         </div>
         <div class="p-col-2">
           Localitate Sediu:*
         </div>
         <div class="p-col-10">
           <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['city']"
-            size="60" placeholder="Baicoi">
+            size="60">
         </div>
         <div class="p-col-2">
           Str:*
         </div>
         <div class="p-col-10">
           <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['street']"
-            size="60" placeholder="Debitarii">
+            size="60">
         </div>
         <div class="p-col-2">
           Nr:*
         </div>
         <div class="p-col-10">
           <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['streetNumber']"
-            size="60" placeholder="12345">
+            size="60">
         </div>
         <div class="p-col-2">
           Tel:*
         </div>
         <div class="p-col-10">
           <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['tel']"
-            size="60" maxlength="10" placeholder="0748567895">
+            size="60" maxlength="10">
         </div>
         <div class="p-col-2">
           CF RO:*
         </div>
         <div class="p-col-10">
           <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['cfRo']"
-            size="60" placeholder="1234567">
+            size="60">
         </div>
         <div class="p-col-2">
           RC:*
         </div>
         <div class="p-col-10">
-          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['rc']" size="60"
-            placeholder="J08/1224/1997">
+          <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['rc']" size="60">
         </div>
         <div class="p-col-2">
           Cont nr.:*
@@ -219,44 +218,44 @@
         <div class="p-col-10">
           <input pInputText type="text"
             [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['first']" size="7"
-            maxlength="4" placeholder="RO22">
+            maxlength="4">
           <span style="margin: 4px">-</span>
           <input pInputText type="text"
             [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['second']" size="7"
-            maxlength="4" placeholder="BTRL">
+            maxlength="4">
           <span style="margin: 4px">-</span>
           <input pInputText type="text"
             [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['third']" size="7"
-            maxlength="4" placeholder="0012">
+            maxlength="4">
           <span style="margin: 4px">-</span>
           <input pInputText type="text"
             [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['fourth']" size="7"
-            maxlength="4" placeholder="3456">
+            maxlength="4">
           <span style="margin: 4px">-</span>
           <input pInputText type="text"
             [formControl]="addOrderForm.controls['clientMetadata'].controls['account'].controls['fifth']" size="7"
-            maxlength="4" placeholder="3456">
+            maxlength="4">
         </div>
         <div class="p-col-2">
           Cont deschis la:*
         </div>
         <div class="p-col-10">
           <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['bank']"
-            size="60" placeholder="BCR">
+            size="60">
         </div>
         <div class="p-col-2">
           Reprezentat de:*
         </div>
         <div class="p-col-10">
           <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['owner']"
-            size="60" placeholder="Gigi Marmoratu'">
+            size="60">
         </div>
         <div class="p-col-2">
           In calitate de:*
         </div>
         <div class="p-col-10">
           <input pInputText type="text" [formControl]="addOrderForm.controls['clientMetadata'].controls['ownerStatus']"
-            size="60" placeholder="Sef de trib">
+            size="60">
         </div>
       </div>
     </div>

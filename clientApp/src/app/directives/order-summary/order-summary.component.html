@@ -100,26 +100,20 @@
             <td colspan="1">{{order.workmanship.canalAntiderapant}} ML</td>
           </tr>
           <tr class="table-secondary">
-            <th colspan="3">Semibaston</th>
-            <th colspan="3">Bizot</th>
+            <th colspan="3" rowspan="4"></th>
+            <th colspan="3">{{order.workmanshipFinishType | titlecase}}</th>
           </tr>
           <tr>
             <th colspan="2">Manopera finisaj</th>
-            <td colspan="1">{{order.semibastonWorkmanshipPrice}} lei</td>
-            <th colspan="2">Manopera finisaj</th>
-            <td colspan="1">{{order.bizotWorkmanshipPrice}} lei</td>
+            <td colspan="1">{{order.workmanshipFinishPrice}} lei</td>
           </tr>
           <tr>
-            <th colspan="2">Semibaston total general fara TVA</th>
-            <td colspan="1">{{order.semibastonTotalPrice}} lei</td>
-            <th colspan="2">Bizot total general fara TVA</th>
-            <td colspan="1">{{order.bizotTotalPrice}} lei</td>
+            <th colspan="2">Total general fara TVA</th>
+            <td colspan="1">{{order.workmanshipFinishTotalPrice}} lei</td>
           </tr>
           <tr>
-            <th colspan="2">Semibaston total general cu TVA</th>
-            <td colspan="1">{{order.semibastonTotalPriceVat}} lei</td>
-            <th colspan="2">Bizot total general cu TVA</th>
-            <td colspan="1">{{order.bizotTotalPriceVat}} lei</td>
+            <th colspan="2">Total general cu TVA</th>
+            <td colspan="1">{{order.workmanshipFinishTotalPriceVat}} lei</td>
           </tr>
           <tr class="thead-dark">
             <th colspan="7" style="text-align: end">Total Material: {{order.materialTotalPrice}} lei</th>

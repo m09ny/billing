@@ -67,17 +67,13 @@ export class AddOrderComponent implements OnInit {
       owner: new FormControl('', Validators.required),
       ownerStatus: new FormControl('', Validators.required)
     }),
-    semibastonWorkmanshipPrice: new FormControl(0, Validators.required),
-    semibastonTotalPrice: new FormControl(0, Validators.required),
-    semibastonTotalPriceVat: new FormControl(0, Validators.required),
-    bizotWorkmanshipPrice: new FormControl(0, Validators.required),
-    bizotTotalPrice: new FormControl(0, Validators.required),
-    bizotTotalPriceVat: new FormControl(0, Validators.required),
+    workmanshipFinishType: new FormControl('', Validators.required),
+    workmanshipFinishPrice: new FormControl(0, Validators.required),
+    workmanshipFinishTotalPrice: new FormControl(0, Validators.required),
+    workmanshipFinishTotalPriceVat: new FormControl(0, Validators.required),
     materialTotalPrice: new FormControl(0, Validators.required),
     totalPrice: new FormControl(0, Validators.required)
   });
-
-  selectedWorkmanshipType: string;
 
   isAddOrderFormSubmitted = false;
 
@@ -117,12 +113,9 @@ export class AddOrderComponent implements OnInit {
         command: (event: any) => {
           this.addOrderForm.get('entriesTotal').enable();
           this.calculateMaterialTotalPrice();
-          this.calculateSemibastonWorkmanshipPrice();
-          this.calculateBizotWorkmanshipPrice();
-          this.calculateSemibastonTotalPrice();
-          this.calculateSemibastonTotalPriceVat();
-          this.calculateBizotTotalPrice();
-          this.calculateBizotTotalPriceVat();
+          this.calculateWorkmanshipFinishPrice(this.addOrderForm.get('workmanshipFinishType').value);
+          this.calculateWorkmanshipFinishTotalPrice();
+          this.calculateWorkmanshipFinishTotalPriceVat();
           this.calculateTotalPrice();
           this.activeIndex = 4;
         }
@@ -131,8 +124,9 @@ export class AddOrderComponent implements OnInit {
 
     this.route.data.subscribe(data => {
       this.materials = data.resolvedMaterialsData;
+// tslint:disable-next-line: prefer-for-of
       for (let i = 0; i < data.resolvedWorkmanShipPricesData.length; i++) {
-        switch (data.resolvedWorkmanShipPricesData[i].id) {
+        switch (data.resolvedWorkmanShipPricesData[i].code) {
           case 1: {
             this.workmanshipPrices['semibaston'] = data.resolvedWorkmanShipPricesData[i].price;
             break;
@@ -142,30 +136,34 @@ export class AddOrderComponent implements OnInit {
             break;
           }
           case 3: {
-            this.workmanshipPrices['picurator'] = data.resolvedWorkmanShipPricesData[i].price;
+            this.workmanshipPrices['profilSpecial'] = data.resolvedWorkmanShipPricesData[i].price;
             break;
           }
           case 4: {
-            this.workmanshipPrices['taiat'] = data.resolvedWorkmanShipPricesData[i].price;
+            this.workmanshipPrices['picurator'] = data.resolvedWorkmanShipPricesData[i].price;
             break;
           }
           case 5: {
-            this.workmanshipPrices['decupajeLavoare'] = data.resolvedWorkmanShipPricesData[i].price;
+            this.workmanshipPrices['taiat'] = data.resolvedWorkmanShipPricesData[i].price;
             break;
           }
           case 6: {
-            this.workmanshipPrices['decupajePeCurb'] = data.resolvedWorkmanShipPricesData[i].price;
+            this.workmanshipPrices['decupajeLavoare'] = data.resolvedWorkmanShipPricesData[i].price;
             break;
           }
           case 7: {
-            this.workmanshipPrices['gauriCarota'] = data.resolvedWorkmanShipPricesData[i].price;
+            this.workmanshipPrices['decupajePeCurb'] = data.resolvedWorkmanShipPricesData[i].price;
             break;
           }
           case 8: {
-            this.workmanshipPrices['lipireAdaos'] = data.resolvedWorkmanShipPricesData[i].price;
+            this.workmanshipPrices['gauriCarota'] = data.resolvedWorkmanShipPricesData[i].price;
             break;
           }
           case 9: {
+            this.workmanshipPrices['lipireAdaos'] = data.resolvedWorkmanShipPricesData[i].price;
+            break;
+          }
+          case 10: {
             this.workmanshipPrices['canalAntiderapant'] = data.resolvedWorkmanShipPricesData[i].price;
             break;
           }
@@ -331,50 +329,27 @@ export class AddOrderComponent implements OnInit {
     this.addOrderForm.get('material').patchValue(event.items[0]);
   }
 
-  private calculateSemibastonWorkmanshipPrice(): void {
-    const semibastonWorkmanshipPrice =
+  private calculateWorkmanshipFinishPrice(workmanshipFinishType: string): void {
+    const workmanshipFinishPrice =
       this.addOrderForm.get('entriesTotal').get('totalArea').value * this.workmanshipPrices['taiat'] +
-      this.addOrderForm.get('entriesTotal').get('totalProfiling').value * this.workmanshipPrices['semibaston'] +
+      this.addOrderForm.get('entriesTotal').get('totalProfiling').value * this.workmanshipPrices[workmanshipFinishType] +
       this.addOrderForm.get('entriesTotal').get('totalDraining').value * this.workmanshipPrices['picurator'] +
       this.workmanshipPrices['decupajeLavoare'] * this.addOrderForm.get('workmanship').get('decupajeLavoare').value +
       this.workmanshipPrices['decupajePeCurb'] * this.addOrderForm.get('workmanship').get('decupajePeCurb').value +
       this.workmanshipPrices['gauriCarota'] * this.addOrderForm.get('workmanship').get('gauriCarota').value +
       this.workmanshipPrices['lipireAdaos'] * this.addOrderForm.get('workmanship').get('lipireAdaos').value +
       this.workmanshipPrices['canalAntiderapant'] * this.addOrderForm.get('workmanship').get('canalAntiderapant').value;
-    this.addOrderForm.get('semibastonWorkmanshipPrice').patchValue(semibastonWorkmanshipPrice.toFixed(2));
+    this.addOrderForm.get('workmanshipFinishPrice').patchValue(workmanshipFinishPrice.toFixed(2));
   }
 
-  private calculateBizotWorkmanshipPrice(): void {
-    const bizotWorkmanshipPrice =
-      this.addOrderForm.get('entriesTotal').get('totalArea').value * this.workmanshipPrices['taiat'] +
-      this.addOrderForm.get('entriesTotal').get('totalProfiling').value * this.workmanshipPrices['bizot'] +
-      this.addOrderForm.get('entriesTotal').get('totalDraining').value * this.workmanshipPrices['picurator'] +
-      this.workmanshipPrices['decupajeLavoare'] * this.addOrderForm.get('workmanship').get('decupajeLavoare').value +
-      this.workmanshipPrices['decupajePeCurb'] * this.addOrderForm.get('workmanship').get('decupajePeCurb').value +
-      this.workmanshipPrices['gauriCarota'] * this.addOrderForm.get('workmanship').get('gauriCarota').value +
-      this.workmanshipPrices['lipireAdaos'] * this.addOrderForm.get('workmanship').get('lipireAdaos').value +
-      this.workmanshipPrices['canalAntiderapant'] * this.addOrderForm.get('workmanship').get('canalAntiderapant').value;
-    this.addOrderForm.get('bizotWorkmanshipPrice').patchValue(bizotWorkmanshipPrice.toFixed(2));
+  private calculateWorkmanshipFinishTotalPrice(): void {
+    const workmanshipFinishTotalPrice = +this.addOrderForm.value.materialTotalPrice + +this.addOrderForm.value.workmanshipFinishPrice;
+    this.addOrderForm.get('workmanshipFinishTotalPrice').patchValue(workmanshipFinishTotalPrice.toFixed(2));
   }
 
-  private calculateSemibastonTotalPrice(): void {
-    const semibastonTotalPrice = +this.addOrderForm.value.materialTotalPrice + +this.addOrderForm.value.semibastonWorkmanshipPrice;
-    this.addOrderForm.get('semibastonTotalPrice').patchValue(semibastonTotalPrice.toFixed(2));
-  }
-
-  private calculateSemibastonTotalPriceVat(): void {
-    const semibastonTotalPriceVat = this.addOrderForm.value.semibastonTotalPrice * 1.19;
-    this.addOrderForm.get('semibastonTotalPriceVat').patchValue(+semibastonTotalPriceVat.toFixed(2));
-  }
-
-  private calculateBizotTotalPrice(): void {
-    const bizotTotalPrice = +this.addOrderForm.value.materialTotalPrice + +this.addOrderForm.value.bizotWorkmanshipPrice;
-    this.addOrderForm.get('bizotTotalPrice').patchValue(+bizotTotalPrice.toFixed(2));
-  }
-
-  private calculateBizotTotalPriceVat(): void {
-    const bizotTotalPriceVat = this.addOrderForm.value.bizotTotalPrice * 1.19;
-    this.addOrderForm.get('bizotTotalPriceVat').patchValue(+bizotTotalPriceVat.toFixed(2));
+  private calculateWorkmanshipFinishTotalPriceVat(): void {
+    const workmanshipFinishTotalPriceVat = this.addOrderForm.value.workmanshipFinishTotalPrice * 1.19;
+    this.addOrderForm.get('workmanshipFinishTotalPriceVat').patchValue(+workmanshipFinishTotalPriceVat.toFixed(2));
   }
 
   private calculateMaterialTotalPrice(): void {

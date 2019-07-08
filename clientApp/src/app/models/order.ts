@@ -10,12 +10,10 @@ export class Order {
     entriesTotal: EntriesTotal;
     workmanship: Workmanship;
     clientMetadata: ClientMetadata;
-    semibastonWorkmanshipPrice: number;
-    bizotWorkmanshipPrice: number;
-    semibastonTotalPrice: number;
-    semibastonTotalPriceVat: number;
-    bizotTotalPrice: number;
-    bizotTotalPriceVat: number;
+    workmanshipFinishType: string;
+    workmanshipFinishPrice: number;
+    workmanshipFinishTotalPrice: number;
+    workmanshipFinishTotalPriceVat: number;
     materialTotalPrice: number;
     totalPrice: number;
     creationDate: Date;

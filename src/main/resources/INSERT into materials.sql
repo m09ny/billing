@@ -109,7 +109,7 @@ INSERT INTO MATERIALS(type, name, thickness, surface, finish, price, priceVat) V
 INSERT INTO MATERIALS(type, name, thickness, surface, finish, price, priceVat) VALUES('GRANIT', 'FUSION', 2, 'LUSTRUIT', 'LASTRE', 3307.5, 3935.93);
 INSERT INTO MATERIALS(type, name, thickness, surface, finish, price, priceVat) VALUES('GRANIT', 'GAYA', 2, 'LUSTRUIT', 'LASTRE', 1715.63, 2041.59);
 INSERT INTO MATERIALS(type, name, thickness, surface, finish, price, priceVat) VALUES('GRANIT', 'GERIBA', 3, 'LUSTRUIT', 'LASTRE', 562.5, 669.38);
-INSERT INTO MATERIALS(type, name, thickness, surface, finish, price, priceVat) VALUES('GRANIT', 'GIALLO ANTICO 2.5 CM', 2,5, 'LUSTRUIT', 'LASTRE', 551.25, 655.99);
+INSERT INTO MATERIALS(type, name, thickness, surface, finish, price, priceVat) VALUES('GRANIT', 'GIALLO ANTICO 2.5 CM', 2.5, 'LUSTRUIT', 'LASTRE', 551.25, 655.99);
 INSERT INTO MATERIALS(type, name, thickness, surface, finish, price, priceVat) VALUES('GRANIT', 'GIALLO CALIFORNIA', 2, 'LUSTRUIT', 'LASTRE', 810, 963.9);
 INSERT INTO MATERIALS(type, name, thickness, surface, finish, price, priceVat) VALUES('GRANIT', 'GIALLO CALIFORNIA', 3, 'LUSTRUIT', 'LASTRE', 1248.75, 1486.01);
 INSERT INTO MATERIALS(type, name, thickness, surface, finish, price, priceVat) VALUES('GRANIT', 'GIALLO CECILIA LIGHT S', 2, 'LUSTRUIT', 'LASTRE', 371.25, 441.79);

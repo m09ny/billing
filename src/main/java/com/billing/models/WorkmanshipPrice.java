@@ -14,12 +14,22 @@ public class WorkmanshipPrice {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private int code;
+
     private String name;
 
     private double price;
 
     public long getId() {
         return id;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public double getPrice() {
