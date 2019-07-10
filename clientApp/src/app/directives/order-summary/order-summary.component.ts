@@ -1,10 +1,11 @@
 import { Order } from 'src/app/models/order';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-order-summary',
   templateUrl: './order-summary.component.html',
-  styleUrls: ['./order-summary.component.css']
+  styleUrls: ['./order-summary.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class OrderSummaryComponent implements OnInit {
 
@@ -14,10 +15,26 @@ export class OrderSummaryComponent implements OnInit {
 
   @Input() submitButton: boolean;
 
+// tslint:disable-next-line: no-output-on-prefix
+  @Output() onPrepaymentEvent: EventEmitter<any> = new EventEmitter<number>();
+
+  prepayment: number;
+
+  displayPrepaymentDialog = false;
+
   constructor() { }
 
   ngOnInit() {
 
+  }
+
+  onPrepayment(): void {
+    this.displayPrepaymentDialog = true;
+  }
+
+  onPayPrepayment(prepayment: number): void {
+    this.onPrepaymentEvent.emit(prepayment);
+    this.displayPrepaymentDialog = false;
   }
 
 }

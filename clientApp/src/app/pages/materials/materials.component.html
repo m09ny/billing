@@ -1,4 +1,5 @@
-<p-dialog header="Adauga material" [(visible)]="displayAddMaterialDialog" [style]="{width: '600px'}" [modal]="true" [resizable]="false" [draggable]="false">
+<p-dialog header="Adauga material" [(visible)]="displayAddMaterialDialog" [style]="{width: '600px'}" [modal]="true"
+  [resizable]="false" [draggable]="false">
   <form [formGroup]="addMaterialForm" (ngSubmit)="onSubmitAddMaterialForm()">
     <div class="p-grid" style="padding: 20px;">
       <div class="p-col-4">
@@ -44,7 +45,7 @@
         <input pInputText type="number" formControlName="priceVat" size="40">
       </div>
       <div class="p-col-12">
-        <hr/>
+        <hr />
       </div>
       <div class="p-col-12">
         <p-button label="Adauga" icon="pi pi-plus" type="submit" [disabled]="!addMaterialForm.valid"></p-button>
@@ -52,7 +53,8 @@
     </div>
   </form>
 </p-dialog>
-<p-dialog header="Editeaza material" [(visible)]="displayEditMaterialDialog" [style]="{width: '600px'}" [modal]="true" [resizable]="false" [draggable]="false">
+<p-dialog header="Editeaza material" [(visible)]="displayEditMaterialDialog" [style]="{width: '600px'}" [modal]="true"
+  [resizable]="false" [draggable]="false">
   <form [formGroup]="addMaterialForm" (ngSubmit)="onSubmitEditMaterialForm()">
     <div class="p-grid" style="padding: 20px;">
       <div class="p-col-4">
@@ -98,7 +100,7 @@
         <input pInputText type="number" formControlName="priceVat" size="40">
       </div>
       <div class="p-col-12">
-        <hr/>
+        <hr />
       </div>
       <div class="p-col-12">
         <p-button label="Editeaza" icon="pi pi-pencil" type="submit" [disabled]="!addMaterialForm.valid"></p-button>
@@ -114,17 +116,27 @@
         <p-sortIcon [field]="col.field"></p-sortIcon>
       </th>
       <th *ngIf="authService.currentUser.isAdmin" rowspan="2" style="width:95px; text-align:center;">
-        <p-button type="button" icon="pi pi-plus" styleClass="ui-button-info" (click)="onMaterialAdd(rowData)"></p-button>
+        <p-button type="button" icon="pi pi-plus" styleClass="ui-button-info" (click)="onMaterialAdd(rowData)">
+        </p-button>
       </th>
     </tr>
     <tr>
       <th *ngFor="let col of columns" [ngSwitch]="col.field">
-        <p-dropdown *ngSwitchCase="'type'" [options]="types" showTransitionOptions="0ms ease-out" [autoDisplayFirst]="false" [style]="{'width':'100%'}" (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
-        <input *ngSwitchCase="'name'" pInputText type="text" (input)="materialsTable.filter($event.target.value, col.field, col.filterMatchMode)">
-        <input *ngSwitchCase="'thickness'" pInputText type="number" (input)="materialsTable.filter($event.target.value, col.field, col.filterMatchMode)">
-        <p-dropdown *ngSwitchCase="'surface'" [options]="surfaces" showTransitionOptions="0ms ease-out" [autoDisplayFirst]="false" [style]="{'width':'100%'}" (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
-        <input *ngSwitchCase="'fullName'" pInputText type="text" (input)="materialsTable.filter($event.target.value, col.field, col.filterMatchMode)">
-        <p-dropdown *ngSwitchCase="'finish'" [options]="finishes" showTransitionOptions="0ms ease-out" [autoDisplayFirst]="false" [style]="{'width':'100%'}" (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
+        <p-dropdown *ngSwitchCase="'type'" [options]="types" showTransitionOptions="0ms ease-out"
+          [autoDisplayFirst]="false" [style]="{'width':'100%'}"
+          (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
+        <input *ngSwitchCase="'name'" pInputText type="text"
+          (input)="materialsTable.filter($event.target.value, col.field, col.filterMatchMode)">
+        <input *ngSwitchCase="'thickness'" pInputText type="number"
+          (input)="materialsTable.filter($event.target.value, col.field, col.filterMatchMode)">
+        <p-dropdown *ngSwitchCase="'surface'" [options]="surfaces" showTransitionOptions="0ms ease-out"
+          [autoDisplayFirst]="false" [style]="{'width':'100%'}"
+          (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
+        <input *ngSwitchCase="'fullName'" pInputText type="text"
+          (input)="materialsTable.filter($event.target.value, col.field, col.filterMatchMode)">
+        <p-dropdown *ngSwitchCase="'finish'" [options]="finishes" showTransitionOptions="0ms ease-out"
+          [autoDisplayFirst]="false" [style]="{'width':'100%'}"
+          (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
       </th>
     </tr>
   </ng-template>
@@ -134,8 +146,10 @@
         {{rowData[col.field]}}
       </td>
       <td *ngIf="authService.currentUser.isAdmin" style="text-align: center">
-        <p-button type="button" icon="pi pi-pencil" styleClass="ui-button-warning" (click)="onMaterialEdit(rowData)"></p-button>
-        <p-button type="button" icon="pi pi-trash" styleClass="ui-button-danger" (click)="onMaterialDelete(rowData)"></p-button>
+        <p-button type="button" icon="pi pi-pencil" styleClass="ui-button-warning" (click)="onMaterialEdit(rowData)">
+        </p-button>
+        <p-button type="button" icon="pi pi-trash" styleClass="ui-button-danger" (click)="onMaterialDelete(rowData)">
+        </p-button>
       </td>
     </tr>
   </ng-template>

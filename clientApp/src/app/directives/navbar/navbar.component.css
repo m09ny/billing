@@ -5,3 +5,14 @@
 .dropdown {
     cursor: pointer;
 }
+
+.logo {
+    position: absolute;
+    height: 58px;
+    top: 0px;
+    left: 20px;
+}
+
+.navbar {
+    padding: .5rem 1rem .5rem 5rem;
+}

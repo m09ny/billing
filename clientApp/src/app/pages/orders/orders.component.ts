@@ -1,4 +1,3 @@
-import { ConfirmationService } from 'primeng/api';
 import { PrintDirective } from './../../directives/print/print.directive';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Order } from './../../models/order';

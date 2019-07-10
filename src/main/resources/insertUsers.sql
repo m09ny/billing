@@ -1,0 +1,1 @@
+INSERT INTO USERS(password, username, isAdmin, salt) VALUES('IDDJ/Ps+UMwCJ7U53DFuxw==', 'admin', true, 'ozqSrkVXHnjEaKVsNOXQwg==');

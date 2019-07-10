@@ -15,6 +15,7 @@ export class Order {
     workmanshipFinishTotalPrice: number;
     workmanshipFinishTotalPriceVat: number;
     materialTotalPrice: number;
-    totalPrice: number;
+    prepayment: number;
+    totalPriceLeft: number;
     creationDate: Date;
 }

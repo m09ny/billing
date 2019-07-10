@@ -17,6 +17,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NgxPrintModule } from 'ngx-print';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -71,7 +72,8 @@ import { PrintDirective } from './directives/print/print.directive';
     CheckboxModule,
     ConfirmDialogModule,
     NgxPrintModule,
-    RadioButtonModule
+    RadioButtonModule,
+    AutoCompleteModule
   ],
   providers: [
     AuthService,

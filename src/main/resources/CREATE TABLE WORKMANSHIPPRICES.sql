@@ -1,7 +1,0 @@
-CREATE TABLE WORKMANSHIPPRICES(	
-	id SERIAL PRIMARY KEY,
-	code int,
-	name VARCHAR(50),
-	price REAL
-);	
-

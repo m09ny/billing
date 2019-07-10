@@ -2,7 +2,7 @@ import { OrdersService } from '../../../services/orders/orders.service';
 import { Material } from '../../../models/material';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, ConfirmationService } from 'primeng/api';
 import { Router, ActivatedRoute } from '@angular/router';
 import { WorkmanshipPrice } from 'src/app/models/workmanship-price';
 
@@ -53,7 +53,7 @@ export class AddOrderComponent implements OnInit {
       city: new FormControl('', Validators.required),
       street: new FormControl('', Validators.required),
       streetNumber: new FormControl('', Validators.required),
-      tel: new FormControl('', Validators.required),
+      tel: new FormControl('', Validators.minLength(10)),
       cfRo: new FormControl('', Validators.required),
       rc: new FormControl('', Validators.required),
       account: new FormGroup({
@@ -72,14 +72,23 @@ export class AddOrderComponent implements OnInit {
     workmanshipFinishTotalPrice: new FormControl(0, Validators.required),
     workmanshipFinishTotalPriceVat: new FormControl(0, Validators.required),
     materialTotalPrice: new FormControl(0, Validators.required),
-    totalPrice: new FormControl(0, Validators.required)
+    prepayment: new FormControl(0, Validators.required),
+    totalPriceLeft: new FormControl(0, Validators.required)
   });
 
   isAddOrderFormSubmitted = false;
 
   workmanshipPrices: { [key: string]: number } = {};
 
-  constructor(private ordersService: OrdersService, private router: Router, private route: ActivatedRoute) { }
+  banks: string[] = ['Banca Transilvania', 'BRD', 'BCR', 'ING', 'Raiffeisen'];
+
+  filteredBanks: any[];
+
+  constructor(
+    private ordersService: OrdersService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.stepItems = [
@@ -116,7 +125,7 @@ export class AddOrderComponent implements OnInit {
           this.calculateWorkmanshipFinishPrice(this.addOrderForm.get('workmanshipFinishType').value);
           this.calculateWorkmanshipFinishTotalPrice();
           this.calculateWorkmanshipFinishTotalPriceVat();
-          this.calculateTotalPrice();
+          this.calculateTotalPriceLeft(0);
           this.activeIndex = 4;
         }
       }
@@ -178,6 +187,19 @@ export class AddOrderComponent implements OnInit {
   }
 
   onSubmitAddOrderForm(): void {
+    if (this.addOrderForm.invalid) {
+      this.confirmationService.confirm({
+        message: 'Te rog sa reverifici datele introduse!',
+        header: 'Confirmare',
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'Ok',
+        acceptVisible: true,
+        rejectVisible: false
+      });
+
+      return;
+    }
+
     this.ordersService.addOrder(this.addOrderForm.value).subscribe(
       response => {
         console.log(response);
@@ -190,6 +212,22 @@ export class AddOrderComponent implements OnInit {
 
   isAddOrderFormDirty(): boolean {
     return this.addOrderForm.dirty || this.addOrderForm.value.material.name !== '';
+  }
+
+  onPrepayamentUpdate(prepayament: number): void {
+    this.addOrderForm.get('prepayment').patchValue(prepayament);
+    this.calculateTotalPriceLeft(prepayament);
+  }
+
+  filterBanks(event) {
+    this.filteredBanks = [];
+// tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.banks.length; i++) {
+        const bank = this.banks[i];
+        if (bank.toLowerCase().indexOf(event.query.toLowerCase()) === 0) {
+            this.filteredBanks.push(bank);
+        }
+    }
   }
 
   onAddEntry(): void {
@@ -357,9 +395,9 @@ export class AddOrderComponent implements OnInit {
     this.addOrderForm.get('materialTotalPrice').patchValue(materialTotalPrice.toFixed(2));
   }
 
-  private calculateTotalPrice(): void {
-    const totalPrice = 0;
-    this.addOrderForm.get('totalPrice').patchValue(totalPrice.toFixed(2));
+  private calculateTotalPriceLeft(prepayament: number): void {
+    const workmanshipFinishTotalPriceVat = this.addOrderForm.get('workmanshipFinishTotalPriceVat').value;
+    this.addOrderForm.get('totalPriceLeft').patchValue(workmanshipFinishTotalPriceVat - prepayament);
   }
 
 }

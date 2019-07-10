@@ -19,6 +19,7 @@ export class WorkmanshipPricesComponent implements OnInit {
 
   editWorkmanshipPriceForm = new FormGroup({
     id: new FormControl(),
+    code: new FormControl(),
     name: new FormControl(),
     price: new FormControl()
   });

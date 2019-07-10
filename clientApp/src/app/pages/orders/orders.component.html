@@ -22,6 +22,8 @@
         </tr>
         <tr>
             <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                <input *ngSwitchCase="'id'" pInputText type="text"
+                    (input)="ordersTable.filter($event.target.value, col.field, col.filterMatchMode)">
                 <input *ngSwitchCase="'clientMetadata.society'" pInputText type="text"
                     (input)="ordersTable.filter($event.target.value, col.field, col.filterMatchMode)">
                 <input *ngSwitchCase="'clientMetadata.tel'" pInputText type="text"
@@ -36,7 +38,7 @@
             <td>{{order.id}}</td>
             <td>{{order.clientMetadata.society}}</td>
             <td>{{order.clientMetadata.tel}}</td>
-            <td>{{order.totalPrice}}</td>
+            <td>{{order.workmanshipFinishTotalPriceVat}}</td>
             <td>{{order.creationDate}}</td>
             <td style="text-align: center">
                 <p-button type="button" icon="pi pi-search" styleClass="ui-button-info" (click)="onOrderShow(order.id)">

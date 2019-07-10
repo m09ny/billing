@@ -24,7 +24,7 @@ import com.google.gson.Gson;
 
 @Entity
 @Table(name = "orders")
-@SequenceGenerator(name = "seq", initialValue = 350, allocationSize = 1)
+@SequenceGenerator(name = "seq", initialValue = 375, allocationSize = 1)
 public class Order {
 
     @Id
@@ -64,7 +64,9 @@ public class Order {
 
     private double materialTotalPrice;
 
-    private double totalPrice;
+    private double prepayment;
+
+    private double totalPriceLeft;
 
     @Temporal(TemporalType.DATE)
     private Date creationDate;
@@ -75,6 +77,22 @@ public class Order {
         this.entriesJson = gson.toJson(this.entries);
 
         this.creationDate = new Date();
+    }
+
+    public double getTotalPriceLeft() {
+        return totalPriceLeft;
+    }
+
+    public void setTotalPriceLeft(double totalPriceLeft) {
+        this.totalPriceLeft = totalPriceLeft;
+    }
+
+    public double getPrepayment() {
+        return prepayment;
+    }
+
+    public void setPrepayment(double prepayment) {
+        this.prepayment = prepayment;
     }
 
     public double getWorkmanshipFinishTotalPriceVat() {
@@ -141,14 +159,6 @@ public class Order {
 
     public void setEntries(List<Entry> entries) {
         this.entries = entries;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
     }
 
     public double getMaterialTotalPrice() {

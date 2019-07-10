@@ -5,3 +5,7 @@
 #order-summary-table td {
     text-align: center;
 }
+
+#prepayment-btn .ui-button-text {
+    width: 168px;
+}

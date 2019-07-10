@@ -1,4 +1,24 @@
 <app-printable-contract [order]="order"></app-printable-contract>
+<p-dialog header="Plateste in avans" [(visible)]="displayPrepaymentDialog" [style]="{width: '600px'}" [modal]="true"
+  [resizable]="false" [draggable]="false">
+  <div class="p-grid" style="padding: 20px;">
+    <div class="p-col-4">
+      Total:
+    </div>
+    <div class="p-col-8">
+      <div>{{order.workmanshipFinishTotalPriceVat}} lei</div>
+    </div>
+    <div class="p-col-4">
+      Avans:
+    </div>
+    <div class="p-col-8">
+      <input [(ngModel)]="prepayment" pInputText type="number" size="20">
+    </div>
+    <div class="p-col-12">
+      <p-button label="Ok" icon="pi pi-check" type="button" (onClick)="onPayPrepayment(prepayment)"></p-button>
+    </div>
+  </div>
+</p-dialog>
 <div class="p-grid">
   <div class="p-col-10">
     <div class="p-grid">
@@ -37,10 +57,17 @@
     </div>
   </div>
   <div class="p-col-2">
-    <button *ngIf="printButton" pButton ngxPrint printSectionId="print-section" [useExistingCss]="true"
-      label="Printeaza comanda" class="ui-button-success" type="button" icon="pi pi-print"></button>
-    <p-button *ngIf="submitButton" label="Finalizare comanda" styleClass="ui-button-info" type="submit"
-      icon="pi pi-angle-double-right"></p-button>
+    <div *ngIf="printButton">
+      <button pButton ngxPrint printSectionId="print-section" [useExistingCss]="true" label="Printeaza comanda"
+        class="ui-button-success" type="button" icon="pi pi-print"></button>
+    </div>
+    <div *ngIf="submitButton">
+      <p-button label="Finalizare comanda" styleClass="ui-button-success" type="submit" icon="pi pi-angle-double-right"
+        style="margin-bottom: 10px">
+      </p-button>
+      <p-button id="prepayment-btn" label="Plateste in avans" styleClass="ui-button-info" type="button"
+        icon="pi pi-angle-double-right" (onClick)="onPrepayment()"></p-button>
+    </div>
   </div>
   <div class="p-col-12">
     <div class="container" style="padding-top: 40px">
@@ -99,27 +126,26 @@
             <td colspan="1">{{order.workmanship.lipireAdaos}} ML</td>
             <td colspan="1">{{order.workmanship.canalAntiderapant}} ML</td>
           </tr>
-          <tr class="table-secondary">
-            <th colspan="3" rowspan="4"></th>
-            <th colspan="3">{{order.workmanshipFinishType | titlecase}}</th>
+          <tr>
+            <th colspan="7" style="text-align: end">Tip profil: {{order.workmanshipFinishType | titlecase}}</th>
           </tr>
           <tr>
-            <th colspan="2">Manopera finisaj</th>
-            <td colspan="1">{{order.workmanshipFinishPrice}} lei</td>
-          </tr>
-          <tr>
-            <th colspan="2">Total general fara TVA</th>
-            <td colspan="1">{{order.workmanshipFinishTotalPrice}} lei</td>
-          </tr>
-          <tr>
-            <th colspan="2">Total general cu TVA</th>
-            <td colspan="1">{{order.workmanshipFinishTotalPriceVat}} lei</td>
-          </tr>
-          <tr class="thead-dark">
             <th colspan="7" style="text-align: end">Total Material: {{order.materialTotalPrice}} lei</th>
           </tr>
+          <tr>
+            <th colspan="7" style="text-align: end">Manopera finisaj: {{order.workmanshipFinishPrice}} lei</th>
+          </tr>
+          <tr>
+            <th colspan="7" style="text-align: end">Total general fara TVA: {{order.workmanshipFinishTotalPrice}} lei</th>
+          </tr>
           <tr class="thead-dark">
-            <th colspan="7" style="text-align: end">Total: {{order.totalPrice}} lei</th>
+            <th colspan="7" style="text-align: end">Total general cu TVA: {{order.workmanshipFinishTotalPriceVat}} lei</th>
+          </tr>
+          <tr class="thead-dark">
+            <th colspan="7" style="text-align: end">Avans: {{order.prepayment}} lei</th>
+          </tr>
+          <tr class="thead-dark">
+            <th colspan="7" style="text-align: end">Total Ramas de Plata: {{order.totalPriceLeft}} lei</th>
           </tr>
         </tfoot>
       </table>

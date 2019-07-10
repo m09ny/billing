@@ -30,6 +30,10 @@ export class AddOrderGuard implements CanDeactivate<AddOrderComponent> {
         message: 'Vei pierde toate informatiile introduse. Esti sigur ca vrei sa schimbi pagina?',
         header: 'Confirmare',
         icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'Da',
+        rejectLabel: 'Nu',
+        acceptVisible: true,
+        rejectVisible: true,
         accept: () => { confirmation.next(true); },
         reject: () => { confirmation.next(false); }
       });
