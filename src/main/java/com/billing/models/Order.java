@@ -58,15 +58,15 @@ public class Order {
 
     private double workmanshipFinishPrice;
 
-    private double workmanshipFinishTotalPrice;
-
-    private double workmanshipFinishTotalPriceVat;
-
     private double materialTotalPrice;
+
+    private double totalPrice;
+
+    private double totalPriceVat;
 
     private double prepayment;
 
-    private double totalPriceLeft;
+    private double totalPriceLeftVat;
 
     @Temporal(TemporalType.DATE)
     private Date creationDate;
@@ -79,12 +79,28 @@ public class Order {
         this.creationDate = new Date();
     }
 
-    public double getTotalPriceLeft() {
-        return totalPriceLeft;
+    public double getTotalPriceLeftVat() {
+        return totalPriceLeftVat;
     }
 
-    public void setTotalPriceLeft(double totalPriceLeft) {
-        this.totalPriceLeft = totalPriceLeft;
+    public void setTotalPriceLeftVat(double totalPriceLeftVat) {
+        this.totalPriceLeftVat = totalPriceLeftVat;
+    }
+
+    public double getTotalPriceVat() {
+        return totalPriceVat;
+    }
+
+    public void setTotalPriceVat(double totalPriceVat) {
+        this.totalPriceVat = totalPriceVat;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public double getPrepayment() {
@@ -93,22 +109,6 @@ public class Order {
 
     public void setPrepayment(double prepayment) {
         this.prepayment = prepayment;
-    }
-
-    public double getWorkmanshipFinishTotalPriceVat() {
-        return workmanshipFinishTotalPriceVat;
-    }
-
-    public void setWorkmanshipFinishTotalPriceVat(double workmanshipFinishTotalPriceVat) {
-        this.workmanshipFinishTotalPriceVat = workmanshipFinishTotalPriceVat;
-    }
-
-    public double getWorkmanshipFinishTotalPrice() {
-        return workmanshipFinishTotalPrice;
-    }
-
-    public void setWorkmanshipFinishTotalPrice(double workmanshipFinishTotalPrice) {
-        this.workmanshipFinishTotalPrice = workmanshipFinishTotalPrice;
     }
 
     public double getWorkmanshipFinishPrice() {

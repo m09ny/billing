@@ -6,7 +6,7 @@
       Total:
     </div>
     <div class="p-col-8">
-      <div>{{order.workmanshipFinishTotalPriceVat}} lei</div>
+      <div>{{order.totalPriceVat}} lei</div>
     </div>
     <div class="p-col-4">
       Avans:
@@ -111,7 +111,6 @@
             <th colspan="7"></th>
           </tr>
           <tr class="table-secondary">
-            <th colspan="1" rowspan="6"></th>
             <th colspan="1" rowspan="2"></th>
             <th colspan="1">Decupaje lavoare</th>
             <th colspan="1">Decupaje pe curb</th>
@@ -136,16 +135,16 @@
             <th colspan="7" style="text-align: end">Manopera finisaj: {{order.workmanshipFinishPrice}} lei</th>
           </tr>
           <tr>
-            <th colspan="7" style="text-align: end">Total general fara TVA: {{order.workmanshipFinishTotalPrice}} lei</th>
+            <th colspan="7" style="text-align: end">Total general fara TVA: {{order.totalPrice}} lei</th>
           </tr>
           <tr class="thead-dark">
-            <th colspan="7" style="text-align: end">Total general cu TVA: {{order.workmanshipFinishTotalPriceVat}} lei</th>
+            <th colspan="7" style="text-align: end">Total general cu TVA: {{order.totalPriceVat}} lei</th>
           </tr>
           <tr class="thead-dark">
             <th colspan="7" style="text-align: end">Avans: {{order.prepayment}} lei</th>
           </tr>
           <tr class="thead-dark">
-            <th colspan="7" style="text-align: end">Total Ramas de Plata: {{order.totalPriceLeft}} lei</th>
+            <th colspan="7" style="text-align: end">Total Ramas de Plata: {{order.totalPriceLeftVat}} lei</th>
           </tr>
         </tfoot>
       </table>

@@ -10,7 +10,8 @@
         <button type="button" pButton icon="pi pi-times" label="Nu" (click)="onDialogClose()"></button>
     </p-footer>
 </p-dialog>
-<p-table id="ordersTable" #ordersTable [columns]="ordersTableCols" [value]="orders" dataKey="id">
+<p-table id="ordersTable" #ordersTable [columns]="ordersTableCols" [value]="orders" dataKey="id" [paginator]="true"
+    [rows]="20">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field"
@@ -38,7 +39,7 @@
             <td>{{order.id}}</td>
             <td>{{order.clientMetadata.society}}</td>
             <td>{{order.clientMetadata.tel}}</td>
-            <td>{{order.workmanshipFinishTotalPriceVat}}</td>
+            <td>{{order.totalPriceVat}}</td>
             <td>{{order.creationDate}}</td>
             <td style="text-align: center">
                 <p-button type="button" icon="pi pi-search" styleClass="ui-button-info" (click)="onOrderShow(order.id)">

@@ -99,7 +99,7 @@ export class MaterialsComponent implements OnInit {
     this.materialsService.deleteMaterial(material.id).subscribe(
       response => {
         console.log(response);
-        this.router.navigate(['/materials']);
+        this.refreshTable();
       },
       error => console.log(error)
     );

@@ -11,11 +11,11 @@ export class Order {
     workmanship: Workmanship;
     clientMetadata: ClientMetadata;
     workmanshipFinishType: string;
-    workmanshipFinishPrice: number;
-    workmanshipFinishTotalPrice: number;
-    workmanshipFinishTotalPriceVat: number;
+    workmanshipFinishPrice: number; 
     materialTotalPrice: number;
+    totalPrice: number;
+    totalPriceVat: number;
     prepayment: number;
-    totalPriceLeft: number;
+    totalPriceLeftVat: number;
     creationDate: Date;
 }

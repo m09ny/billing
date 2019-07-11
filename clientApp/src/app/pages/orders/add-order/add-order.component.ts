@@ -69,11 +69,11 @@ export class AddOrderComponent implements OnInit {
     }),
     workmanshipFinishType: new FormControl('', Validators.required),
     workmanshipFinishPrice: new FormControl(0, Validators.required),
-    workmanshipFinishTotalPrice: new FormControl(0, Validators.required),
-    workmanshipFinishTotalPriceVat: new FormControl(0, Validators.required),
+    totalPrice: new FormControl(0, Validators.required),
+    totalPriceVat: new FormControl(0, Validators.required),
     materialTotalPrice: new FormControl(0, Validators.required),
     prepayment: new FormControl(0, Validators.required),
-    totalPriceLeft: new FormControl(0, Validators.required)
+    totalPriceLeftVat: new FormControl(0, Validators.required)
   });
 
   isAddOrderFormSubmitted = false;
@@ -123,9 +123,9 @@ export class AddOrderComponent implements OnInit {
           this.addOrderForm.get('entriesTotal').enable();
           this.calculateMaterialTotalPrice();
           this.calculateWorkmanshipFinishPrice(this.addOrderForm.get('workmanshipFinishType').value);
-          this.calculateWorkmanshipFinishTotalPrice();
-          this.calculateWorkmanshipFinishTotalPriceVat();
-          this.calculateTotalPriceLeft(0);
+          this.calculatetotalPrice();
+          this.calculatetotalPriceVat();
+          this.calculatetotalPriceLeftVat(0);
           this.activeIndex = 4;
         }
       }
@@ -190,7 +190,7 @@ export class AddOrderComponent implements OnInit {
     if (this.addOrderForm.invalid) {
       this.confirmationService.confirm({
         message: 'Te rog sa reverifici datele introduse!',
-        header: 'Confirmare',
+        header: 'Comanda invalida',
         icon: 'pi pi-exclamation-triangle',
         acceptLabel: 'Ok',
         acceptVisible: true,
@@ -216,7 +216,7 @@ export class AddOrderComponent implements OnInit {
 
   onPrepayamentUpdate(prepayament: number): void {
     this.addOrderForm.get('prepayment').patchValue(prepayament);
-    this.calculateTotalPriceLeft(prepayament);
+    this.calculatetotalPriceLeftVat(prepayament);
   }
 
   filterBanks(event) {
@@ -380,14 +380,14 @@ export class AddOrderComponent implements OnInit {
     this.addOrderForm.get('workmanshipFinishPrice').patchValue(workmanshipFinishPrice.toFixed(2));
   }
 
-  private calculateWorkmanshipFinishTotalPrice(): void {
-    const workmanshipFinishTotalPrice = +this.addOrderForm.value.materialTotalPrice + +this.addOrderForm.value.workmanshipFinishPrice;
-    this.addOrderForm.get('workmanshipFinishTotalPrice').patchValue(workmanshipFinishTotalPrice.toFixed(2));
+  private calculatetotalPrice(): void {
+    const totalPrice = +this.addOrderForm.value.materialTotalPrice + +this.addOrderForm.value.workmanshipFinishPrice;
+    this.addOrderForm.get('totalPrice').patchValue(totalPrice.toFixed(2));
   }
 
-  private calculateWorkmanshipFinishTotalPriceVat(): void {
-    const workmanshipFinishTotalPriceVat = this.addOrderForm.value.workmanshipFinishTotalPrice * 1.19;
-    this.addOrderForm.get('workmanshipFinishTotalPriceVat').patchValue(+workmanshipFinishTotalPriceVat.toFixed(2));
+  private calculatetotalPriceVat(): void {
+    const totalPriceVat = this.addOrderForm.value.totalPrice * 1.19;
+    this.addOrderForm.get('totalPriceVat').patchValue(+totalPriceVat.toFixed(2));
   }
 
   private calculateMaterialTotalPrice(): void {
@@ -395,9 +395,9 @@ export class AddOrderComponent implements OnInit {
     this.addOrderForm.get('materialTotalPrice').patchValue(materialTotalPrice.toFixed(2));
   }
 
-  private calculateTotalPriceLeft(prepayament: number): void {
-    const workmanshipFinishTotalPriceVat = this.addOrderForm.get('workmanshipFinishTotalPriceVat').value;
-    this.addOrderForm.get('totalPriceLeft').patchValue(workmanshipFinishTotalPriceVat - prepayament);
+  private calculatetotalPriceLeftVat(prepayament: number): void {
+    const totalPriceVat = this.addOrderForm.get('totalPriceVat').value;
+    this.addOrderForm.get('totalPriceLeftVat').patchValue(totalPriceVat - prepayament);
   }
 
 }

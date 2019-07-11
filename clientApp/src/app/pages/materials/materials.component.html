@@ -108,7 +108,7 @@
     </div>
   </form>
 </p-dialog>
-<p-table id="materialsTable" #materialsTable [columns]="materialsTableCols" [value]="materials" dataKey="id">
+<p-table id="materialsTable" #materialsTable [columns]="materialsTableCols" [value]="materials" dataKey="id" [paginator]="true" [rows]="20">
   <ng-template pTemplate="header" let-columns>
     <tr>
       <th *ngFor="let col of columns" [pSortableColumn]="col.field" style="text-align: center">
@@ -123,19 +123,19 @@
     <tr>
       <th *ngFor="let col of columns" [ngSwitch]="col.field">
         <p-dropdown *ngSwitchCase="'type'" [options]="types" showTransitionOptions="0ms ease-out"
-          [autoDisplayFirst]="false" [style]="{'width':'100%'}"
+          [autoDisplayFirst]="false" [style]="{'width':'100%'}" [showClear]="true"
           (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
         <input *ngSwitchCase="'name'" pInputText type="text"
           (input)="materialsTable.filter($event.target.value, col.field, col.filterMatchMode)">
         <input *ngSwitchCase="'thickness'" pInputText type="number"
           (input)="materialsTable.filter($event.target.value, col.field, col.filterMatchMode)">
         <p-dropdown *ngSwitchCase="'surface'" [options]="surfaces" showTransitionOptions="0ms ease-out"
-          [autoDisplayFirst]="false" [style]="{'width':'100%'}"
+          [autoDisplayFirst]="false" [style]="{'width':'100%'}" [showClear]="true"
           (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
         <input *ngSwitchCase="'fullName'" pInputText type="text"
           (input)="materialsTable.filter($event.target.value, col.field, col.filterMatchMode)">
         <p-dropdown *ngSwitchCase="'finish'" [options]="finishes" showTransitionOptions="0ms ease-out"
-          [autoDisplayFirst]="false" [style]="{'width':'100%'}"
+          [autoDisplayFirst]="false" [style]="{'width':'100%'}" [showClear]="true"
           (onChange)="materialsTable.filter($event.value, col.field, 'equals')"></p-dropdown>
       </th>
     </tr>
