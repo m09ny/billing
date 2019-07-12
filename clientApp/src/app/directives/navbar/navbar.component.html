@@ -7,22 +7,22 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/home">Acasa</a>
+        <a class="nav-link" routerLink="/home"><i class="pi pi-home"></i>Acasa</a>
       </li>
       <li class="nav-item dropdown" routerLinkActive="active">
         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">Comenzi</a>
+          aria-haspopup="true" aria-expanded="false"><i class="pi pi-shopping-cart"></i>Comenzi</a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" routerLink="/orders">Vezi Comenzi</a>
+          <a class="dropdown-item" routerLink="/orders"><i class="pi pi-list"></i>Vezi Comenzi</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" routerLink="/orders/add">Comanda Noua</a>
+          <a class="dropdown-item" routerLink="/orders/add"><i class="pi pi-plus"></i>Comanda Noua</a>
         </div>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/materials">Materiale</a>
+        <a class="nav-link" routerLink="/materials"><i class="pi pi-folder-open"></i>Materiale</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/workmanship/prices">Preturi Manopera</a>
+        <a class="nav-link" routerLink="/workmanship/prices"><i class="pi pi-tags"></i>Preturi Manopera</a>
       </li>
     </ul>
     <div *ngIf="authService.currentUser" class="nav-item dropdown" style="margin-left: auto; color: white;">
@@ -32,7 +32,7 @@
         <span>{{authService.currentUser.username}}</span>
       </a>
       <div class="dropdown-menu" style="left: -40px" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" routerLink="/login" (click)="authService.logout()">Delogheaza-te</a>
+        <a class="dropdown-item" routerLink="/login" (click)="authService.logout()"><i class="pi pi-sign-out" style="vertical-align: middle !important;"></i>Delogheaza-te</a>
       </div>
     </div>
   </div>
