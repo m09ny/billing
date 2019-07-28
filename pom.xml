@@ -18,6 +18,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<node.path>c:\Program Files</node.path>
 	</properties>
 
 	<dependencies>
@@ -80,12 +81,35 @@
 		<finalName>billing</finalName>
 		<plugins>
 			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.0</version>
+				<configuration>
+					<workingDirectory>clientApp</workingDirectory>
+					<installDirectory>${node.path}</installDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<id>npm build</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>run build-prod</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
 					<execution>
+						<phase>process-resources</phase>
 						<id>copy-resources</id>
-						<phase>validate</phase>
-						<goals><goal>copy-resources</goal></goals>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
 						<configuration>
 							<outputDirectory>${project.build.directory}/classes/static/</outputDirectory>   
 								<resources>
