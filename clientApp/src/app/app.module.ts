@@ -35,6 +35,7 @@ import { ViewOrderComponent } from './pages/orders/view-order/view-order.compone
 import { OrderSummaryComponent } from './directives/order-summary/order-summary.component';
 import { PrintableContractComponent } from './directives/printable-contract/printable-contract.component';
 import { PrintDirective } from './directives/print/print.directive';
+import { ProfilSpecialPipe } from './pipes/profil-special.pipe';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { PrintDirective } from './directives/print/print.directive';
     ViewOrderComponent,
     OrderSummaryComponent,
     PrintableContractComponent,
-    PrintDirective
+    PrintDirective,
+    ProfilSpecialPipe
   ],
   entryComponents: [
     PrintableContractComponent
