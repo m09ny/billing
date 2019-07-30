@@ -1,3 +1,5 @@
+import { OrdersService } from './../../services/orders/orders.service';
+import { AuthService } from './../../services/auth/auth.service';
 import { PrintDirective } from './../../directives/print/print.directive';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Order } from './../../models/order';
@@ -19,14 +21,20 @@ export class OrdersComponent implements OnInit {
 
   displayPrintDialog = false;
 
+  displayDeleteDialog = false;
+
   currentPrintOrderId: number;
+
+  currentDeleteOrderId: number;
 
   componentRef: ComponentRef<PrintableContractComponent>;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private componentFactoryResolver: ComponentFactoryResolver
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private ordersService: OrdersService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -61,14 +69,37 @@ export class OrdersComponent implements OnInit {
     this.displayPrintDialog = true;
   }
 
-  onDialogAccept(): void {
+  onOrderDelete(orderId: number): void {
+    this.currentDeleteOrderId = orderId;
+    this.displayDeleteDialog = true;
+  }
+
+  onPrintDialogAccept(): void {
     this.componentRef.destroy();
     this.displayPrintDialog = false;
   }
 
-  onDialogClose(): void {
+  onPrintDialogClose(): void {
     this.componentRef.destroy();
     this.displayPrintDialog = false;
+  }
+
+  onDeleteDialogAccept(): void {
+    this.ordersService.deleteOrder(this.currentDeleteOrderId).subscribe(
+      response => {
+        console.log(response);
+        this.displayDeleteDialog = false;
+        this.refreshTable();
+      },
+      error => console.log(error)
+    );
+  }
+
+  private refreshTable(): void {
+    this.ordersService.getOrders().subscribe(orders => {
+      this.orders = orders;
+    },
+    error => console.log(error));
   }
 
 }

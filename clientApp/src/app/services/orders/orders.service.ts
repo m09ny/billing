@@ -24,8 +24,11 @@ export class OrdersService {
   }
 
   addOrder(order: Order): Observable<string> {
-    console.log(JSON.stringify(order));
     return this.http.post<string>(environment.backendUrl + 'api/orders/', order, { headers: this.headers });
+  }
+
+  deleteOrder(id: number): Observable<string> {
+    return this.http.delete<string>(environment.backendUrl + 'api/orders/' + id);
   }
 
 }

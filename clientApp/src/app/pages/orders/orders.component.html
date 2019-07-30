@@ -5,9 +5,19 @@
             {{currentPrintOrderId}}?</span>
     </div>
     <p-footer>
-        <button type="button" pButton pButton ngxPrint printSectionId="print-section" [useExistingCss]="true"
-            icon="pi pi-check" label="Da" (click)="onDialogAccept()"></button>
-        <button type="button" pButton icon="pi pi-times" label="Nu" (click)="onDialogClose()"></button>
+        <button type="button" pButton ngxPrint printSectionId="print-section" [useExistingCss]="true" icon="pi pi-check"
+            label="Da" (click)="onPrintDialogAccept()"></button>
+        <button type="button" pButton icon="pi pi-times" label="Nu" (click)="onPrintDialogClose()"></button>
+    </p-footer>
+</p-dialog>
+<p-dialog header="Sterge comanda" [(visible)]="displayDeleteDialog">
+    <div class="print-dialog-content">
+        <i class="pi pi-trash" style="vertical-align: sub; margin-right: 3px;"></i><span>Esti sigur ca vrei sa stergi
+            comanda cu numarul {{currentDeleteOrderId}}?</span>
+    </div>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" label="Da" (click)="onDeleteDialogAccept()"></button>
+        <button type="button" pButton icon="pi pi-times" label="Nu" (click)="displayDeleteDialog = false"></button>
     </p-footer>
 </p-dialog>
 <p-table id="ordersTable" #ordersTable [columns]="ordersTableCols" [value]="orders" dataKey="id" [paginator]="true"
@@ -19,7 +29,8 @@
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
-            <th rowspan="2" style="width: 95px"></th>
+            <th *ngIf="authService.currentUser.isAdmin" rowspan="2" style="width: 125px"></th>
+            <th *ngIf="!authService.currentUser.isAdmin" rowspan="2" style="width: 95px"></th>
         </tr>
         <tr>
             <th *ngFor="let col of columns" [ngSwitch]="col.field">
@@ -45,6 +56,9 @@
                 <p-button type="button" icon="pi pi-search" styleClass="ui-button-info" (click)="onOrderShow(order.id)">
                 </p-button>
                 <p-button type="button" icon="pi pi-print" styleClass="ui-button-success" (click)="onOrderPrint(order)">
+                </p-button>
+                <p-button *ngIf="authService.currentUser.isAdmin" type="button" icon="pi pi-trash"
+                    styleClass="ui-button-danger" (click)="onOrderDelete(order.id)">
                 </p-button>
             </td>
         </tr>
