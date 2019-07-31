@@ -57,7 +57,7 @@
       </ng-template>
       <ng-template pTemplate="body" let-entry let-i="rowIndex">
         <tr formArrayName="entries">
-          <td>{{i}}</td>
+          <td>{{i + 1}}</td>
           <td [formGroupName]="i"><span formGroupName="dimension"><input pInputText type="number"
                 formControlName="length"></span></td>
           <td [formGroupName]="i"><span formGroupName="dimension"><input pInputText type="number"
