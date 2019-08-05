@@ -1,10 +1,9 @@
 import { OrdersService } from '../../../services/orders/orders.service';
 import { Material } from '../../../models/material';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { MenuItem, ConfirmationService } from 'primeng/api';
 import { Router, ActivatedRoute } from '@angular/router';
-import { WorkmanshipPrice } from 'src/app/models/workmanship-price';
 
 @Component({
   templateUrl: './add-order.component.html',
@@ -67,7 +66,7 @@ export class AddOrderComponent implements OnInit {
       owner: new FormControl('', Validators.required),
       ownerStatus: new FormControl('', Validators.required)
     }),
-    workmanshipFinishType: new FormControl('', Validators.required),
+    workmanshipFinishType: new FormControl(Validators.required),
     workmanshipFinishPrice: new FormControl(0, Validators.required),
     totalPrice: new FormControl(0, Validators.required),
     totalPriceVat: new FormControl(0, Validators.required),
@@ -88,7 +87,8 @@ export class AddOrderComponent implements OnInit {
     private ordersService: OrdersService,
     private router: Router,
     private route: ActivatedRoute,
-    private confirmationService: ConfirmationService) { }
+    private confirmationService: ConfirmationService,
+    private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.stepItems = [
@@ -109,6 +109,7 @@ export class AddOrderComponent implements OnInit {
         label: 'Manopera',
         command: (event: any) => {
           this.activeIndex = 2;
+          this.cdr.detectChanges();
         }
       },
       {
@@ -120,6 +121,7 @@ export class AddOrderComponent implements OnInit {
       {
         label: 'Finalizare comanda',
         command: (event: any) => {
+          //this.cdr.detectChanges();
           this.addOrderForm.get('entriesTotal').enable();
           this.calculateMaterialTotalPrice();
           this.calculateWorkmanshipFinishPrice(this.addOrderForm.get('workmanshipFinishType').value);

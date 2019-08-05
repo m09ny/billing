@@ -37,4 +37,12 @@ export class OrderSummaryComponent implements OnInit {
     this.displayPrepaymentDialog = false;
   }
 
+  checkValidPrepayment(prepayment: number): boolean {
+    if (prepayment != null && prepayment >= 0 && prepayment <= this.order.totalPriceVat) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
 }

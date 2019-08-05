@@ -1,6 +1,6 @@
 INSERT into workmanshipprices(code, name, price) VALUES(1,'SEMIBASTON',20);
-INSERT into workmanshipprices(code, name, price) VALUES(2,'PROFIL SPECIAL',10);
-INSERT into workmanshipprices(code, name, price) VALUES(3,'BIZOT',10);
+INSERT into workmanshipprices(code, name, price) VALUES(2,'BIZOT',10);
+INSERT into workmanshipprices(code, name, price) VALUES(3,'PROFIL SPECIAL',15);
 INSERT into workmanshipprices(code, name, price) VALUES(4,'PICURATOR',4);
 INSERT into workmanshipprices(code, name, price) VALUES(5,'TAIAT',36);
 INSERT into workmanshipprices(code, name, price) VALUES(6,'DECUPAJE LAVOARE',57);

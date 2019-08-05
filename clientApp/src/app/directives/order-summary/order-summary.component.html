@@ -15,7 +15,7 @@
       <input [(ngModel)]="prepayment" pInputText type="number" size="20">
     </div>
     <div class="p-col-12">
-      <p-button label="Ok" icon="pi pi-check" type="button" (onClick)="onPayPrepayment(prepayment)"></p-button>
+      <p-button label="Ok" [disabled]="checkValidPrepayment(prepayment)" icon="pi pi-check" type="button" (onClick)="onPayPrepayment(prepayment)"></p-button>
     </div>
   </div>
 </p-dialog>

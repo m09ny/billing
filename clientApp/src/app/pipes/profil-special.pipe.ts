@@ -8,6 +8,8 @@ export class ProfilSpecialPipe implements PipeTransform {
   transform(value: any, args?: any): any {
     if (value === 'profilSpecial') {
       return 'profil Special';
+    } else {
+      return value;
     }
   }
 
