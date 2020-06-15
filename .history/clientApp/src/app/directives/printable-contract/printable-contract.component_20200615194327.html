@@ -1,0 +1,83 @@
+<div *ngIf="order" id="print-section" style="display: none">
+  <div class="contract-section">
+    <div class="bold">CONTRACT DE VÂNZARE-CUMPĂRARE NR ____________/____________</div>
+    <div style="margin-top: 120px; margin-bottom: 20px;">Încheiat între:</div>
+    <div>S.C. LEMET-STONE SRL, cu sediul în HĂLCHIU, Str. Bodului nr. 628I, punct de lucru BRAȘOV Str. Grigore Ureche
+      nr. 38, tel./fax 07455618287, CF RO 26490046 RC J08/159/2010 cont nr. RO78BTRLRONCRT0252264601 deschis la BANCA
+      TRANSILVANIA BRAȘOV, reprezentată de Dl.BOGDAN STOICA în calitate de ADMINISTRATOR, denumită în prezentul contract
+      VÂNZĂTOR</div>
+    <div style="margin-top: 70px; margin-bottom: 70px;">și</div>
+    <div>{{order.clientMetadata.society}}, cu sediul în {{order.clientMetadata.city}}, Str.
+      {{order.clientMetadata.street}} nr. {{order.clientMetadata.streetNumber}}, CF RO {{order.clientMetadata.cfRo}}, RC
+      {{order.clientMetadata.rc}}, cont nr.
+      {{order.clientMetadata.account.first}}{{order.clientMetadata.account.second}}{{order.clientMetadata.account.third}}{{order.clientMetadata.account.fourth}}{{order.clientMetadata.account.fifth}},
+      deschis la {{order.clientMetadata.bank}}, reprezentată de {{order.clientMetadata.owner}} în calitate de
+      {{order.clientMetadata.ownerStatus}}, denumită în prezentul contract CUMPĂRĂTOR.</div>
+    <div class="bold" style="margin-top: 30px">1. OBIECTUL CONTRACTULUI</div>
+    <div>1.1. Obiectul contractului este vânzarea-cumpărarea a {{order.entriesTotal.totalPiecesNumber}} bucăți piese
+      din: {{order.material.fullName}}</div>
+    <div>1.2. Părțile contractante sunt de acord ca VÂNZATORUL să vândă și CUMPĂRĂTORUL să cumpere.</div>
+    <div>1.3. Prețul mărfii este {{order.totalPrice}} lei + TVA depozit Brașov</div>
+    <div class="bold">2. CONDIȚII DE LIVRARE</div>
+    <div>2.1. Marfa se va livra în urmatoarele condiții: <b>Depozit Brașov</b></div>
+    <div class="bold">3. VALOAREA CONTRACTULUI</div>
+    <div>3.1. Valorea totală a contractului este de {{order.totalPrice}} lei (fără TVA)</div>
+    <div class="bold">4. CONDIȚII DE PLATĂ</div>
+    <div>4.1. CUMPĂRĂTORUL va achita {{order.prepayment}} lei din valorea mărfii și restul de {{order.totalPriceLeftVat}} lei la LIVRARE</div>
+    <div class="bold">5. OBLIGAȚIILE VÂNZĂTORULUI</div>
+    <div>5.1. Să anunțe CUMPĂRĂTORUL cu cel puțin 2 zile lucrătoare înainte de sosirea mărfii.</div>
+    <div class="p-grid p-justify-between" style="margin-top: 160px">
+      <div class="p-col-4">
+        <div>S.C. LEMET-STONE SRL</div>
+        <div>BOGDAN STOICA</div>
+        <div>SEMNĂTURA și ȘTAMPILA</div>
+      </div>
+      <div class="p-col-4">
+        <div>{{order.clientMetadata.society}}</div>
+        <div>{{order.clientMetadata.owner}}</div>
+        <div>SEMNĂTURA și ȘTAMPILA</div>
+      </div>
+    </div>
+  </div>
+  <div class="pagebreak"></div>
+  <div class="annex-section">
+    <div class="bold">ANEXA 1 la CONTRACT DE VÂNZARE-CUMPĂRARE NR ____________/____________</div>
+    <table>
+      <thead>
+        <tr>
+          <th colspan="1" rowspan="3"></th>
+          <th colspan="1">MATERIAL</th>
+          <th colspan="5">{{order.material.fullName}}</th>
+        </tr>
+        <tr>
+          <th colspan="1">NR. COMANDĂ</th>
+          <th colspan="1">SUPRAFAȚA MP</th>
+          <th colspan="1">PROFILARE</th>
+          <th colspan="1">PICURĂTOR</th>
+          <th colspan="2">NR. BUCĂȚI TOTAL</th>
+        </tr>
+        <tr>
+          <td colspan="1">{{order.id}}</td>
+          <td colspan="1">{{order.entriesTotal.totalArea}}</td>
+          <td colspan="1">{{order.entriesTotal.totalProfiling}}</td>
+          <td colspan="1">{{order.entriesTotal.totalDraining}}</td>
+          <td colspan="2">{{order.entriesTotal.totalPiecesNumber}}</td>
+        </tr>
+        <tr>
+          <th colspan="1">NR. CRT.</th>
+          <th colspan="2">LUNGIME CM</th>
+          <th colspan="2">LĂȚIME CM</th>
+          <th colspan="2">NR. BUCĂȚI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let entry of order.entries; index as i">
+          <td colspan="1">{{i + 1}}</td>
+          <td colspan="2">{{entry.dimension.length}}</td>
+          <td colspan="2">{{entry.dimension.width}}</td>
+          <td colspan="2">{{entry.piecesNumber}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
